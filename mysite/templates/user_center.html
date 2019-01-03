@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>个人中心</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+
+        <script src="../static/js/jquery-1.11.0.min.js"></script>
+        <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+        <!--<script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>-->
+        <script src="../static/js/weui.min.js"></script>
+
+
+        <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.3/weui.min.css" />
+        <!--<link rel="icon" href="../static/favicon.ico">	-->
+    </head>
+
+    <style>
+
+        .weui-mask {
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, .6);
+        }
+
+        .weui-mask_transparent{
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+        }
+        .weui-toast{
+            min-height:20px;
+            width:auto;
+            font-size: 18px;
+        }
+        .weui-toast__content{
+            margin:10px;
+        }
+        body{
+            background-image: ;
+            background-color:#f5f5f5;
+        }
+        .container {
+            padding: 15px;
+        }
+        .banner{
+            margin:0px 0px;
+            height:120px;
+            width:100%;
+            background: url(../static/images/pic_Personal.png) no-repeat top;
+            background-size:100% 100%;
+        }
+        .banner2{
+            margin:0px 0px;
+            height:160px;
+            width:100%;
+            background: url(../static/images/dzbanner2.png) no-repeat top;
+            background-size:100% 100%;
+        }
+        .banner-font{
+            margin:3px 0px 0px 10px;
+            color:#888;
+        }
+        .qrcode{
+            margin:0px 0px;
+            width:100%;
+        }
+        .title{
+            background-color:#fff;
+            font-size:16px;
+            margin:-60px 20px 20px 20px;
+            border-radius:5px;
+            
+        }
+        .avatar {
+            width:60px;
+            height:60px;
+            border-radius:50px;
+            margin:10px 20px 5px 0px;
+        }
+        .weui-cells:before{
+            border-top: 1px solid #fff;
+        }
+        .weui-cells:after{
+            border-bottom: 1px solid #fff;
+        }
+        .weui-cell:before{
+            border-top: 1px solid #eee;
+        }
+        .protocol{
+            width:100%;
+            text-align:center;
+            color:#03c777;
+            padding:10px 0px;
+            font-size:16px;
+        }
+        
+        a,#protocol:visited { 
+            color:#03c777; 
+            text-decoration:none; 
+        }
+        .item-icon{
+            width:30px;
+            margin-right:5px;
+            display:block；
+        }
+        .item-font{
+            font-size:16px;
+            margin-left:20px;
+        }
+        .pop-box-qrcode{
+            display:none;
+            position:absolute;
+            z-index:9000;
+            width:300px;
+            height:350px;
+            top:50%;
+            left:50%;
+            margin-top: -175px;
+            margin-left: -150px;
+            background-color: #444;
+        }
+        #bg{display:none;position: absolute; top: 0%; left: 0%; width: 100%; height: 100%; background-color: #444; z-index:1001; -moz-opacity: 1; opacity:1; filter: alpha(opacity=100); z-index:7000}
+        .detail-close{
+            position:relative;
+            right:20px;
+            margin-top:-330px;
+            z-index:9001;
+        }
+        .custom-service{
+            width:100%;
+            text-align:center;
+            padding:10px 0px;
+            font-size:18px;
+        }
+        .show-service{
+            color:#03c777;
+        }
+        #mobile{
+            height:50px;
+        }
+        .advertise{
+            padding:0 10px;
+            margin:-10px 0 -15px;
+        }
+    </style>      
+    <body>
+        <div id="bg"></div>
+        <div class="pop-box-qrcode" >
+            <img src="../static/images/customer_service.png" width="300px" height="350px"/>
+            <img src="../../static/images/close.png" style="float:right" onclick="hideDiv();" class="detail-close"/>
+        </div>
+        <div id="toast" style="opacity: 1.0; display: none;">
+            <div class="weui-mask_transparent"></div>
+            <div class="weui-toast">
+                <!--<i class="weui-icon-success-no-circle weui-icon_toast"></i>-->
+                <p class="weui-toast__content">已完成</p>
+            </div>
+        </div>
+        {% if not bind %}
+        <div class="banner-font">关联手机号  获取更多课程资讯</div>
+        <div class="banner2"></div>
+        <div style="margin-top:30px" class="weui-cell weui-cell_vcode">
+            <div class="weui-cell__bd">
+                <input id="mobile" class="weui-input" type="tel" placeholder="请输入手机号码" >
+            </div>
+        </div>
+        <div class="weui-cell weui-cell_vcode">
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id='vcode' style="margin-top:5px" placeholder="请输入验证码">
+            </div>
+            <div class="weui-cell__ft">
+                <button class="weui-vcode-btn" data-openid="{{openid}}" data-appid="{{appid}}" onclick="settime(this)">获取验证码</button>
+            </div>
+        </div>
+        <div class="weui-btn-area">
+            <a class="weui-btn weui-btn_primary" data-openid="{{openid}}" data-appid="{{appid}}" href="javascript:" id="submit">登陆</a>
+        </div>
+        <div class="custom-service">
+            <p>如无法验证，请联系<font class="show-service">人工客服</font></p>
+        </div>
+        {% else %}
+        <div class="banner"></div>
+        <div class=" title">
+            <div class="weui-cell head-section">
+                <div class="weui-cell__hd"><img class="avatar" src = "{{avatar}}"/></div>
+                <div class="weui-cell__bd"><h4>{{nickname}}</h4> 
+
+                </div>
+            </div>
+        </div>
+        <div class="advertise">
+            <img src="../static/images/advertise/banner.png" width="100%"/>
+        </div>
+        <div class="weui-cells">
+            <a class="weui-cell weui-cell_access" href="javascript:;" style='display:none'>
+                <div class="weui-cell__hd"><img src="../static/images/Group3@2x.png" alt="" class="item-icon"></div>
+                <div class="weui-cell__bd weui-cell_primary">
+                    <p class="item-font">开始上课</p>
+                </div>
+                <span class="weui-cell__ft"></span>
+            </a>
+            <a class="weui-cell weui-cell_access" href="http://www.ddianke.com/my/courses/learning">
+                <div class="weui-cell__hd"><img src="../static/images/icon_mine@2x.png" alt="" class="item-icon"></div>
+                <div class="weui-cell__bd weui-cell_primary">
+                    <p class="item-font">我的课程</p>
+                </div>
+                <span class="weui-cell__ft"></span>
+            </a>
+            <a class="weui-cell weui-cell_access" href="https://wap.youzan.com/v2/showcase/homepage?kdt_id=17328534&reft=1465895730283&spm=g268757255">
+                <div class="weui-cell__hd"><img src="../static/images/icon_best@2x.png" alt="" class="item-icon"></div>
+                <div class="weui-cell__bd weui-cell_primary">
+                    <p class="item-font">精品课</p>
+                </div>
+                <span class="weui-cell__ft"></span>
+            </a>
+            <a class="weui-cell weui-cell_access" href="http://live.tanzhi.tv/h5wx/index.html?instituteId=61">
+                <div class="weui-cell__hd"><img src="../static/images/icon_Parent@2x.png" alt="" class="item-icon"></div>
+                <div class="weui-cell__bd weui-cell_primary">
+                    <p class="item-font">家长课堂</p>
+                </div>
+                <span class="weui-cell__ft"></span>
+            </a>
+            <a class="weui-cell weui-cell_access" href="http://applinzi.ddianke.com/wxJSWeb/usercoupons">
+                <div class="weui-cell__hd"><img src="../static/images/icon_Coupon@2x.png" alt="" class="item-icon"></div>
+                <div class="weui-cell__bd weui-cell_primary">
+                    <p class="item-font">我的优惠券</p>
+                </div>
+                <span class="weui-cell__ft"></span>
+            </a>
+        </div>
+        <div class="weui-cells">
+            <a class="weui-cell weui-cell_access" href="http://applinzi.ddianke.com/wxJSWeb/customer_service">
+                <div class="weui-cell__hd"><img src="../static/images/icon_Customer@2x.png" alt="" class="item-icon"></div>
+                <div class="weui-cell__bd weui-cell_primary">
+                    <p class="item-font">联系客服</p>
+                </div>
+                <span class="weui-cell__ft"></span>
+            </a>
+            <a class="weui-cell weui-cell_access" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.edusoho.ddianke">
+                <div class="weui-cell__hd"><img src="../static/images/icon_download@2x.png" alt="" class="item-icon"></div>
+                <div class="weui-cell__bd weui-cell_primary">
+                    <p class="item-font">下载APP</p>
+                </div>
+                <span class="weui-cell__ft"></span>
+            </a>
+        </div>
+        <div class="protocol">
+            <a id="protocol" href="http://applinzi.ddianke.com/user_contract/">《用户服务使用协议》</a>
+        </div>
+        {% endif %}
+
+
+        <script>
+
+        </script>
+
+
+    </body>
+
+    <script>
+        "use strict";
+        function hideDiv(){
+            $(".pop-box-qrcode").hide();
+            $("#bg").hide();
+        }
+        function toast(text){
+            $('#toast .weui-toast__content').text(text);
+            //console.log($('#toast .weui-toast').css('margin-left'))
+            $('#toast').show()//.delay(3000).hide(0);
+            //console.log($('#toast .weui-toast').outerWidth())
+            $('#toast .weui-toast').css('margin-left','-' + $('#toast .weui-toast').outerWidth()/2 + 'px')
+            //console.log($('#toast .weui-toast').css('margin-left'))
+            $('#toast').show().delay(2000).hide(0);
+        }
+        var countdown=60; 
+        function settime(obj) { 
+            //alert(obj.text)
+            if (countdown == 0) { 
+                obj.removeAttribute("disabled");    
+                obj.textContent="获取验证码"; 
+                countdown = 60; 
+                return;
+            } else { 
+                obj.setAttribute("disabled", true); 
+                obj.textContent="重新发送(" + countdown + ")"; 
+                countdown--;
+            } 
+            setTimeout(function() { 
+                settime(obj) }
+                       ,1000) 
+        }
+        $(function(){
+            $(".advertise").on("click",function(){
+                location.href = "https://h5.youzan.com/v2/feature/oTKIEaY3SG"
+            })
+            $(".show-service").on("click", function(){
+                $(".pop-box-qrcode").show();
+                $("#bg").show();
+            });
+            var send = false;
+            $('.weui-vcode-btn').on('click', function(){
+                let dataURL = encodeURI('../../sendverificationcode1');
+                var openid = $(this).attr('data-openid');
+                var appid =$(this).attr('data-appid') 
+                var mobile = $("#mobile").val();
+                if (send){return;}
+                if (mobile == "")
+                {
+                    countdown = 0;
+                    //alert('手机号不能为空');
+                    toast('手机号不能为空')
+                    return;
+                }
+                send = true;
+                $.ajax({
+                    url: dataURL,
+                    data: {
+                        openid: openid,
+                        appid: appid,
+                        mobile: mobile,
+                    },
+                    //dataType: "json",
+                    success: function(data){
+                        if(data == '1')
+                            //alert('验证码已发送，请注意查收');
+                            toast('验证码已发送，请注意查收')
+                        else{
+                            toast(data);
+                            countdown = 0;
+                        }
+                        send = false;
+                        //window.location.reload(false);
+                    },
+                    fail: function(err){
+                        toast(err);
+                        send = false;
+                    }
+                });
+
+            });
+            $('#close').on('click', function(){
+                window.close();
+                WeixinJSBridge.call('closeWindow');
+            });
+            var click = false;
+            $('#submit').on('click', function(){
+                //toast('验证码已发送，请注意查收')
+                let dataURL = encodeURI('../../VerifyCode/');
+                var openid = $(this).attr('data-openid');
+                var appid =$(this).attr('data-appid') 
+                var mobile = $("#mobile").val();
+                var code = $("#vcode").val();
+                if (mobile == "")
+                {
+                    toast('手机号不能为空')
+                    return;
+                }
+                if (code == ''){
+                    toast('请输入验证码')
+                    return
+                }
+                if (click){
+                    return;
+                }
+                click = true;
+                $('#submit').html('登陆中...')
+
+                $.ajax({
+                    url: dataURL,
+                    type: 'post',
+                    data: {
+                        openid: openid,
+                        appid: appid,
+                        mobile: mobile,
+                        code: code
+                    },
+                    success: function(data){
+                        //toast(data);
+                        if(data == "ok")
+                        {
+                            //let params = {
+                            //    "text": "手机绑定成功",
+                            //    "appID": appid,
+                            //    "toUser": openid
+                            //}
+                            //para = {
+                            //    "action": "SendMsg",
+                            //    "params": JSON.stringify(params)
+                            //}
+                            //$.ajax({
+                            //    url: "http://applinzi.ddianke.com/action/",
+                            //    type: 'post',
+                            //    data: para,
+                            //    success: function(data){
+                            //        alert(data);
+                            //    },
+                            //    fail: function(err){
+                            //        alert(err);
+                            //    }
+                            //});
+                            //WeixinJSBridge.call('closeWindow');
+                            //window.close();
+                            window.location.reload(false);
+                        }
+                        else{
+                            toast(data)
+                            click = false;
+                            $('#submit').html('登陆')
+                        }
+                    },
+                    fail: function(err){
+                        alert(err);
+                        click = false;
+                        $('#submit').html('登陆')
+                    }
+                });
+
+
+            });
+
+
+        });
+    </script>
+
+    <script>
+        wx.config({
+            //{{ticket}}
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '{{appid}}', // 必填，公众号的唯一标识
+            timestamp: '{{sign.timestamp}}', // 必填，生成签名的时间戳
+            nonceStr: '{{sign.nonceStr}}', // 必填，生成签名的随机串
+            signature: '{{sign.signature}}',// 必填，签名，见附录1
+            jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage','chooseWXPay','openProductSpecificView','addCard','chooseCard','openCard'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+
+
+        wx.ready(function () {
+            //var shareData = {
+            //    title: '快来创建菜园币账号吧',
+            //    desc: '菜园币即将上线，速来创建你的专属账号吧',
+            //    link: 'https://applinzi.ddianke.com/wxJSWeb/bindusertoken',
+            //    imgUrl: 'http://applinzi.ddianke.com/static/img/tsaireader2.png'
+            //};
+            //wx.onMenuShareAppMessage(shareData);
+            //wx.onMenuShareTimeline(shareData);
+
+        });    
+        wx.error(function(res){
+
+            //alert(res); // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+
+        });
+    </script>    
+
+</html>

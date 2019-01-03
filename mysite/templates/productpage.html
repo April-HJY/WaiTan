@@ -1,0 +1,1402 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style type="text/css">
+    .title-margin{
+        margin:10px 10px;
+    }
+
+    .button{
+        width:100px ;
+        height:35px ;
+        border:solid 1px #cccccc;
+        border-radius:5px;
+    }
+    .select-normal{
+        padding:0 20px;
+        height:32px;
+        line-height:32px;
+        border-radius:5px;
+        margin:0 5px;
+    }
+    .floatright{
+        float:right;
+    }
+    #bg{display:none;position: absolute; top: 0%; left: 0%; width: 100%; height: 100%; background-color: black; z-index:1001; -moz-opacity: 0.7; opacity:.70; filter: alpha(opacity=70); z-index:7000}
+    #bg2{display:none;position: absolute; top: 0%; left: 0%; width: 100%; height: 100%; background-color: black; z-index:1001; -moz-opacity: 0.7; opacity:.70; filter: alpha(opacity=70); z-index:9200}
+    .pop-box-detail{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:1200px;
+        height:600px;
+        top:50%;
+        left:50%;
+        margin-top: -300px;
+        margin-left: -600px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    .pop-box-putaway{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:400px;
+        height:200px;
+        top:50%;
+        left:50%;
+        margin-top: -100px;
+        margin-left: -200px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    .pop-box-takeoff{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:400px;
+        height:200px;
+        top:50%;
+        left:50%;
+        margin-top: -100px;
+        margin-left: -200px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    .pop-box-message{
+        display:none;
+        position:absolute;
+        z-index:9500;
+        width:600px;
+        height:300px;
+        top:50%;
+        left:50%;
+        margin-top: -150px;
+        margin-left: -300px;
+        border:solid 1px #cccccc;
+        background-color:white;
+        padding-left:20px;
+    }
+    .pop-box-sku{
+        display:none;
+        position:absolute;
+        z-index:9500;
+        width:800px;
+        height:500px;
+        top:50%;
+        left:50%;
+        margin-top: -250px;
+        margin-left: -400px;
+        border:solid 1px #cccccc;
+        background-color:white;
+        padding-left:20px;
+    }
+    .label{
+        width:120px;
+        color:#000;
+        font-size:14px;
+        padding-left:20px;
+        height:35px;
+        line-height:35px;
+    }
+    .input-c{
+        height:35px;
+        line-height:35px;
+        padding-left:5px;
+        width:230px;
+        float:right;
+
+    }
+    .product_type{
+        width:230px;
+        display:inline-block;
+        float:right;
+    }
+    .categories{
+        width:230px;
+        display:inline-block;
+        float:right;
+    }
+    .channels{
+        width:250px;
+        display:inline-block;
+        float:right;
+    }
+    .set-date{
+        margin:20px 0 0 18px;
+        width:380px;
+    }
+    .remark-input{
+        margin:20px 0 0 18px;
+        width:653px;
+        padding-left:5px;
+        resize:none;
+    }
+    .addnew-button{
+        width:100px;
+    }
+    .product-menu{
+        display:block;
+    }
+    .item-class{
+        margin:4px 0 0 0;
+        z-index:9000;
+    }
+    .field{
+
+    }
+    .skus .field{
+        margin-top:10px;
+
+    }
+    .skus .value-container{
+        margin-top:20px;
+        border-bottom:1px solid #aaa;
+    }
+    .skus .sku_value{
+        margin-right:20px;
+        margin-bottom:10px;
+    }
+    .message-container{
+        padding:10px;
+    }
+    .message_name{
+        height:40px;
+        line-height:40px;
+    }
+    .select-message_type{
+        width:150px;
+    }
+    .tag-container{
+        margin:5px 15px;
+        display:inline-block;
+        width:100%;
+    }
+    .product-tags{
+        height:70px;
+        margin:0 20px;
+        border:1px #ccc solid
+    }
+    .tag-button{
+        width:100px ;
+        height:35px ;
+        border:solid 1px #cccccc;
+        border-radius:5px;
+        margin-left:65px;
+    }
+    #tag-div{
+        display:none;
+        position:absolute;
+        z-index:10000;
+        width:600px;
+        height:500px;
+        top:50%;
+        left:50%;
+        margin-top: -250px;
+        margin-left: -300px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    .tag-list{
+        margin:10px 10px;
+    }
+    .tag-border{
+        border:1px solid #cccccc;
+        padding:10px 10px;
+        margin-top:20px;
+    }
+    .tag-on{
+        background-color:#eee
+    }
+    .tag-field{
+        margin: 5px 5px;
+        border: 1px solid #ccc;
+        height:27px;
+    }
+    .tag-field-title{
+        padding-top:10px;
+        padding-left:30px;
+    }
+    .tag-remove{
+        width:25px;
+        float:right;
+    }
+    .tag-name{
+
+        padding-left:5px;
+        margin-top:4px;
+    }
+    .product-tags{
+        margin-top:4px;
+    }
+    .product-tags .tag-name{
+        white-space:nowrap; 
+        overflow:hidden; 
+        text-overflow:ellipsis;
+        width:135px;
+    }
+    .tag-input{
+        margin:10px 10px;
+        width:90%;
+        resize:none;
+    }
+    .tag-desc{
+        padding-left:5px;
+        margin-top:4px;
+    }
+    .messages{
+        height:230px;
+        overflow-x:auto;
+    }
+    .width500 {
+        width:500px !important;
+        word-break:break-all; 
+    }
+    .width80 {
+        width:80px !important;
+        word-break:break-all; 
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class=" ">
+    <div id="bg"></div>
+    <div id="bg2"></div>
+    <div class="pop-box-putaway row" > 
+        <div class="col-xs-12 col-md-12 " style="text-align:right">
+            <img src="../../static/images/close.png" onclick="hideDiv('pop-box-putaway');" class="detail-close"/>
+            <input id="putaway_id" class="" style="display:none"  value=""/>
+        </div>
+        <div class="col-xs-12 col-md-12 item-class">
+            <label class="label">上架渠道：</label>
+            <td><select id="channels" class="input form-control channels"></select></td>
+        </div>
+        <div class="col-xs-12 col-md-12 item-class">
+            <label class="label">是否区分分SKU：</label>
+            <td><input type="checkbox" id="putaway_sku"/></td>
+        </div>
+        <div id="button-div" >  
+            <div style="float:right;position:relative;margin-top:20px;right:20px">
+                <input id="btnSave" type=button class="button" onclick='save_putaway_product()' value="保存"/>
+                <input id="btnClose" type=button class="button" onclick="hideDiv('pop-box-putaway');"  value="关闭"/>
+            </div>
+        </div>
+    </div>
+    <div class="pop-box-takeoff row" > 
+        <div class="col-xs-12 col-md-12 " style="text-align:right">
+            <img src="../../static/images/close.png" onclick="hideDiv('pop-box-takeoff');" class="detail-close"/>
+            <input id="takeoff_id" class="" style="display:none"  value=""/>
+        </div>
+        <div class="col-xs-12 col-md-12 item-class">
+            <label class="label">下架渠道：</label>
+            <td><select id="takeoff_channels" class="input form-control channels"></select></td>
+        </div>
+        <div id="button-div" >  
+            <div style="float:right;position:relative;margin-top:20px;right:20px">
+                <input id="btnSave" type=button class="button" onclick='save_takeoff_product()' value="保存"/>
+                <input id="btnClose" type=button class="button" onclick="hideDiv('pop-box-takeoff');"  value="关闭"/>
+            </div>
+        </div>
+    </div>
+    <div class="pop-box-message" > 
+        <div class="" style="text-align:right">
+            <img src="../../static/images/close.png" onclick="hideDiv('pop-box-message');" class="detail-close"/>
+            <input id="putaway_id" class="" style="display:none"  value=""/>
+        </div>
+        <div class="button-div">
+            <div style="margin-left:10px">
+                <input id="btn_addnew_message" type=button class="button" onclick='add_new_message()' value="新增"/>
+                <input id="btn_save_messages" type=button class="button" onclick='update_messages()' value="确定"/>
+            </div>
+        </div>
+        <div class="messages">     
+
+        </div>
+    </div>
+    <div class="pop-box-sku" > 
+        <div class="" style="text-align:right">
+            <img src="../../static/images/close.png" onclick="hideDiv('pop-box-sku');" class="detail-close"/>
+        </div>
+        <div class="button-div">
+            <div style="margin-left:10px">
+                <input id="btn_addnew_sku" type=button class="button" onclick='add_new_sku()' value="新增"/>
+                <input id="btn_save_skus" type=button class="button" onclick='update_skus()' value="确定"/>
+            </div>
+        </div>
+        <div class="skus">     
+
+        </div>
+    </div>
+    <div id="tag-div" class="tag-div">
+        <div class="tag-list row">
+
+        </div>
+        <div style="float:right;position:relative;margin-top:50px;right:20px">
+            <input id="btnSelectTags" type=button onclick="saveProductTags();" class="button select-tag" value="选定"/>
+            <input id="btnClose" type=button class="button" onclick="hideTagDiv();"  value="关闭"/>
+        </div>
+    </div>
+    <div class="pop-box-detail row" >
+
+        <div class="col-xs-12 col-md-12 " style="text-align:right">
+            <img src="../../static/images/close.png" onclick="hideDiv('pop-box-detail');" class="detail-close"/>
+            <input id="selected_id" class="" style="display:none"  value=""/>
+        </div>
+        <div class="col-xs-4 col-md-4 item-class">
+            <label class="label">产品类型：</label>
+            <select id="product_type" class="input form-control product_type"></select>
+        </div>
+        <div class="col-xs-4 col-md-4 item-class">
+            <label class="label">课程类别：</label>
+            <select id="categories" class="input form-control categories"></select>
+        </div>
+        <div class="col-xs-4 col-md-4 item-class" >
+            <label class="label">名称：&nbsp;&nbsp;</label>
+            <input id="product_name" type='text' class="input input-c" placeholder='输入名称' maxlength="100"/>
+        </div>
+        <div class="col-xs-4 col-md-4 item-class" >
+            <label class="label">排序：</label>
+            <input id="product_order" type='text' class="input input-c" placeholder='课程排序，从小到大，建议以10为间隔'/>
+        </div>
+        <div class="col-xs-4 col-md-4 item-class" >
+            <label class="label">题图链接：</label>
+            <input id="product_url1" type='text' class="input input-c" placeholder='题图链接'/>
+        </div>
+        <div class="col-xs-4 col-md-4 item-class">
+            <label class="label">详情链接2：</label>
+            <input id="product_url2" type='text' class="input input-c" placeholder='详情链接' />
+        </div>
+        <div class="col-xs-4 col-md-4 item-class">
+            <label class="label">详情链接3：</label>
+            <input id="product_url3" type='text' class="input input-c" placeholder='详情链接'/>
+        </div>
+        <div class="col-xs-4 col-md-4 item-class">
+            <label class="label">详情链接4：</label>
+            <input id="product_url4" type='text' class="input input-c" placeholder='详情链接' />
+        </div>
+        <div class="col-xs-4 col-md-4 item-class">
+            <label class="label">详情链接5：</label>
+            <input id="product_url5" type='text' class="input input-c" placeholder='详情链接' />
+        </div>
+                <div class="col-xs-4 col-md-4 item-class">
+            <label class="label">详情链接6：</label>
+            <input id="product_url6" type='text' class="input input-c" placeholder='详情链接'/>
+        </div>
+        <div class="col-xs-4 col-md-4 item-class">
+            <label class="label">详情链接7：</label>
+            <input id="product_url7" type='text' class="input input-c" placeholder='详情链接' />
+        </div>
+        <div class="col-xs-4 col-md-4 item-class">
+            <label class="label">详情链接8：</label>
+            <input id="product_url8" type='text' class="input input-c" placeholder='详情链接' />
+        </div>
+                <div class="col-xs-4 col-md-4 item-class">
+            <label class="label">详情链接9：</label>
+            <input id="product_url9" type='text' class="input input-c" placeholder='详情链接'/>
+        </div>
+        <div class="col-xs-4 col-md-4 item-class">
+            <label class="label">详情链接10：</label>
+            <input id="product_url10" type='text' class="input input-c" placeholder='详情链接' />
+        </div>
+        <div class="col-xs-4 col-md-4 item-class">
+            <label class="label">详情链接11：</label>
+            <input id="product_url11" type='text' class="input input-c" placeholder='详情链接' />
+        </div>
+        <div class="col-xs-4 col-md-4 item-class">
+            <label class="label">分享描述：</label>
+            <input id="share_description" type='text' class="input input-c" placeholder='分享描述' />
+        </div>
+        <div class="col-xs-4 col-md-4 item-class" >
+            <label class="label">卖点：</label>
+            <input id="hot_point" type='text' class="input input-c" placeholder='卖点' />
+        </div>
+        <div class="col-xs-4 col-md-4 item-class" >
+            <label class="label">价格（元）：</label>
+            <input id="price" type='text' class="input input-c" placeholder='价格（元）' onkeyup="value=value.replace(/([^0-9\.])/g,'')" 
+                   onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/([^0-9\.])/g,''))"/>
+        </div>
+        <div class="col-xs-4 col-md-4 item-class" >
+            <label class="label">原价（元）：</label>
+            <input id="original_price" type='text' class="input input-c" placeholder='原价（元）' onkeyup="value=value.replace(/([^0-9\.])/g,'')" 
+                   onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/([^0-9\.])/g,''))"/>
+        </div>
+        <div class="col-xs-4 col-md-4 item-class">
+            <label class="label">库存：</label>
+            <input id="inventory" type='text' class="input input-c" placeholder='库存' onkeyup="value=value.replace(/([^0-9])/g,'')" 
+                   onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/([^0-9])/g,''))"/>
+        </div>
+        <div class="col-xs-4 col-md-4 item-class" >
+            <label class="label">成本价(元)：</label>
+            <input id="cost_price" type='text' class="input input-c" placeholder='成本价（元）' onkeyup="value=value.replace(/([^0-9\.])/g,'')" 
+                   onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/([^0-9\.])/g,''))"/>
+        </div>
+        <div class="col-xs-4 col-md-4 item-class" >
+            <label class="label">分销积分：</label>
+            <input id="distribute_point" type='text' class="input input-c" placeholder='分销能够获得的积分' onkeyup="value=value.replace(/([^0-9])/g,'')" 
+                   onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/([^0-9])/g,''))"/>
+        </div>
+        <div class="col-xs-4 col-md-4 item-class" >
+            <label class="label">积分抵扣：</label>
+            <input id="point_limit" type='text' class="input input-c" placeholder='最多课抵扣多少钱（分）' onkeyup="value=value.replace(/([^0-9])/g,'')" 
+                   onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/([^0-9])/g,''))"/>
+        </div>
+        <div class="col-xs-4 col-md-4 item-class" >
+            <label class="label">返现：</label>
+            <input id="distribute_cashback" type='text' class="input input-c" placeholder='老带新返现（元）' onkeyup="value=value.replace(/([^0-9])/g,'')" 
+                   onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/([^0-9])/g,''))"/>
+        </div>
+        <div class="col-xs-4 col-md-4 item-class">
+            <label class="label">课程属性：</label>
+            <input id="product_prop" type='text' class="input input-c" placeholder='课程属性，以;分隔' />
+        </div>
+        <div class="col-xs-4 col-md-4 item-class" >
+            <label class="label">教师描述：</label>
+            <input id="teacher_desc" type='text' class="input input-c" placeholder='教师描述'/>
+        </div>
+        <div class="col-xs-4 col-md-4 item-class" >
+            <label class="label">SKU：</label>
+            <input id="btnShowSKU" type=button class="button" onclick="show_sku_pop()" style="margin-left:64px;"  value="查看"/>
+        </div>
+        <div class="col-xs-4 col-md-4 item-class" >
+            <input id="messages" style='display:none' type='text' class="input input-c" placeholder='消息' />
+            <label class="label">消息：</label>
+            <input id="btnShowMsg" type=button class="button" onclick="show_message_pop()" style="margin-left:65px;"  value="查看"/>
+        </div>
+        <div class=" tag-container" >
+            <label class="label">标签：</label>
+            <input id="btnShowTag" type=button class="tag-button" onclick="showTagDiv()"  value="新增标签"/>
+            <div class="product-tags row" >
+            </div>
+        </div>
+        <div id="button-div" >  
+            <div style="float:right;position:relative;margin-top:20px;right:20px;">
+                <input id="btnSave" type=button class="button" onclick='save_product()' value="保存"/>
+                <input id="btnClose" type=button class="button" onclick="hideDiv('pop-box-detail');"  value="关闭"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-11 col-sm-offset-2 col-md-10 col-md-offset-x main">
+        <!-- TIME PICKER -->          
+        <div style="display:inline-block" class="row">
+            <!--<div class="timepicker col-sm-3 col-md-3" >                  
+<div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+<input class="form-control" size="14" id="startDate" type="text" placeholder="开始时间" readonly>
+<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+</div>
+<input class="" type="hidden" id="dtp_input2" value="" /><br/>
+</div>
+
+
+<div class="timepicker col-sm-3 col-md-3" >                  
+<div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+<input class="form-control" size="14" id="endDate" type="text" placeholder="结束时间" readonly>
+<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+</div>
+<input class="" type="hidden" id="dtp_input2" value="" /><br/>
+</div>
+<div class="timepickerbtn col-sm-2 col-md-2" id="search"><button >查找</button></div>-->
+            <div class="col-sm-2 col-md-2 addnew-button" id="addnew"><button class='button'>新增</button></div>
+        </div>
+        <!-- table-->                   
+        <div class="row placeholders">     
+            <table id = "product_table">
+            </table>
+            <dev id="toolbar"></dev>
+        </div>
+
+
+    </div>
+</div>
+{% endblock %}
+
+{% block content2 %}
+
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/qrcode.js"></script>
+<script type="text/javascript">
+    "use strict";
+    let product_list = []
+    let message_type_list = []
+    let temp_tag_ids = []
+    let all_tags = []
+    let temp_messages = []
+    let temp_skus = []
+    function getProductByID(id){
+        for (let i=0;i<product_list.length;i++){
+            if (product_list[i]['ID'] == id)
+                return product_list[i]
+        }
+    }
+    function deleteTag(id) {
+
+        var product_id = $("#selected_id").val()
+        if (product_id >0){
+            let product = getProductByID(product_id);
+            let length = product.tag_ids.length;
+            for (let i=0;i<length;i++){
+                let tag_id = product.tag_ids[i];
+                if (tag_id == id){
+                    product.tag_ids.splice(i,1);
+                    break;
+                }
+            }
+        }
+        else
+        {
+            let length = temp_tag_ids.length;
+            for (let i=0;i<length;i++){
+                let tag_id = temp_tag_ids[i];
+                if (tag_id == id){
+                    temp_tag_ids.splice(i,1);
+                    break;
+                }
+            }
+        }
+        var product_id = $("#selected_id").val()
+        get_product_tags(product_id)
+    }
+    function get_product_tags(product_id){
+
+        $(".product-tags").empty();
+        if (product_id>0){
+            let product = getProductByID(product_id);
+            //console.log(product.tag_ids)
+            for (let i=0;i<product.tag_ids.length;i++){
+                for (let j=0;j<all_tags.length;j++){
+                    if (product.tag_ids[i] == all_tags[j]["ID"]){
+                        let tag = all_tags[j];
+                        $(".product-tags").append($('<div class="col-sm-3 col-md-3"><div class="tag-field"><label class="tag-name" >'
+                                                    +tag.FullName+'</label><img class="tag-remove" data-id="'+tag.ID+'" onclick="deleteTag('
+                                                    +tag.ID+')" src="../../static/images/close.png" /></div></div>'))
+                    }
+                }
+            }
+        }
+        else{
+            for (let i=0;i<temp_tag_ids.length;i++){
+                for (let j=0;j<all_tags.length;j++){
+                    if (temp_tag_ids[i] == all_tags[j]["ID"]){
+                        let tag = all_tags[j];
+                        $(".product-tags").append($('<div class="col-sm-3 col-md-3"><div class="tag-field"><label class="tag-name" >'
+                                                    +tag.FullName+'</label><img class="tag-remove" data-id="'+tag.ID+'" onclick="deleteTag('
+                                                    +tag.ID+')" src="../../static/images/close.png" /></div></div>'))
+                    }
+                }
+            }
+        }
+    }
+    function saveProductTags(){
+        var product_id = $("#selected_id").val()
+        if(product_id>0){
+            let product = getProductByID(product_id);
+            $('.tag-border').each(function(item){
+                if ($(this).hasClass('tag-on')){
+                    let tag_id = parseInt($(this).find(".tag-id").text())
+                    if (product.tag_ids.indexOf(tag_id)==-1)
+                        product.tag_ids.push(tag_id)
+                }
+            });
+        }
+        else{
+            $('.tag-border').each(function(item){
+                if ($(this).hasClass('tag-on')){
+                    let tag_id = parseInt($(this).find(".tag-id").text())
+                    if (temp_tag_ids.indexOf(tag_id)==-1)
+                        temp_tag_ids.push(tag_id)
+                }
+            });
+        }
+
+        hideTagDiv();
+        get_product_tags(product_id)
+    }
+    function getAllTags(){
+        let dataURL = encodeURI('../getallproducttags');
+        $.ajax({
+            url: dataURL,
+            data: {
+                //userId:$("#selected_id").val()
+            },
+            dataType: "json",
+            success: function(data){
+                //console.log(data);
+                all_tags = data;
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+    }
+    function showTagDiv(){
+        $("#tag-div").show();
+        $("#bg2").show()
+
+        $(".tag-list").empty();
+        all_tags.forEach(function(item){
+            $(".tag-list").append($("<div class='col-sm-6 col-md-6  tag'><div class='tag-border tag-content'><label class='tag-id' >"
+                                    + item.ID + "</label><label class='tag-name' >"
+                                    + (item.FullName || '') + "</label></div></div>"))
+        });
+        $('.tag-list .tag-border').on('click',function(){
+            $(this).toggleClass('tag-on');
+        });
+    }
+    function hideTagDiv(){
+        $("#tag-div").hide();
+        $("#bg2").hide()
+        $('.tag-list .tag-border').removeClass('tag-on');
+    }
+    function show_message_pop(){
+        var product_id = $("#selected_id").val();
+        showDiv('pop-box-message');
+        get_messages(product_id)
+    }
+    function remove_message(id){
+        $("#message_"+id).remove();
+    }
+    function get_messages(product_id){
+
+        $(".messages").empty();
+        if (product_id>0){
+            let product = getProductByID(product_id);
+            $.each(product.Messages, function(index,item){
+                set_message(item['message_id'],item['message_name'],item['message_type_id'])
+            });
+        }
+        else{
+            $.each(temp_messages, function(index,item){
+                set_message(item['message_id'],item['message_name'],item['message_type_id'])
+            });
+        }
+
+    }
+    function setCatetories(){
+        let dataURL = encodeURI('../getcatetories');
+        $.ajax({
+            url: dataURL,
+            dataType: "json",
+            data: {
+                "condition":""
+            },
+            success: function(data){
+                console.log(data)
+                for (var i=0;i< data.length; i++){
+                    var channel = data[i]
+                    $("#categories").append($("<option value='" + channel.ID + "'>" + channel.Name + "</option>"))
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+    }
+    let btnupdate = true
+    function update_messages(){
+        if(!btnupdate){
+            return;
+        }
+        var product_id = $("#selected_id").val();
+        if (product_id == undefined){
+            return;
+        }
+        //let messages = []
+        let is_return =false
+        let product = getProductByID(product_id);
+        if (product_id > 0){
+            product.Messages = []
+            $(".message-container").each(function(index,item){
+                let message_id = $(item).find('.message_id').val()
+                let message_name = $(item).find('.message_name').val()
+                let message_type_id = $(item).find('.select-message_type').val()
+
+                if (message_name == ''){
+                    alert('请输入名称')
+                    is_return =true
+                }
+                product.Messages.push({"message_id":message_id, "message_name":message_name, "message_type_id":message_type_id})
+                //console.log('x')
+            });
+        }
+        else{
+            temp_messages = []
+            $(".message-container").each(function(index,item){
+                let message_id = $(item).find('.message_id').val()
+                let message_name = $(item).find('.message_name').val()
+                let message_type_id = $(item).find('.select-message_type').val()
+
+                if (message_name == ''){
+                    alert('请输入名称')
+                    is_return =true
+                }
+                temp_messages.push({"message_id":message_id, "message_name":message_name, "message_type_id":message_type_id})
+                //console.log('x')
+            });
+        }
+
+
+        hideDiv('pop-box-message');
+    }
+
+    function show_sku_pop(){
+        var product_id = $("#selected_id").val();
+        showDiv('pop-box-sku');
+        get_skus(product_id)
+    }
+    function get_skus(product_id){
+        $(".skus").empty();
+        if (product_id>0){
+            let product = getProductByID(product_id);
+            console.log(product.SKUs);
+            $.each(product.SKUs, function(index,item){
+                set_sku(item['sku_name'],item['sku_values'])
+            });
+        }
+        else{
+            $.each(temp_skus, function(index,item){
+                set_sku(item['sku_name'],item['sku_values'])
+            });
+        }
+    }
+    let curr_sku_id=1
+    function add_new_sku(){
+        set_sku('',[])
+    }
+    function set_sku(sku_name, sku_values){
+        let sku_value_list = ''
+        sku_values.forEach(function(item,index){
+            sku_value_list += '<input class="sku_value" value="'+item.sku_value+'" placeholder="请输入值"/>'
+        })
+        let item = '<div class="row sku-container" style="width:95%" id="sku_'+curr_sku_id+'">\
+<div class="field col-sm-11 col-md-11"><input id="sku_name" class="sku_name" value="'+sku_name+'" placeholder="请输入名称"/>\
+<input style="margin-left:3px" onclick="remove_sku('+curr_sku_id+')" class="button" type="button" value="删除">\
+<input style="margin-left:3px" onclick="add_sku_value('+curr_sku_id+')" type="button" class="button" value="增加规格值"/></div>\
+<div id="value_container_'+curr_sku_id+'" class="value-container col-sm-11 col-md-11" >'+sku_value_list+'</div>\
+    </div>'
+        $(".skus").append($(item));
+        //init_timer("time"+curr_id);
+        curr_sku_id++;
+        console.log(curr_sku_id)
+    }
+    function remove_sku(id){
+        $("#sku_"+id).remove();
+    }
+    function add_sku_value(id){
+        $("#value_container_"+id).append( '<input class="sku_value" value="" placeholder="请输入值"/>')
+    }
+    function update_skus(){
+        var product_id = $("#selected_id").val();
+        if (product_id == undefined){
+            return;
+        }
+        //let messages = []
+        let is_return =false
+        let product = getProductByID(product_id);
+        if (product_id > 0){
+            product.SKUs = []
+            $(".sku-container").each(function(index,item){
+                let sku_name = $(item).find('.sku_name').val()
+                let sku_values = []
+                $(item).find('.sku_value').each(function(index,sku_item){
+                    if ($(sku_item).val() != '')
+                    	sku_values.push({"sku_value":$(sku_item).val()})
+                });
+
+                if (sku_name == ''){
+                    alert('请输入名称')
+                    is_return =true;
+                    return;
+                }
+                if (sku_values.length==0){
+                    alert('请输入值')
+                    is_return =true;
+                    return;
+                }
+                product.SKUs.push({"sku_name":sku_name, "sku_values":sku_values})
+                //console.log('x')
+            });
+        }
+        else{
+            temp_skus = []
+            $(".sku-container").each(function(index,item){
+                let sku_name = $(item).find('.sku_name').val()
+                let sku_values = []
+                $(item).find('.sku_value').each(function(index,sku_item){
+                    if ($(sku_item).val() != '')
+                    	sku_values.push({"sku_value":$(sku_item).val()})
+                });
+
+                if (sku_name == ''){
+                    alert('请输入名称')
+                    is_return =true;
+                    return;
+                }
+                if (sku_values.length==0){
+                    alert('请输入值')
+                    is_return =true;
+                    return;
+                }
+                temp_skus.push({"sku_name":sku_name, "sku_values":sku_values})
+                //console.log('x')
+            });
+        }
+        if (!is_return)
+        	hideDiv('pop-box-sku');
+    }
+    function add_new_message(){
+        set_message(0,'',0)
+    }
+    function get_message_types(){
+        let dataURL = encodeURI('../getproductmessagetypes');
+        $.ajax({
+            url: dataURL,
+            dataType: "json",
+            data: {
+
+            },
+            success: function(data){
+                //console.log(data)
+                message_type_list = data;
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+    }
+    let curr_id = 1;
+    function set_message(message_id, message_name, message_type_id){
+        if (message_name == ''){
+            message_name = ''
+        }
+        let message_type_options = ''
+        message_type_list.forEach(function(item,index){
+            if (message_type_id==item.ID)
+                message_type_options += "<option value='" + item.ID + "' selected='true'>" + item.Name + "</option>"
+            else
+                message_type_options += "<option value='" + item.ID + "'>" + item.Name + "</option>"
+        })
+        let item = '<div class="row message-container" style="width:95%" id="message_'+curr_id+'">\
+<input id="message_id" class="message_id" style="display:none"  value="'+message_id+'"/>\
+<div class="field col-sm-4 col-md-4"><input id="message_name" class="message_name" value="'+message_name+'" placeholder="请输入名称"/></div>\
+<div class="select-container col-sm-4 col-md-4" >\
+<select class="selector select-message_type">'+message_type_options+'</select>\
+    </div>\
+<div class="field col-sm-3 col-md-3"><button onclick="remove_message('+curr_id+')">删除</button></div>\
+    </div>'
+        $(".messages").append($(item));
+        //init_timer("time"+curr_id);
+        curr_id++;
+        console.log(curr_id)
+    }
+    function setProductTypes(){
+        let dataURL = encodeURI('../getproducttypes');
+        $.ajax({
+            url: dataURL,
+            dataType: "json",
+            data: {
+
+            },
+            success: function(data){
+                //console.log(data)
+                for (var i=0;i< data.length; i++){
+                    var channel = data[i]
+                    $("#product_type").append($("<option value='" + channel.ID + "'>" + channel.Name + "</option>"))
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+    }
+    function setChannel(){
+        let dataURL = encodeURI('../getchannelsanddistributors');
+        $.ajax({
+            url: dataURL,
+            dataType: "json",
+            data: {
+                "condition":"channel"
+            },
+            success: function(data){
+                console.log(data)
+                //$("#upload_channel").append($("<option value='all'>选择渠道</option>"))
+                for (var i=0;i< data.length; i++){
+                    var channel = data[i]
+                    $("#channels").append($("<option value='" + channel.Key + "'>" + channel.Name + "</option>"))
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+    }
+    function putaway_product(id){
+        showDiv('pop-box-putaway');
+        $("#putaway_id").val(id);
+        let product = getProductByID(id);
+        if (product.SetSKU){
+            $("#putaway_sku").prop('checked',true);
+        }
+        else{
+            $("#putaway_sku").prop('checked',false);
+        }
+    }
+    function save_putaway_product(){
+        let id = $("#putaway_id").val();
+        let channel_id = $("#channels").val();
+        let set_sku = $("#putaway_sku").prop('checked')
+        $.ajax({
+            url: "../putawayproduct/",
+            type: "post",
+            data: {
+                "product_id":id,
+                "channel_id":channel_id,
+                "set_sku":set_sku,
+            },
+            success: function(data){
+                //console.log(data)
+                alert(data)
+                //$("#upload_channel").append($("<option value='all'>选择渠道</option>"))
+                hideDiv('pop-box-putaway');
+                search();
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+    }
+    function takeoff_product(id){
+        showDiv('pop-box-takeoff');
+        $("#takeoff_id").val(id);
+        let dataURL = encodeURI('../getproductputawaychannels');
+        $.ajax({
+            url: dataURL,
+            dataType: "json",
+            data: {
+                "product_id":id
+            },
+            success: function(data){
+                console.log(data)
+                //$("#upload_channel").append($("<option value='all'>选择渠道</option>"))
+                $("#takeoff_channels").empty();
+                for (var i=0;i< data.length; i++){
+                    var channel = data[i]
+                    $("#takeoff_channels").append($("<option value='" + channel.Key + "'>" + channel.Name + "</option>"))
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+    }
+    function save_takeoff_product(){
+        let id = $("#takeoff_id").val();
+        let channel_id = $("#takeoff_channels").val();
+        $.ajax({
+            url: "../takeoffproduct/",
+            type: "post",
+            data: {
+                "product_id":id,
+                "channel_id":channel_id,
+            },
+            success: function(data){
+                //console.log(data)
+                alert(data)
+                //$("#upload_channel").append($("<option value='all'>选择渠道</option>"))
+                hideDiv('pop-box-takeoff');
+                search();
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+    }
+    function edit_product(id){
+        //alert(1)
+        product_list.forEach(function(item,i){
+            //console.log(item)
+            if (item['ID'] ==id){
+                $("#selected_id").val(id)
+                showDiv('pop-box-detail');
+                $("#product_type").find("option:contains('"+item['ProductTypeID']+"')").prop("selected",true);
+                //$("#categories").find("option:contains('"+item['LessonCategoryID']+"')").prop("selected",true);
+                $("#categories").val(item['LessonCategoryID'])
+                $("#product_name").val(item['ProductName']);
+                $("#product_url1").val(item['ProductUrl1']);
+                $("#product_url2").val(item['ProductUrl2']);
+                $("#product_url3").val(item['ProductUrl3']);
+                $("#product_url4").val(item['ProductUrl4']);
+                $("#product_url5").val(item['ProductUrl5']);
+                $("#product_url6").val(item['ProductUrl6']);
+                $("#product_url7").val(item['ProductUrl7']);
+                $("#product_url8").val(item['ProductUrl8']);
+                $("#product_url9").val(item['ProductUrl9']);
+                $("#product_url10").val(item['ProductUrl10']);
+                $("#product_url11").val(item['ProductUrl11']);
+                $("#product_order").val(item['Order']);
+                $("#share_description").val(item['ShareDescription']);
+                $("#hot_point").val(item['HotPoint']);
+                $("#sku_name").val(item['SKUName']);
+                $("#price").val(item['PriceDisplay']);
+                $("#original_price").val(item['OriginalPriceDisplay']);
+                $("#inventory").val(item['Inventory']);
+                $("#cost_price").val(item['CostPriceDisplay']);
+                $("#distribute_point").val(item['DistributePoint']);
+                $("#distribute_cashback").val(item['DistributeCashback']);
+				$("#point_limit").val(item['PointLimit']);
+                $("#messages").val(item['Messages']);
+                $("#teacher_desc").val(item['TeacherDesc']);
+                $("#product_prop").val(item['ProductProperties']);
+                get_product_tags(id);
+                get_messages(id);
+                $('.tag-div').hide();
+                $('.pop-box-message').hide();
+            }
+        });
+    }
+
+    function delete_product(id){
+        if (!confirm('是否删除？')){
+            return;
+        }
+        let dataURL = encodeURI('../deleteproduct/');
+        $.ajax({
+            url: dataURL,
+            type:'post',
+            data: {
+                "id":id,
+            },
+            success: function(data){
+                alert(data)
+                search()
+            },
+            fail: function(err){
+                alert(err);
+                search()
+            }
+        });
+    }
+    var btnsave = true;
+    function save_product(){
+        if (!btnsave){
+            return;
+        }
+        let product_type_id= $("#product_type").val();
+        if (!product_type_id){
+            alert('类型不能为空');
+            return;
+        }
+        let category_id= $("#categories").val();
+        let product_name= $("#product_name").val();
+        if (!product_name){
+            alert('名称不能为空');
+            return;
+        }
+        let product_url1= $("#product_url1").val();
+        if (!product_url1){
+            alert('题图不能为空');
+            return;
+        }
+        let price= $("#price").val();
+        if (!price){
+            alert('价格不能为空');
+            return;
+        }
+        let point_limit= $("#point_limit").val();
+        if (point_limit && point_limit > 0 && parseFloat(point_limit) >= parseFloat(price)){
+            alert('抵扣金额必须小于价格');
+            return;
+        }
+        price = price*100
+        let inventory= $("#inventory").val();
+        if (!inventory){
+            alert('库存不能为空');
+            return;
+        }
+        let product_prop=$("#product_prop").val();
+        if (!product_prop){
+            alert('产品属性不能为空');
+            return;
+        }
+        let teacher_desc=$("#teacher_desc").val();
+        if (!teacher_desc){
+            alert('教师描述不能为空');
+            return;
+        }
+        let id = $("#selected_id").val();
+        let tag_ids = []
+        let messages = []
+        let skus = []
+        if (id>0){
+            let product = getProductByID(id);
+            tag_ids = product.tag_ids;
+            messages = product.Messages;
+            skus = product.SKUs;
+        }
+        else{
+            tag_ids = temp_tag_ids;
+            messages = temp_messages;
+            skus = temp_skus;
+        }
+
+        let product_url2= $("#product_url2").val();
+        let product_url3= $("#product_url3").val();
+        let product_url4= $("#product_url4").val();
+        let product_url5= $("#product_url5").val();
+        let product_url6= $("#product_url6").val();
+        let product_url7= $("#product_url7").val();
+        let product_url8= $("#product_url8").val();
+        let product_url9= $("#product_url9").val();
+        let product_url10= $("#product_url10").val();
+        let product_url11= $("#product_url11").val();
+        let product_order= $("#product_order").val();
+
+        let share_description= $("#share_description").val();
+        let hot_point= $("#hot_point").val();
+        let sku_name= $("#sku_name").val();
+        let original_price= $("#original_price").val();
+        if (original_price > 0){
+            original_price = original_price * 100;
+        }
+        let cost_price= $("#cost_price").val();
+        if (cost_price > 0){
+            cost_price = cost_price * 100;
+        }
+        let distribute_point= $("#distribute_point").val();
+        let distribute_cashback= $("#distribute_cashback").val();
+        
+        btnsave = false
+        $('#btnSave').val('保存中..');
+        let dataURL = encodeURI('../saveproduct/');
+        $.ajax({
+            url: dataURL,
+            type:'post',
+            data: {
+                "id":id,
+                "product_type_id":product_type_id,
+                "product_name":product_name,
+                "product_url1":product_url1,
+                "product_url2":product_url2,
+                "product_url3":product_url3,
+                "product_url4":product_url4,
+                "product_url5":product_url5,
+                "product_url6":product_url6,
+                "product_url7":product_url7,
+                "product_url8":product_url8,
+                "product_url9":product_url9,
+                "product_url10":product_url10,
+                "product_url11":product_url11,
+                "order":product_order,
+                "price":price,
+                "inventory":inventory,
+                "share_description":share_description,
+                "hot_point":hot_point,
+                "sku_name":JSON.stringify(skus),
+                "original_price":original_price,
+                "cost_price":cost_price,
+                "distribute_point":distribute_point,
+                "distribute_cashback":distribute_cashback,
+                "point_limit":point_limit,
+                "messages":messages,
+                "category_id":category_id,
+                "product_prop":product_prop,
+                "teacher_desc":teacher_desc,
+                "messages":JSON.stringify(messages),
+                "tag_ids":JSON.stringify(tag_ids)
+            },
+            success: function(data){
+                alert(data)
+                btnsave = true
+                $('#btnSave').val('保存');
+                hideDiv('pop-box-detail');
+                temp_tag_ids = [];
+                temp_messages = [];
+                search();
+            },
+            fail: function(err){
+                alert(err);
+                btnsave = true
+                $('#btnSave').val('保存');
+            }
+        });
+    }
+    function hideDiv(div_id) {   
+        var div_obj = $("."+div_id);
+        div_obj.hide();
+        if (div_id == "pop-box-message" || div_id == "pop-box-sku" || div_id == "tag-div"){
+            $("#bg2").hide();
+            return;
+        }
+        else{
+            $("#bg").hide();
+        }
+        $("body").css("overflow-y","auto"); /*用来隐藏html的滚动条*/
+        $("#product_type").find("option[value=1]").prop("selected",true);
+        $("#categories").find("option[value=1]").prop("selected",true);
+        $("#selected_id").val('')
+        $("#putaway_id").val('')
+        $("#product_name").val('');
+        $("#product_url1").val('');
+        $("#product_url2").val('');
+        $("#product_url3").val('');
+        $("#product_url4").val('');
+        $("#product_url5").val('');
+        $("#product_url6").val('');
+        $("#product_url7").val('');
+        $("#product_url8").val('');
+        $("#product_url9").val('');
+        $("#product_url10").val('');
+        $("#product_url11").val('');
+        $("#product_order").val('');
+        $("#share_description").val('');
+        $("#hot_point").val('')
+        $("#sku_name").val('')
+        $("#price").val('')
+        $("#original_price").val('')
+        $("#inventory").val('')
+        $("#cost_price").val('')
+        $("#distribute_point").val('')
+        $("#distribute_cashback").val('')
+        $("#point_limit").val('')
+        $("#messages").val('')
+        $(".product-tags").empty();
+        $("#putaway_sku").prop('checked','')
+    }  
+    function showDiv(div_id){
+        var div_obj = $("."+div_id);
+        if (div_id == "pop-box-message" || div_id == "pop-box-sku" || div_id == "tag-div"){
+            $("#bg2").show();
+        }
+        else{
+            $("#bg").show();
+        }
+        div_obj.show(); 
+        $("body").css("overflow-y","hidden");
+
+    }
+
+    var TableInit = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = $(window).height()-200;
+            $('#product_table').bootstrapTable({
+                url: '/getproducts/',     //请求后台的URL（*）
+                ajax: ajax_obj,
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                fontSize:14,
+                columns: [{
+                    field: 'ID',
+                    title: 'ID'
+                },{
+                    field: 'ProductName',
+                    title: '名称'
+                },{
+                    class: 'width500',
+                    field: 'ProductUrl1',
+                    title: '题图'
+                },{
+                    field: 'PriceDisplay',
+                    title: '价格(元)'
+                },{
+                    field: 'DistributeCashback',
+                    title: '返现(元)'
+                },{
+                    field: 'Order',
+                    title: '排序'
+                },{
+                    field: 'PutawayChannels',
+                    title: '已上架渠道'
+                },{
+                    class: 'width80',
+                    field: 'Edit',
+                    title: '操作'
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                "condition":1
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+
+    function formatData(data){
+        console.log(data)
+    }
+
+    function ajax_obj(result){
+        console.log(result)
+        let queryParams = {
+            "condition":1
+        }
+        $.ajax({
+            type : "GET",  
+            url : "/getproducts/",  
+            contentType: "application/json;charset=utf-8",  
+            dataType:"json",
+            data:JSON.stringify(queryParams),
+            success : function (msg) {
+                product_list = msg
+                console.log(msg)
+                result.success({
+                    row:msg
+                });
+                $('#product_table').bootstrapTable('load', msg);
+            },  
+            error:function(msg){  
+                alert(msg);  
+            }  
+
+        });
+    }
+    function search(){
+        $('#product_table').bootstrapTable('refresh');
+    }
+    $(function () {
+        setChannel();
+        setProductTypes();
+        get_message_types();
+        setCatetories();
+        getAllTags();
+        $('#addnew').on('click',function(){
+            showDiv('pop-box-detail');
+        });
+        $("#product_tab").addClass('tab-on')
+        //$('.selectpicker').selectpicker();
+        $("#channel,#failedType").on('change',function(){
+            search();
+        });
+        var oTable = new TableInit();
+        oTable.Init();
+
+
+    });
+</script>
+{% endblock %}
+

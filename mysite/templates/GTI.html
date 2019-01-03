@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <title>全新高尔夫 GTI</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/idangerous.swiper.css">
+    <link rel="stylesheet" href="../static/css/main.css">
+</head>
+
+<body>
+    <div class="screen">
+        <div class="logo">
+            <img _src="../static/img/logo.jpg" width="100%">
+        </div>
+        <div class="arrowup">
+            <img _src="../static/img/arrowup.png" width="100%">
+        </div>
+        <div class="page_box">
+            <div class="p1_block">
+            </div>
+            <div class="page1">
+                <div class="p1_kv">
+                    <img _src="../static/img/p1_kv.jpg">
+                </div>
+                <div class="p1_title">
+                    <img _src="../static/img/p1_title.png">
+                </div>
+                <div class="p1_txt">
+                    <img _src="../static/img/p1_txt.png">
+                </div>
+                <div class="p1_left">
+                    <a href="http://vw.faw-vw.com/m"><img _src="../static/img/left.png"></a>
+                </div>
+                <div class="p1_right">
+                    <img _src="../static/img/right.png">
+                </div>
+                <div class="p1_load">
+                    <img _src="../static/img/p1_load.png">
+                    <div class="loader">
+                        <span>0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="page7">
+                <div class="p7_kv">
+                    <img _src="../static/img/p7_bj.jpg">
+                </div>
+                <div class="p7_txt">
+                    <img _src="../static/img/p7_txt.png">
+                </div>
+                <div class="tvc_box">
+                    <div id="slideBox" class="slideBox">
+                        <div class="bd">
+                            <ul>
+                                <li>
+                                    <div>
+                                        <video src="../static/video/1.mp4" poster="../static/img/tvcposter1.png" controls preload="none"></video>
+                                    </div>
+                                    <div style="background: rgba(0,0,0,0.8);font-size: 1.1rem;color: #fff;text-align: center;line-height: 2.2rem;">全新高尔夫 GTI</div>
+                                </li>
+                            </ul>
+
+                            <span class="prev"><img src="../static/img/prev.png" /></span>
+                            <span class="next"><img src="../static/img/next.png" /></span>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="p1_right">
+                    <img _src="../static/img/right.png">
+                </div>
+            </div>
+             <div class="page10">
+                <div class="p10_kv">
+                    <img _src="../static/img/p10_bj.jpg">
+                </div>
+                <form id="form">
+                    <img _src="../static/img/shijia.png" width="100%">
+                    <br>
+                    <label>
+                        <input type="text" name="name" class="name" placeholder="请输入姓名">
+                    </label>
+                    <label>
+                        <input type="tel" class="phone" name="mobile" maxlength="11" placeholder="手机号" pattern="[0-9]*" />
+                    </label>
+                    <label>
+                        <select name="love" class="type">
+                            <option value="全新高尔夫GTI">试驾车型-全新高尔夫GTI </option>
+                        </select>
+                    </label>
+                    <div id="box">
+                        <select name="province" id="province" onchange="getcity()" class="shengf">
+                            <option>省份</option>
+                        </select>
+                        <select name="city" class="city" id="city" onchange="getshop()" style="margin-left: 5%; background-position: 91%;">
+                            <option>城市</option>
+                        </select>
+                    </div>
+                    <label>
+                        <select name="dealer" id="dealer" class="jxs">
+                            <option>经销商</option>
+                        </select>
+                    </label>
+                    <label>
+                        <img src="../static/img/p7_back.png" class="p4_back">
+                        <img src="../static/img/p7_back.png" class="p4_back1">
+                        <img _src="../static/img/submit.png" class="submit">
+                    </label>
+                </form>
+            </div>
+            <div class="page2">
+                <div class="p2_1">
+                    <img _src="../static/img/p2_bj.jpg">
+                </div>
+                <div class="p2_txt">
+                    <img _src="../static/img/p2_title.png">
+                </div>
+                <div class="p1_right">
+                    <img _src="../static/img/right.png">
+                </div>
+            </div>
+            <div class="page3">
+                <div class="p2_1">
+                    <img _src="../static/img/p2_bj.jpg">
+                </div>
+                <div class="p2_txt">
+                    <img _src="../static/img/p3_title.png">
+                </div>
+                <div class="p1_right">
+                    <img _src="../static/img/right.png">
+                </div>
+            </div>
+            <div class="page4">
+                <div class="p2_1">
+                    <img _src="../static/img/p2_bj.jpg">
+                </div>
+                <div class="p2_txt">
+                    <img _src="../static/img/p4_title.png">
+                </div>
+                <div class="p1_right">
+                    <img _src="../static/img/right.png">
+                </div>
+            </div>
+            <div class="page5">
+                <div class="p2_1">
+                    <img _src="../static/img/p2_bj.jpg">
+                </div>
+                <div class="p2_txt">
+                    <img _src="../static/img/p5_title.png">
+                </div>
+                <div class="p1_right">
+                    <img _src="../static/img/right.png">
+                </div>
+            </div>
+            <div class="page6">
+                <div class="p2_1">
+                    <img _src="../static/img/p2_bj.jpg">
+                </div>
+                <div class="p2_txt">
+                    <img _src="../static/img/p6_title.png">
+                </div>
+                <div class="p1_right">
+                    <img _src="../static/img/right.png">
+                </div>
+            </div>
+            <div class="page8">
+                <div class="p8_kv">
+                    <img _src="../static/img/p8_bj.jpg">
+                </div>
+                <div class="p8_txt">
+                    <img _src="../static/img/p8_txt.png">
+                </div>
+                <div class="tvc_box">
+                    <div id="focus0" class="focus">
+                        <div class="hd">
+                            <ul>
+                            </ul>
+                        </div>
+                        <div class="bd">
+                            <ul>
+                                <li><img _src="../static/img/pic1_1.png" /></li>
+                                <li><img _src="../static/img/pic1_2.png" /></li>
+                                <li><img _src="../static/img/pic1_3.png" /></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="focus1" class="focus" style="display:none;">
+                        <div class="hd">
+                            <ul>
+                            </ul>
+                        </div>
+                        <div class="bd">
+                            <ul>
+                                <li><img _src="../static/img/pic2_1.png" /></li>
+                                <li><img _src="../static/img/pic2_2.png" /></li>
+                                <li><img _src="../static/img/pic2_3.png" /></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="focus2" class="focus" style="display:none;">
+                        <div class="hd">
+                            <ul>
+                            </ul>
+                        </div>
+                        <div class="bd">
+                            <ul>
+                                <li><img _src="../static/img/pic3_1.png" /></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="focus3" class="focus" style="display:none;">
+                        <div class="hd">
+                            <ul>
+                            </ul>
+                        </div>
+                        <div class="bd">
+                            <ul>
+                                <li><img _src="../static/img/pic4_1.png" /></li>
+                                <li><img _src="../static/img/pic4_2.png" /></li>
+                                <li><img _src="../static/img/pic4_3.png" /></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="focus4" class="focus" style="display:none;">
+                        <div class="hd">
+                            <ul>
+                            </ul>
+                        </div>
+                        <div class="bd">
+                            <ul>
+                                <li><img _src="../static/img/pic5_1.png" /></li>
+                                <li><img _src="../static/img/pic5_2.png" /></li>
+                                <li><img _src="../static/img/pic5_3.png" /></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="slideBox1" class="slideBox">
+                        <div class="bd">
+                            <ul>
+                                <li>
+                                    <div style="background: rgba(0,0,0,0.8);font-size: 1.1rem;color: #fff;text-align: center;line-height: 2.2rem;">全新高尔夫GTI</div>
+                                </li>
+                                <li>
+                                    <div style="background: rgba(0,0,0,0.8);font-size: 1.1rem;color: #fff;text-align: center;line-height: 2.2rem;">高尔夫</div>
+                                </li>
+                                <li>
+                                    <div style="background: rgba(0,0,0,0.8);font-size: 1.1rem;color: #fff;text-align: center;line-height: 2.2rem;">捷达</div>
+                                </li>
+                                <li>
+                                    <div style="background: rgba(0,0,0,0.8);font-size: 1.1rem;color: #fff;text-align: center;line-height: 2.2rem;">迈腾</div>
+                                </li>
+                                <li>
+                                    <div style="background: rgba(0,0,0,0.8);font-size: 1.1rem;color: #fff;text-align: center;line-height: 2.2rem;">新速腾</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="hd">
+                            <span class="prev"><img src="../static/img/prev.png" /></span>
+                            <span class="next"><img src="../static/img/next.png" /></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p8_btn">
+                    <a href="http://vw.faw-vw.com/m/carmodel/detail?brand_id=10"><img _src="../static/img/pic1_btn.png" id="p8_btn0"></a>
+                    <a href="http://vw.faw-vw.com/m/carmodel/detail?brand_id=16"><img _src="../static/img/pic2_btn.png" id="p8_btn1" style="display:none;"></a>
+                    <a href="http://vw.faw-vw.com/m/carmodel/detail?brand_id=13 "><img _src="../static/img/pic3_btn.png" id="p8_btn2" style="display:none;"></a>
+                    <a href="http://vw.faw-vw.com/m/carmodel/detail?brand_id=8"><img _src="../static/img/pic4_btn.png" id="p8_btn3" style="display:none;"></a>
+                    <a href="http://vw.faw-vw.com/m/carmodel/detail?brand_id=17"><img _src="../static/img/pic5_btn.png" id="p8_btn4" style="display:none;"></a>
+                </div>
+                <div class="p1_right">
+                    <img _src="../static/img/right.png">
+                </div>
+            </div>
+           <!-- <div class="page9">
+                <div class="p9_kv">
+                    <img _src="../static/img/p9_bj.jpg">
+                </div>
+                <div class="p9_txt">
+                    <img _src="../static/img/p9_txt.png">
+                </div>
+                <div class="p9_pic1">
+                    <span>一汽-大众成新一轮购置税减半政策最大受益者</span>
+                    <div style="width:80%; margin-left:7%">
+                        <img _src="../static/img/p9_1.png">
+                    </div>
+                </div>
+                <div class="p9_pic2">
+                    <span>每车补贴3000元  一汽-大众9款车型入国家节能目录</span>
+                    <div style="width:80%; margin-left:7%">
+                        <img _src="../static/img/p9_1.png">
+                    </div>
+                </div>
+                <div class="p9_pic3">
+                    <span>从业绩期中考  看一个更成熟的一汽-大众</span>
+                </div>
+            </div>
+            <div class="p9_page1" id="wrapper">
+                <div>
+                    <h2>一汽-大众成新一轮购置税减半政策最大受益者<br />——大众品牌超85%产品受益</h2>
+                    <li>国务院最新决定，自2015年10月1日到2016年12月31日，对购买1.6升及以下排量乘用车，实施减半征收车辆购置税的优惠政策；</li>
+                    <li>?一汽-大众大众品牌旗下5大主力产品的35款车型，将享受国家此次对小排量汽车购置税减半的政策优惠，优惠车型销量占整个大众品牌在售车型总销量的85%以上，成为受惠范围最大的国内合资车企；</li>
+
+                    <p>9月29日，国务院总理李克强主持召开国务院常务会议，确定支持新能源和小排量汽车发展措施，促进调结构扩内需。会议提出：从2015年10月1日到2016年12月31日，对购买1.6升及以下排量乘用车，实施减半征收车辆购置税的优惠政策。</p>
+                    <p>据此会议精神，一汽-大众大众品牌旗下迈腾、速腾、高尔夫、宝来、捷达等五大主力产品的35款车型，将享受此次车辆购置税减半的优惠政策，受惠车型销量占整个大众品牌在售车型总销量的85%以上，成为受惠范围最大的国内合资车企。按照官方指导价初步估计，每辆受惠车型将享受约2700-9000元不等的购置税优惠。另外，大众品牌在售的产品中，有9款车型还可享受国家3000元的节能惠民补贴，这两项相加，部分车型最高可节约超过1.2万元的购车成本。</p>
+                    <p>以速腾280TSI旗舰版为例，官方指导价为185,800元，应缴购置税约14,200元，购置税减半则只需7100元。再加上此前3000元的国家“节能汽车惠民补贴”，用户购买该车型将获得超过1万元的优惠补贴。</p>
+                    <p>长期以来，一汽-大众积极致力于对节能环保小排量、高品质汽车的研发与实践，自2013年推出的EA211系列1.4TSI、1.4L、1.6L发动机，先后搭载于旗下大部分产品，引领高效节能风潮。今年6月再次推出低排放、高效能的战略小排量EA211系列1.2TSI发动机，并率先在高尔夫车型上投入使用，受到市场欢迎，后续会陆续搭载于一汽-大众更多主力车型。在此次国家车辆购置税减半政策中全面受益的大众品牌旗下五大主力产品，在各自细分市场均以领先的品质实力、创新的绿色科技和越级的性价比优势，长期占据优势地位。</p>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+                <div class="p9_bottom">
+                    <img _src="../static/img/p9_bottom.png">
+                    <div class="p9_p12"></div>
+                </div>
+            </div>
+            <div class="p9_page2" id="wrapper2">
+                <div>
+                    <h2>每车补贴3000元  一汽-大众9款车型入国家节能目录</h2>
+                    <li>一汽-大众旗下速腾、高尔夫、捷达3大车系4款车型入选《节能产品惠民工程节能环保汽车（1.6 升及以下乘用车）推广目录（第二批）》，至此，一汽大众共有9款车型入选国家节能产品推广目录；</li>
+                    <li>2015年7月27日起，凡购买一汽-大众大众品牌旗下 “节能产品惠民工程”车型，均可获得一次性3000元节能汽车定额补贴；</li>
+                    <li>?高尔夫、速腾和捷达，均采用了大众最新一代战略小排量EA211系列发动机，具有小排量、大动力、低油耗、少排放的优势，代表了一汽-大众节能环保与创新科技的最新成就。</li>
+
+                    <p>近日，国家发改委、工信部以及财政部联合公布了根据最新政策标准核定的《节能产品惠民工程节能环保汽车（1.6 升及以下乘用车）推广目录（第二批）》，一汽-大众大众品牌旗下速腾、高尔夫、捷达3大车系的4款车型榜上有名，至此，一汽-大众大众品牌旗下共有9款车型入选国家节能产品惠民工程推广目录，每辆车可享受3000元的节能补贴。</p>
+                    <p>目前，一汽-大众大众品牌享受国家节能产品惠民工程节能环保汽车补贴的车型如下表： </p>
+                    <p style="text-align:center;">
+                        <table width="100%" cellpadding="0" cellspacing="0" border="1">
+                            <tr>
+                                <td style="text-align: center;">
+                                    <b>批次</b>
+                                </td>
+                                <td style="text-align: center;">
+                                    <b>车系</b>
+                                </td>
+                                <td style="text-align: center;">
+                                    <b>名称</b>
+                                </td>
+                                <td style="text-align: center;">
+                                    <b>发动机功率</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="5" style="text-align: center;">
+                                    第一批
+                                    <br /> （2014年9月3日-2015年12月31日）
+                                </td>
+                                <td rowspan="5" style="text-align: center;">
+                                    第七代高尔夫
+                                    <br /> 高尔夫1.4 TSI自动舒适
+                                    <br /> 高尔夫1.4 TSI自动豪华
+                                </td>
+                                <td style="text-align: center;">
+                                    高尔夫1.4 TSI手动舒适
+                                </td>
+                                <td style="text-align: center;">
+                                    96KW
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">
+                                    高尔夫1.4 TSI自动舒适
+                                </td>
+                                <td style="text-align: center;">
+                                    96KW
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">
+                                    高尔夫1.4 TSI自动豪华
+                                </td>
+                                <td style="text-align: center;">
+                                    96KW
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">
+                                    高尔夫1.4 TSI自动旗舰
+                                </td>
+                                <td style="text-align: center;">
+                                    110KW
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">
+                                    高尔夫R-line自动
+                                </td>
+                                <td style="text-align: center;">
+                                    110KW
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="4" style="text-align: center;">
+                                    第二批
+                                    <br /> （2015年7月27日-2015年12月31日
+                                </td>
+                                <td style="text-align: center;">
+                                    捷达
+                                </td>
+                                <td style="text-align: center;">
+                                    捷达1.4 TSI自动运动
+                                </td>
+                                <td style="text-align: center;">
+                                    96KW
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" style="text-align: center;">
+                                    第七代高尔夫
+                                </td>
+                                <td style="text-align: center;">
+                                    高尔夫R-line手动
+                                </td>
+                                <td style="text-align: center;">
+                                    110KW
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">
+                                    高尔夫1.2 TSI
+                                </td>
+                                <td style="text-align: center;">
+                                    81KW
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">
+                                    新速腾
+                                </td>
+                                <td style="text-align: center;">
+                                    新速腾 280 TSI DSG旗舰型
+                                </td>
+                                <td style="text-align: center;">
+                                    110KW
+                                </td>
+                            </tr>
+                        </table>
+                    </p>
+                    <p>自2015年7月27日至2015年12月31日（以发票日期为准，含当日），除第一批享受节能补贴的车型之外，凡购买《“节能产品惠民工程”节能环保汽车推广目录（第二批）》中所列一汽-大众大众品牌车型(如上表)，完成上牌，并签署《节能汽车财政补贴确认书》的消费者，同样可获得一次性3000元的节能汽车定额补贴。</p>
+                    <p>一汽-大众作为国内优秀的合资品牌，长期致力于汽车节能环保科技的研发与创新，积极推进小排量车型和技术的发展，不断向资源节约型、环境友好型企业方向迈进，在行业内起到了标杆作用，从国家第二批“节能产品惠民工程”公布的车辆占比中也不难看出，一汽-大众节能车型预计在本次入选合资企业中销量第一，这也从侧面肯定了一汽-大众在汽车节能环保方面的付出与成果。</p>
+                    <p>长期以来，一汽-大众始终致力于打造节能环保的高品质车型。先后入选的3大车系9款车型，均搭载了大众最新一代战略小排量EA211系列发动机，具有小排量、强动力、低油耗、少排放的优势，也是一汽-大众节能环保的最新成就。A+级市场标杆的新速腾，不仅通过优秀的品质性能赢得市场的持续信赖和广泛认可，亦坚守环保初心，引领同级市场发展；持续引领时代潮流的高尔夫，在为广大都市精英带来时尚动感的汽车生活的同时，更满足低碳环保的出行需求，倡导绿色出行，为梦想拼搏；而有着“中国第一家轿”美誉的捷达，在岁月的沉淀中历久弥新，并不断通过自我创新实现对环境的友好发展，用最朴实的态度诠释着环保的价值与理念。</p>
+                    <p>作为一汽-大众大众品牌旗下三大核心品牌，高尔夫、速腾、捷达在各自的细分市场以领先的品质实力、创新的绿色科技和越级的产品力优势，长期占据领军地位。未来，一汽-大众依然会坚持“人、车 、社会和谐”的造车理念，造出更多、更加环保的绿色产品，实现可持续发展。</p>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+                <div class="p9_bottom">
+                    <img _src="../static/img/p9_bottom.png">
+                    <div class="p9_p13"></div>
+                </div>
+            </div>
+            <div class="p9_page3" id="wrapper3">
+                <div>
+                    <h2>从业绩期中考  看一个更成熟的一汽-大众</h2>
+                    <li>2015年上半年，在不利的市场环境下，一汽-大众大众品牌实现新车累计销售542,236辆，多款车型继续保持细分市场第一；</li>
+                    <li>其中，捷达销量138,961辆，以19.7%的份额占据细分行业第一；高尔夫销量93,066辆，以29.6%的份额占据细分行业第一；</li>
+                    <li>未来的市场竞争，将从简单的产品竞争到全价值链的竞争，是企业体系能力的竞争。</li>
+                    <p>2015年上半年，中国乘用车市场出现了剧烈的变化。与SUV、MPV市场的高速增长形成鲜明反差的是，轿车市场出现了明显下滑。数据显示，2015年上半年，轿车整体销量为578.93万辆，同比下降5.89%。</p>
+                    <p>面对不利的市场环境，仅有轿车车型的一汽-大众大众品牌在企业员工、经销商的共同努力下，累计实现新车销售542,236辆。其中，捷达、高尔夫、速腾继续保持各细分市场第一。</p>
+                    <p><b>稳销量 细分市场继续领跑</b></p>
+                    <p>一边是SUV、MPV的高歌猛进，一边是轿车市场持续下滑，今年上半年，中国汽车市场格局的分化进一步加剧，可谓冰火两重天。对于今年的市场走势，尽管一汽-大众早在去年年底就已经有了预判，但市场的发展还是大大超出了预期。</p>
+                    <p>对于上半年的市场表现，一汽-大众的自我评价是“不及格”。在外界看来，在缺少SUV和MPV等热销产品的情况下，一汽-大众大众品牌虽然较2014年同期出现了较大的下滑，但能取得这样的成绩已属不易，况且旗下捷达、速腾、高尔夫三款车型表现不俗，继续占据细分市场第一的位置。</p>
+                    <p>数据显示，2015年上半年一汽-大众捷达销量138,961辆，以19.7%的份额占据细分行业第一；高尔夫销量93,066辆，以29.6%的份额占据细分行业第一；新速腾销量125,948，以19.9%的份额占据细分行业第一。此外，迈腾、宝来、CC三款车也销量表现稳定，均位列各自所在细分市场的前列。</p>
+                    <p>为了提振市场，一汽-大众今年相继推出一系列营销举措。4月，一汽-大众推出“质惠双重礼”全系钜惠活动，涉及保险优惠、二手车置换优惠和贷款0利率优惠，每一项的优惠价值达到数千元。6月，一汽-大众又针对旗下捷达、宝来两大系列，推出“质慧版”车型，全面提升配置，进一步强化产品竞争优势。这些措施为今年上半年一汽-大众大众品牌的市场稳定，起到了积极的作用。</p>
+                    <p><b>强实力 脚踏实地夯实基础</b></p>
+                    <p>在去年年底，一汽-大众将2015年定为“夯实”之年，通过控制节奏，倡导健康、可持续发展的模式。</p>
+                    <p>在新产品方面，3月12日，捷达2015年型上市；3月23日，搭载大众最新一代EA211发动机的新速腾上市，在造型设计、动力操控、舒适安全等方面实现了全面的进化，继续领跑该细分市场；4月，高尔夫1.2TSI上市，以更节能、更环保和更强动力的优异性能，为中国消费者带来了更丰富的产品选择，其百公里5.1升的综合油耗更是创下了中国汽油发动机汽车的新低；6月，拥有纯正德国血统的高尔夫R-Line上市，以动感、时尚和个性的鲜明风格，成为中国汽车运动风尚新潮流的引领者。</p>
+                    <p>为了进一步优化整体产业链和全国布局，一汽-大众上半年在东北基地和西南基地动作频频。4月29日，一汽-大众成都发动机工厂第100万台EA211发动机正式下线。5月18日，长春EA211发动机生产线一期项目建成投产。EA211发动机的南北同步生产，将进一步优化一汽-大众的全国产业布局，进而提升产品的竞争力。未来，一汽-大众还将在青岛和天津分别建设华东基地和华北基地。</p>
+                    <p>在品牌建设方面，一汽-大众在今年上半年开展了一系列的赛事营销、娱乐营销和体育营销活动，提升品牌亲和力，拉近与年轻消费者之间的距离。5月，高尔夫7 CRC赛车惊艳登场，让观众近距离与赛车接触。去年9月，一汽-大众签署了赞助CBA联赛及中国男篮国家队的合作协议，为一汽-大众大众品牌更加年轻化、运动化做出了深度尝试。</p>
+                    <p>此外，一汽-大众在CSR领域也加大了投入，分别在儿童安全、公益教育、绿色环保三个领域开展了一系列活动，用行动践行着自己的社会责任。例如，在安全领域，继2013、2014年发起的“儿童安全行动”后，继续深入开展2015儿童安全座椅推广活动，让更多的家庭充分认识到使用儿童安全座椅的重要性；在教育领域，持续开展“中国新未来行动”，并按照“量质并重”的思路，将工作重点由捐建希望学校转移到对已有希望学校整体教学水平的提升上来。</p>
+                    <p><b>创未来 不断强化体系能力</b></p>
+                    <p>在一汽-大众看来，未来的市场竞争，将从简单的产品竞争到全价值链的竞争，是企业体系能力的竞争，这种体系能力的历练需要时间。上半年，一汽-大众在产品推广、品牌营销、企业社会责任以及基础建设等各方面不断深化，“夯实”之路走得稳健有力，更未因销量的下滑而改变前进的方向。</p>
+                    <p>在不久前举行的年中业绩媒体恳谈会上，一汽-大众新闻发言人表示：“与快速增长相比，一汽-大众更看重整体价值链，也更看重能否与经销商‘双赢’，以强化一汽-大众可持续发展体系能力。”</p>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+                <div class="p9_bottom">
+                    <img _src="../static/img/p9_bottom.png">
+                    <div class="p9_p14"></div>
+                </div>
+            </div>-->
+            <div class="page11">
+                <div class="p11_kv">
+                    <img _src="../static/img/p1_kv.jpg">
+                    <a class="p11_guanwang" href="http://vw.faw-vw.com/m">
+                        <img _src="../static/img/p11_webbtn.png">
+                    </a>
+                    <div id="p11_again">
+                        <img _src="../static/img/p11_tiyan.png">
+                    </div>
+                </div>
+                <div class="p1_title">
+                    <img _src="../static/img/p1_title.png">
+                </div>
+                <div class="p1_txt">
+                    <img _src="../static/img/p1_txt.png">
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="../static/js/zepto.min.js"></script>
+    <script src="../static/js/zepto.cookie.js"></script>
+    <script src="../static/js/zepto.zsy.js"></script>
+    <script src="../static/js/iscroll.js"></script>
+    <script src="../static/js/TouchSlide.1.1.source1.js"></script>
+    <script src="../static/js/arr.js"></script>
+    <script src="http://res.wx.qq.com/open/../static/js/jweixin-1.0.0.js"></script>
+    <script src="../static/js/main.js"></script>
+    <script src="http://server.mconnect.cn:3000/static/api.js"></script>
+    <script src="../static/js/idangerous.swiper.min.js"></script>
+    <script src="../static/js/dealer.js"></script>
+    <script src="../static/js/select.js"></script>
+    <script>
+        TouchSlide({
+            slideCell: "#slideBox",
+            mainCell: ".bd ul",
+            effect: "leftLoop"
+        });
+        TouchSlide({
+            slideCell: "#slideBox1",
+            mainCell: ".bd ul",
+            effect: "leftLoop",
+            startFun: function (i, c) {
+                $("#focus0,#focus1,#focus2,#focus3,#focus4,#p8_btn0,#p8_btn1,#p8_btn2,#p8_btn3,#p8_btn4").hide();
+                $("#p8_btn" + i + "").show();
+                $("#focus" + i + "").show();
+                TouchSlide({
+                    slideCell: "#focus" + i + "",
+                    titCell: ".hd ul",
+                    mainCell: ".bd ul",
+                    effect: "left",
+                    autoPlay: true,
+                    autoPage: true,
+                    switchLoad: "_src"
+                });
+            },
+        });
+        TouchSlide({
+            slideCell: "#focus0",
+            titCell: ".hd ul",
+            mainCell: ".bd ul",
+            effect: "left",
+            autoPlay: true,
+            autoPage: true,
+            switchLoad: "_src"
+        });
+        /* function getprovince() {
+             var pro = "<option value=''>省份</option>";
+             for (var i = 0; i < provinceArr.length; i++) {
+                 pro += "<option value='" + provinceArr[i] + "'>" + provinceArr[i].split("|")[0] + "</option>";
+             }
+             console.log(pro);
+             $('#province').empty().append(pro);
+             getcity();
+         }
+         function getcity() {
+             var cit = "<option value=''>城市</option>";
+             var proIndex = $('#province').get(0).selectedIndex;
+             if (proIndex > 0) {
+                 proIndex = proIndex - 1;
+                 if (cityArr[proIndex] != null) {
+                     for (var i = 0; i < cityArr[proIndex].length; i++) {
+                         cit += "<option value='" + cityArr[proIndex][i] + "'>" + cityArr[proIndex][i].split("|")[0] + "</option>";
+                     }
+                 }
+             }
+             $('#city').empty().append(cit);
+             getshop();
+         }
+         function getshop() {
+             var proIndex = $('#province').get(0).selectedIndex;
+             var citIndex = $('#city').get(0).selectedIndex;
+             var cou = "<option value=''>经销商</option>";
+             if (citIndex > 0) {
+                 proIndex = proIndex - 1;
+                 citIndex = citIndex - 1;
+                 if (dealerArr[proIndex][citIndex] != null) {
+                     for (var i = 0; i < dealerArr[proIndex][citIndex].length; i++) {
+                         cou += "<option value='" + dealerArr[proIndex][citIndex][i] + "'>" + dealerArr[proIndex][citIndex][i].split("|")[0] + "</option>";
+                     }
+                 }
+             }
+             $('#dealer').empty().append(cou);
+         }
+         getprovince();
+         $(".submit").click(function () {
+             var name = $("input[name='name']").val();
+             var mobile = $("input[name='mobile']").val();      
+             var love = $("select[name='love']").val();
+             var province = $("select[name='province']").val();
+             var city = $("select[name='city']").val();
+             var dealer = $("select[name='dealer']").val();
+             var smartcode = "<%=smartcode %>";
+             if ($.trim(name) == "") {
+                 alert("请填写您的姓名");
+                 isOK = true;
+                 return;
+             }
+             regex = /^([a-zA-Z0-9\u4e00-\u9fa5]){2,20}$/gi;
+             if (!regex.test(name)) {
+                 alert("姓名格式不正确");
+                 isOK = true;
+                 return;
+             }
+
+             if ($.trim(mobile) == "") {
+                 alert("手机号不能为空");
+                 isOK = true;
+                 return;
+             }
+             regex = /^1\d{10}$/gi;
+             if (!regex.test(mobile)) {
+                 alert("手机号格式不对");
+                 isOK = true;
+                 return;
+             }
+             if ($.trim(love) == "") {
+                 alert("请选择车系！");
+                 isOK = true;
+                 return;
+             }
+             if ($.trim(province) == "") {
+                 alert("“省份”不能为空！");
+                 isOK = true;
+                 return;
+             }
+             if ($.trim(city) == "") {
+                 alert("“城市”不能为空！");
+                 isOK = true;
+                 return;
+             }  
+             if ($.trim(dealer) == "") {
+                 alert("“经销商”不能为空！");
+                 isOK = true;
+                 return;
+             }
+             $.post('Ajax.aspx?action=UserInfo&t=' + Math.random(),
+             {
+                 name: name,
+                 mobile: mobile,
+                 love: love,          
+                 province: province,
+                 city: city,
+                 dealer: dealer,
+                 src: smartcode
+             }, function (data) {
+                 alert(data);
+             });
+         });*/
+
+        $(".submit").click(function () {
+            var patrn = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$$/;
+
+            if (!$('.name').val()) {
+                alert("请输入真实姓名!");
+                return;
+            }
+            if ($('.phone').val() == "" || !patrn.test($('.phone').val())) {
+                alert('请输入电话号码!');
+                return;
+            }
+            if ($('.type').val() == "0") {
+                alert("请选择试驾车系!");
+                return;
+            }
+
+            if ($('.shengf').val() == "省份") {
+                alert("请选择省份!");
+                return;
+            }
+            if ($('.city').val() == "城市") {
+                alert("请选择城市!");
+                return;
+            }
+            if ($('.jxs').val() == "经销商") {
+                alert("请选择经销商!");
+                return;
+            }
+
+            var cUrl = 'http://ama.adwo.com';
+            var url = cUrl + "/advmessage/adv/addResultJsonP.action?advid=30430" +
+                "&expand1=" + $(".type option").not(function () {
+                    return !this.selected
+                }).html() + //车型
+                "&provincename=" + $(".shengf option").not(function () {
+                    return !this.selected
+                }).html() + //省份
+                "&provinceid=" + $(".shengf option").not(function () {
+                    return !this.selected
+                }).data("pid") + //省份ID
+                "&cityname=" + $(".city option").not(function () {
+                    return !this.selected
+                }).html() + //城市
+                "&cityid=" + $(".city option").not(function () {
+                    return !this.selected
+                }).data("cid") + //城市ID
+                "&expand3=" + $(".jxs option").not(function () {
+                    return !this.selected
+                }).html() + //专营店
+                "&expand4=" + $(".jxs option").not(function () {
+                    return !this.selected
+                }).data("dcode") + //专营店code
+                "&realname=" + $('.name').val() + //名字
+                "&mobile=" + $('.phone').val(); + //提交电话
+            console.log(url);
+            $.ajax({
+                type: "get",
+                url: url,
+                dataType: 'jsonp',
+                success: function (data) {
+                    if (data[0].success == 1) {
+                        console.log(data)
+                        alert("提交成功!");
+                    } else {
+                        alert(data[0].info);
+                        return;
+                    }
+
+                },
+                error: function (data) {
+                    alert("网络错误,请查看您的网络!");
+                }
+            });
+        });
+
+
+        var mySwiper = new Swiper('.swiper-container', {
+            pagination: '.pagination',
+            paginationClickable: true,
+            slidesPerView: 3,
+            prevButton: '.arrow-left',
+            nextButton: '.arrow-right',
+        })
+    </script>
+</body>
+
+</html>

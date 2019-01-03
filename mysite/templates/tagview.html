@@ -1,0 +1,282 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style type="text/css">
+    .title-margin{
+        margin:10px 10px;
+    }
+
+    .button{
+        width:100px ;
+        height:40px ;
+        border:solid 1px #cccccc;
+        border-radius:5px;
+    }
+    .select-normal{
+        padding:0 20px;
+        height:32px;
+        line-height:32px;
+        border-radius:5px;
+        margin:0 5px;
+    }
+    .floatright{
+        float:right;
+    }
+    .tag-border{
+        border:1px solid #cccccc;
+        padding:10px 0px 0px 0px;
+        margin-top:20px;
+    }
+    .pop-box-addnew{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:500px;
+        height:300px;
+        top:50%;
+        left:50%;
+        margin-top: -150px;
+        margin-left: -250px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    .tag-field{
+        padding-top:10px;
+        padding-left:30px;
+    }
+    .tag-input{
+        margin:10px 10px;
+        width:90%;
+        resize:none;
+    }
+    .tag-id{
+        margin-left:10px;
+        width:20px;
+    }
+    .tag-name{
+        
+        margin-left:5px;
+        margin-right:10px;
+    }
+    .tag-type{
+        margin-right:10px;
+        margin-left:35px;
+    }
+    .tag-nickname{
+        display:block;
+        margin-right:10px;
+        margin-left:35px;
+    }
+    .tag-time{
+        display:block;
+        margin-right:10px;
+        margin-left:35px;
+    }
+    .tag-desc{
+        display:block;
+        height:30px;
+        margin-left:35px;
+        margin-right:10px;
+        white-space:nowrap; 
+        overflow:hidden; 
+        text-overflow:ellipsis;
+    }
+    .tag-content{
+        height:175px;
+    }
+    .tag-button{
+        width:50%;
+        height:29px;
+        
+    }
+    .user-menu{
+        display:block;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class=" ">
+    <div id='pop-box-addnew' class="pop-box-addnew" >
+        <input id="tagID" class="" style="display:none"  value=""/>
+        <div class="row">
+            <div class='col-sm-3 col-md-3'><label class="tag-field">标签名：</label></div>
+            <div class='col-sm-9 col-md-9'><input class='tag-input' id="tagName"/></div>
+        </div>
+        <div class="row">
+            <div class='col-sm-3 col-md-3'><label class="tag-field">标签描述：</label></div>
+            <div class='col-sm-9 col-md-9'><textarea class='tag-input' rows="9" id="tagDesc"></textarea></div>
+        </div>
+        <div class="row">
+            <div class=" col-sm-5 col-md-5"> </div>
+            <div class="timepickerbtn col-sm-3 col-md-3" id="confirm" ><button >确定</button></div>
+            <div class="timepickerbtn col-sm-3 col-md-3" id="cancel" ><button >取消</button></div>
+        </div>
+    </div>
+	<div class="col-sm-11 col-sm-offset-2 col-md-10 col-md-offset-x main">
+		<!-- TIME PICKER -->          
+        <div class="row">
+            <div class="col-md-9 " id="" style="title"><label>自动标签不能修改条件，如需变更建议删除重建</label></div>
+            <div class="col-md-2 " id="addNew" style="text-align:right;float:right"><button >新增</button></div>
+            
+           
+        </div>
+        <div class="row tags-container">
+            
+           
+        </div>
+	</div>
+</div>
+{% endblock %}
+
+{% block content2 %}
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    "use strict"
+	function loadTags(){
+        let dataURL = encodeURI('../gettags');
+        $.ajax({
+            url: dataURL,
+            data: {
+				//userId:$("#selected_id").val()
+            },
+            dataType: "json",
+            success: function(data){
+                console.log(data);
+                $(".tags-container").empty();
+				data.forEach(function(item){
+                    
+                    $(".tags-container").append($("<div class='col-sm-3 col-md-3  tag'><div class='tag-border tag-content'><label class='tag-id' >"
+                                            + item.ID + "</label><label class='tag-name' >"
+                                            + item.Name + "</label><div><label class='tag-type' >"
+                                            + item.TagType + "</label><a href='../studentpage' onclick='setTagID("
+                                            + item.ID +")'>查看学员</a></div><label class='tag-nickname' >"
+                                            + item.NickName + "</label><label class='tag-time' >"
+                                            + item.Created + "</label><label class='tag-desc' >"
+                                            + (item.Description || '') + "</label><input type=button class='edit tag-button' value='修改'/><input type=button class='delete tag-button' value='删除'/></div></div>"))
+                });
+                $('.tag .edit').on('click',function(){
+                    showTagUpdate(this);
+                });
+                $('.tag .delete').on('click',function(){
+                    tagDelete(this);
+                });
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });   
+    }
+    function setTagID(id){
+        sessionStorage.setItem("student_tagid", id)
+    }
+    function tagDelete(obj){
+        if (!confirm("是否删除")){
+            return;
+        }
+        var id = $(obj).parent().find(".tag-id").text();
+        let dataURL = encodeURI('../deletetag/');
+        $.ajax({
+            url: dataURL,
+            type: 'post',
+            data: {
+                "id": id,
+            },
+            //dataType: "json",
+            success: function(data){
+                alert(data);
+                loadTags();
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });  
+    }
+    function showTagUpdate(obj){
+        popShow();
+        var id = $(obj).parent().find(".tag-id").text();
+        var name = $(obj).parent().find(".tag-name").text();
+        var desc = $(obj).parent().find(".tag-desc").text();
+        $("#tagID").val(id)
+        $("#tagName").val(name)
+        $("#tagDesc").val(desc)
+    }
+    var btnupdate = true
+    function updateTag(){
+        if(!btnupdate){
+            return;
+        }
+        var id = $("#tagID").val();
+        if (id == undefined){
+            id = 0;
+        }
+        var name = $("#tagName").val();
+        if (name == undefined || name == ''){
+            alert('请输入名称');
+            return;
+        }
+        btnupdate = false
+        $('#confirm').children(0).text('保存中..');
+        var desc = $("#tagDesc").val()
+        let dataURL = encodeURI('../updatetag/');
+        $.ajax({
+            url: dataURL,
+            type: 'post',
+            data: {
+                "id": id,
+				"name": name,
+                "desc": desc,
+                "rules": '',
+                "unionid": sessionStorage.getItem("dzunionid")
+            },
+            //dataType: "json",
+            success: function(data){
+                if(data == 'ok'){
+                	alert("保存成功");
+                	popHide();
+                	loadTags();
+                }else{
+                    alert(data);
+                }
+                btnupdate = true
+        		$('#confirm').children(0).text('确定');
+            },
+            fail: function(err){
+                alert(err);
+                btnupdate = true
+        		$('#confirm').children(0).text('确定');
+            }
+        });  
+    }
+    function clearPop(){
+        $("#tagID").val('')
+        $("#tagName").val('')
+        $("#tagDesc").val('')
+    }
+    function popShow(){
+        $("#pop-box-addnew").show();
+        clearPop();
+    }
+    function popHide(){
+        $("#pop-box-addnew").hide();
+    }
+    $(function () {
+        $("#tag_tab").addClass('tab-on')
+        loadTags();
+		$("#addNew").on("click", function(){
+            popShow();
+        });
+        $("#cancel").on("click", function(){
+            popHide();
+        });
+        $("#confirm").on("click", function(){
+            updateTag();
+        });
+    });
+</script>
+{% endblock %}
+

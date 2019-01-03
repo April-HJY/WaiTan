@@ -1,0 +1,372 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style type="text/css">
+    .title-margin{
+        margin:10px 10px;
+    }
+
+    .button{
+        width:100px ;
+        height:40px ;
+        border:solid 1px #cccccc;
+        border-radius:5px;
+    }
+    .select-normal{
+        padding:0 20px;
+        height:32px;
+        line-height:32px;
+        border-radius:5px;
+        margin:0 5px;
+    }
+    .floatright{
+        float:right;
+    }
+    #bg{display:none;position: absolute; top: 0%; left: 0%; width: 100%; height: 100%; background-color: black; z-index:1001; -moz-opacity: 0.7; opacity:.70; filter: alpha(opacity=70); z-index:7000}
+    .pop-box-detail{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:900px;
+        height:600px;
+        top:50%;
+        left:50%;
+        margin-top: -300px;
+        margin-left: -450px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    .pop-box-putaway{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:400px;
+        height:200px;
+        top:50%;
+        left:50%;
+        margin-top: -100px;
+        margin-left: -200px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    .label{
+        width:120px;
+        color:#000;
+        font-size:14px;
+        padding-left:20px;
+        height:40px;
+        line-height:40px;
+    }
+    .input-c{
+        height:40px;
+        line-height:40px;
+        padding-left:5px;
+        width:250px;
+        float:right;
+        
+    }
+    .product_type{
+        width:250px;
+        display:inline-block;
+        float:right;
+    }
+    .channels{
+        width:250px;
+        display:inline-block;
+        float:right;
+    }
+    .set-date{
+        margin:20px 0 0 18px;
+        width:380px;
+    }
+    .remark-input{
+        margin:20px 0 0 18px;
+        width:653px;
+        padding-left:5px;
+        resize:none;
+    }
+    .addnew-button{
+        width:100px;
+    }
+    .miniapp-menu{
+        display:block;
+    }
+    .item-class{
+        margin:20px 0 0 0;
+        z-index:9500;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class=" ">
+    <div id="bg"></div>
+    <div class="pop-box-detail row" > 
+        <div class="col-xs-12 col-md-12 " style="text-align:right">
+            <img src="../../static/images/close.png" onclick="hideDiv('pop-box-detail');" class="detail-close"/>
+            <input id="selected_id" class="" style="display:none"  value=""/>
+        </div>
+        <div class="col-xs-6 col-md-6 item-class" >
+            <label class="label">名称：&nbsp;&nbsp;</label>
+            <input id="teacher_name" type='text' class="input input-c" placeholder='输入名称' maxlength="30"/>
+        </div>
+        <div class="col-xs-6 col-md-6 item-class" >
+            <label class="label">题图链接：</label>
+            <input id="teacher_url1" type='text' class="input input-c" placeholder='题图链接'/>
+        </div>
+        <div class="col-xs-6 col-md-6 item-class">
+            <label class="label">详情链接2：</label>
+            <input id="teacher_url2" type='text' class="input input-c" placeholder='详情链接' />
+        </div>
+        <div class="col-xs-6 col-md-6 item-class">
+            <label class="label">详情链接3：</label>
+            <input id="teacher_url3" type='text' class="input input-c" placeholder='详情链接'/>
+        </div>
+        <div class="col-xs-6 col-md-6 item-class">
+            <label class="label">详情链接4：</label>
+            <input id="teacher_url4" type='text' class="input input-c" placeholder='详情链接' />
+        </div>
+        <div class="col-xs-6 col-md-6 item-class">
+            <label class="label">详情链接5：</label>
+            <input id="teacher_url5" type='text' class="input input-c" placeholder='详情链接' />
+        </div>
+        <div id="button-div" >  
+            <div style="float:right;position:relative;margin-top:20px;right:20px">
+                <input id="btnSave" type=button class="button" onclick='save_teacher()' value="保存"/>
+                <input id="btnClose" type=button class="button" onclick="hideDiv('pop-box-detail');"  value="关闭"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-11 col-sm-offset-2 col-md-10 col-md-offset-x main">
+        <!-- TIME PICKER -->          
+        <div style="display:inline-block" class="row">
+            <div class="col-sm-2 col-md-2 addnew-button" id="addnew"><button class='button'>新增</button></div>
+        </div>
+        <!-- table-->                   
+        <div class="row placeholders">     
+            <table id = "miniappteacher_table">
+            </table>
+            <dev id="toolbar"></dev>
+        </div>
+
+
+    </div>
+</div>
+{% endblock %}
+
+{% block content2 %}
+
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/qrcode.js"></script>
+<script type="text/javascript">
+    "use strict";
+    let teacher_list = []
+    function edit_teacher(id){
+        //alert(1)
+        teacher_list.forEach(function(item,i){
+            //console.log(item)
+            if (item['ID'] ==id){
+                $("#selected_id").val(id)
+                showDiv('pop-box-detail');
+                $("#teacher_name").val(item['Name']);
+                $("#teacher_url1").val(item['TeacherUrl1']);
+                $("#teacher_url2").val(item['TeacherUrl2']);
+                $("#teacher_url3").val(item['TeacherUrl3']);
+                $("#teacher_url4").val(item['TeacherUrl4']);
+                $("#teacher_url5").val(item['TeacherUrl5']);
+                
+            }
+        });
+    }
+    function delete_teacher(id){
+        if (!confirm('是否删除？')){
+            return;
+        }
+        let dataURL = encodeURI('../MiniAppAPI/deleteminiappteacher/');
+        $.ajax({
+            url: dataURL,
+            type:'post',
+            data: {
+                "id":id,
+            },
+            success: function(data){
+                alert(data)
+                search()
+            },
+            fail: function(err){
+                alert(err);
+                search()
+            }
+        });
+    }
+    var btnsave = true;
+	function save_teacher(){
+        if (!btnsave){
+            return;
+        }
+        let teacher_name= $("#teacher_name").val();
+        if (!teacher_name){
+            alert('名称不能为空');
+            return;
+        }
+        let teacher_url1= $("#teacher_url1").val();
+        if (!teacher_url1){
+            alert('题图不能为空');
+            return;
+        }
+        let id = $("#selected_id").val();
+        let teacher_url2= $("#teacher_url2").val();
+        let teacher_url3= $("#teacher_url3").val();
+        let teacher_url4= $("#teacher_url4").val();
+        let teacher_url5= $("#teacher_url5").val();
+        btnsave = false
+        $('#btnSave').val('保存中..');
+        let dataURL = encodeURI('../MiniAppAPI/saveminiappteacher/');
+        $.ajax({
+            url: dataURL,
+            type:'post',
+            data: {
+                "id":id,
+                "teacher_name":teacher_name,
+                "teacher_url1":teacher_url1,
+                "teacher_url2":teacher_url2,
+                "teacher_url3":teacher_url3,
+                "teacher_url4":teacher_url4,
+                "teacher_url5":teacher_url5,
+            },
+            success: function(data){
+                alert(data)
+                btnsave = true
+        		$('#btnSave').val('保存');
+                hideDiv('pop-box-detail');
+                search();
+            },
+            fail: function(err){
+                alert(err);
+                btnsave = true
+        		$('#btnSave').val('保存');
+            }
+        });
+    }
+    function hideDiv(div_id){
+        var div_obj = $("."+div_id);
+        $("#bg").hide()
+        div_obj.hide();
+        $("body").css("overflow-y","auto"); /*用来隐藏html的滚动条*/
+        //$("#product_type").find("option[value=1]").prop("selected",true);
+        $("#selected_id").val('')
+        $("#teacher_name").val('');
+        $("#teacher_url1").val('');
+        $("#teacher_url2").val('');
+        $("#teacher_url3").val('');
+        $("#teacher_url4").val('');
+        $("#teacher_url5").val('');
+    }  
+    function showDiv(div_id){
+        var div_obj = $("."+div_id);
+        $("#bg").show()
+        div_obj.show(); 
+        $("body").css("overflow-y","hidden");
+    }
+    function sendMsg(){
+    }
+    var TableInit = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = $(window).height()-200;
+            $('#miniappteacher_table').bootstrapTable({
+                url: '/MiniAppAPI/getminiappteachers/',     //请求后台的URL（*）
+                ajax: ajax_obj,
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                fontSize:14,
+                columns: [{
+                    field: 'ID',
+                    title: 'ID'
+                },{
+                    field: 'Name',
+                    title: '名称'
+                },{
+                    field: 'TeacherUrl1',
+                    title: '题图'
+                },{
+                    field: 'Edit',
+                    title: '操作'
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                "condition":1
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+    function formatData(data){
+        console.log(data)
+    }
+    
+    function ajax_obj(result){
+        console.log(result)
+        let queryParams = {
+            "condition":1
+        }
+        $.ajax({
+            type : "GET",  
+            url : "/MiniAppAPI/getminiappteachers/",  
+            contentType: "application/json;charset=utf-8",  
+            dataType:"json",
+            data:JSON.stringify(queryParams),
+            success : function (msg) {
+                teacher_list = msg
+                console.log(msg)
+                result.success({
+                    row:msg
+                });
+                $('#miniappteacher_table').bootstrapTable('load', msg);
+            },  
+            error:function(msg){  
+                alert(msg);  
+            }  
+
+        });
+    }
+    function search(){
+        $('#miniappteacher_table').bootstrapTable('refresh');
+    }
+    $(function () {
+		$('#addnew').on('click',function(){
+            showDiv('pop-box-detail');
+        });
+        $("#miniappteacher_tab").addClass('tab-on')
+        //$('.selectpicker').selectpicker();
+        var oTable = new TableInit();
+        oTable.Init();
+        
+
+    });
+</script>
+{% endblock %}
+

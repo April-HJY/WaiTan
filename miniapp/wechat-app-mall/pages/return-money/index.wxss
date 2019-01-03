@@ -1,0 +1,100 @@
+.container{
+  height: 100%;
+}
+.activity_img{
+  width:100%;
+}
+.text{
+  padding:46rpx 104rpx 34rpx 106rpx;
+  color: #EB4B2D;
+  font-weight: bold;
+  font-size: 44rpx;
+  line-height: 60rpx;
+  text-align: center;
+  vertical-align: top;
+}
+
+.tag-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  box-sizing: content-box;
+  padding: 32rpx 32rpx;
+  padding-bottom: 0px;
+  background-color: #F2F9FF;
+}
+.goods-box2 {
+  width: 686rpx;
+  height: 260rpx;
+  background-color: #fff;
+  overflow: hidden;
+  margin-bottom: 32rpx;
+  display: flex;
+}
+.goods-box2 .img-box {
+  width: 260rpx;
+  height: 260rpx;
+  overflow: hidden;
+  background-color: #eee;
+}
+
+.goods-box2 .img-box .image {
+  width: 260rpx;
+  height: 260rpx;
+}
+.goods-box2 .info-box {
+  width: 416rpx;
+}
+
+.goods-box2 .goods-title {
+  overflow: hidden;
+  font-size: 34rpx;
+  color: #333;
+  padding-left: 24rpx;
+  padding-top: 32rpx;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  height: 90rpx;
+  line-height: 48rpx;
+  font-weight: 600;
+}
+
+.goods-box2 .goods-footer {
+  display: flex;
+  bottom: -40rpx;
+  position: relative;
+}
+
+.goods-box2 .goods-price {
+  width: 280rpx;
+  overflow: hidden;
+  font-size: 36rpx;
+  padding: 18rpx 0;
+  color: #e64340;
+  margin-left: 24rpx;
+}
+.goods-box2 .goods-pay {
+  width: 140rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  float: right;
+  margin-top: 16rpx;
+  margin-right: 10rpx;
+  background-color: #f44;
+  color: #fff;
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular;
+  border-radius: 30rpx;
+  padding: 0;
+}
+
+.report_btn{
+  width: 750rpx;
+  height:94rpx;
+  background-color: #F24724;
+  color:white;
+  border-radius: 0rpx;
+}

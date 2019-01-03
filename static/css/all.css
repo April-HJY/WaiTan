@@ -1,0 +1,118 @@
+@charset "utf-8";
+/* CSS Document */
+header{height:35px; width:100%; background:url(../images/tou.jpg) no-repeat center center; background-size:cover; position:fixed;top:0px; left:0px; z-index:10;}
+.swiper-container{padding-top: 35px; box-sizing: border-box;}
+/*第一块*/
+.slide1{ background:url(../images/01.jpg) no-repeat center center;background-size:cover;}
+.slide1 .box1{width:100%; box-sizing:border-box; padding:5%; position:absolute; top:70%; left:0px;overflow:hidden;}
+.slide1 .box1 section{width:80px; margin-right:21px;float:left; position:relative; height:80px;}
+.slide1 .box1 .youshi3{width: 80px; margin-right: 21px; float: left;  position: relative; height: 80px;margin-right: 0;}
+
+.slide1 .box1 .youshi3{ width:85px;}
+.slide1 .box1 img{ width:100%; position:absolute;left:0px; top:0px; }
+.hei{width:100%; height:100%; background:rgba(0,0,0,0.6); position:absolute; top:0px; left:0px; z-index:3; display:none;}
+/*第2块*/
+.slide2{ background:url(../images/02.jpg) no-repeat center center;background-size:cover;}
+.chetou{ position:absolute; top:23%; right:11%;}
+.chetou img,.shache img,.zuowei img{width:60%;}
+.shache{ position:absolute; top:43%; right:22%;}
+.box2{width:100%; height:100%; background:#000; position:relative;display:-webkit-box; display:none;
+-webkit-box-orient:horizontal; 
+-webkit-box-pack:center; 
+-webkit-box-align:center;}
+/*.box2 p{width:100%; height:auto; position:absolute;left:0px; top:15%;}*/
+.box2 p img{width:100%; display:block;}
+.huanshi{ background: -linear-gradient(left, #000000 0%, rgba(0,0,0,0) 100%);
+background: -webkit-linear-gradient(left, #000000 0%, rgba(0,0,0,0) 100%);
+background: -moz-linear-gradient(left, #000000 0%, rgba(0,0,0,0) 100%);
+background: -o-linear-gradient(left, #000000 0%, rgba(0,0,0,0) 100%); 
+background: -ms-linear-gradient(left, #000000 0%, rgba(0,0,0,0) 100%);
+color:#fbfbfb;padding: 2px 30px 2px 20px; position:absolute; bottom:15%; left:10%; font-size:14px; line-height:18px; font-family:Microsoft YaHei; letter-spacing:2px;}
+
+/*第3块*/
+.slide3{ background:url(../images/san.jpg) no-repeat center center;background-size:cover;}
+/*第4块*/
+.slide4{ background:url(../images/si.jpg) no-repeat center center;background-size:cover;}
+.zuowei{ position:absolute; top:50%; right:36%;}
+.huanshi2{background: -linear-gradient(right, #000000 0%, rgba(0,0,0,0) 100%);
+background: -webkit-linear-gradient(right, #000000 0%, rgba(0,0,0,0) 100%);
+background: -moz-linear-gradient(right, #000000 0%, rgba(0,0,0,0) 100%);
+background: -o-linear-gradient(right, #000000 0%, rgba(0,0,0,0) 100%); 
+background: -ms-linear-gradient(right, #000000 0%, rgba(0,0,0,0) 100%);
+color:#fbfbfb;padding: 2px 30px 2px 20px; position:absolute; bottom:15%; right:20%; font-size:14px; line-height:18px; font-family:Microsoft YaHei; letter-spacing:2px
+	}
+/*第5块*/
+.slide5{ background:url(../images/wu.jpg) no-repeat center center;background-size:cover;}
+/*第6块*/
+.slide6{ background:#000;}
+.slide6 h3{ margin-top:10px; color:#fff;}
+.slide6 article{ width:100%; height:60%; }
+.slide6 .video{ width:90%; margin-left:5%; height:80%; overflow:hidden; position:relative;}
+.video .swiper-container2{ height:80%;}
+.swiper-pagination-bullet{margin-right:5px; background:#898989;}
+.swiper-pagination-bullet-active{ background:#ffffff;}
+
+/*表单*/
+ .name {
+        position: absolute;
+        width: 260px;
+        height: 27px;
+        left: 214px;
+        top: 513px;
+    }
+    
+    .phone {
+        position: absolute;
+        width: 260px;
+        height: 27px;
+        left: 214px;
+        top: 569px;
+    }
+    
+    .type {
+        position: absolute;
+        width: 207px;
+        height: 37px;
+        left: 264px;
+        top: 624px;
+    }
+    
+    .shengf {
+        position: absolute;
+        width: 128px;
+        height: 36px;
+        left: 211px;
+        top: 678px;
+    }
+    
+    .city {
+        position: absolute;
+        width: 134px;
+        height: 35px;
+        left: 409px;
+        top: 678px;
+    }
+    
+    .jxs {
+        position: absolute;
+        width: 240px;
+        height: 36px;
+        left: 237px;
+        top: 733px;
+    }
+    
+    .submit {
+        position: absolute;
+        width: 109px;
+        height: 35px;
+        left: 187px;
+        top: 792px;
+    }
+    
+    .reset {
+        position: absolute;
+        width: 109px;
+        height: 35px;
+        left: 345px;
+        top: 792px;
+    }

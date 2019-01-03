@@ -1,0 +1,121 @@
+# coding=utf-8
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect  
+import hashlib, time, re
+import xml.etree.ElementTree as ET  
+import pylibmc as memcache
+import urllib2
+from utils import *
+import json
+from django.views.decorators.csrf import csrf_exempt  
+from django.utils.encoding import *
+from wxAccountInterface import *
+mc = memcache.Client()
+
+from urllib import urlencode
+    
+@csrf_exempt    
+def home(request):
+    try:   
+        params = request.GET
+        if request.method == 'GET' and  ('code' in request.GET.keys()): 
+            code = params['code']
+            (accesstoken,openId) = GetWebAccessToken(code)
+            userInfo = GetUserInfo(accesstoken,openId)
+            username = userInfo['nickname']
+            userIcon = userInfo['headimgurl']
+            userGender = userInfo['sex']
+        if ('redirecturl' in request.GET.keys()):
+            redirecturl = ('../%s?nickname=%s&headimgurl=%s&sex=%s' % (params['redirecturl'],username, urllib.quote(userIcon),userGender))  
+            Log (redirecturl)
+            #return HttpResponseRedirect('../test/tsaireader')
+        return HttpResponseRedirect(redirecturl)
+    except Exception, e:
+        Log("play error!%s" % e)
+        username = "生菜"
+        userIcon = "http://wx.qlogo.cn/mmopen/WmwqjsSBsZLOxtFibmeFoKLshjHL23vDEtkM4uKWS7j4K851NYjN6YFReAmuqrFZAcVShPylnRXGTCJwklFsSTGug77Qq6ECe/0"
+        userGender = 1
+        return HttpResponseRedirect('../test/tsaireader?nickname=%s&headimgurl=%s&sex=%s' % (username, urllib.quote(userIcon),userGender))
+        #template = loader.get_template('tsaireader.html')
+        #context = RequestContext(request, {"userName":username, "userGender":userGender,"userIcon": userIcon})
+        #return HttpResponse(template.render(context))    
+
+def GetWebAccessToken(code):
+    code = code.encode()
+    Log("Type:%s" % type(code))
+    if (mc.get(code) is not None ):
+        return mc.get(code)
+    try:
+        appID = "wx92a26ba6653d5b56"  #生菜阅读服务号
+        appSecret = "cb08af31b7b137bf7ecef9b5a548e4ba"
+        url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code" % (appID, appSecret, code)
+        response = urllib2.urlopen(url) 
+        res = response.read().decode("utf8") 
+        Log(res)
+        resJson = json.loads(res)
+        mc.set(code,  (resJson['access_token'], resJson['openid']))
+        return (resJson['access_token'], resJson['openid'])
+    except Exception, e:
+        Log("Error when GetWebAccessToken: %s" % e)
+        return None        
+
+def GetUserInfo(accesstoken, openid):
+    try:
+        #accesstoken = self.GetAccessToken()
+        url = "https://api.weixin.qq.com/sns/userinfo?access_token=%s&openid=%s&lang=zh_CN" % (accesstoken, openid)
+        response = urllib2.urlopen(url) 
+        res = response.read().decode("utf8") 
+        Log(res)
+        return json.loads(res)
+    except Exception, e:
+        Log("Error when GetUserInfo: %s" % e)
+        return None    
+        
+class wxUserClass:
+    userName = ""
+    userIcon = ""
+    
+
+def wxJSWeb(request, page):
+    
+                
+        #Log("Page value:%s" % page)
+        wxAppId = "wx92a26ba6653d5b56"
+        wxObj = wxAccountInterface(wxAppId)
+        url = "http://applinzi.ddianke.com%s" % request.get_full_path()
+        ticket = wxObj.GetTicket("jsapi")      
+        signature = wxSign(ticket, url).sign() 
+        userObj =  wxUserClass()
+        # wxObj = getVar("wxObjTsaiReader")
+        #if len(wxAccounts.objects.filter(appId = wxAppId))>0:
+        #    wxObj = wxAccountInterface(wxAccounts.objects.filter(appId = wxAppId)[0])
+  
+            #cardTicket = wxObj.GetTicket("wx_card")
+            #cardSign = wxCardSign(cardTicket,wxAppId).sign()
+        template = loader.get_template('%s.html'%page)
+        if (request.method == 'GET') and ('nickname' in request.GET.keys()) and ('headimgurl' in request.GET.keys()) and ('sex' in request.GET.keys()):
+            params = request.GET
+            username = params['nickname']
+            userIcon = params['headimgurl']
+            userGender = params['sex']
+            userObj.userName = username
+            userObj.userIcon = userIcon
+            if mc.get("userList") == None:
+                userList = []
+                userList.append(userObj)
+                mc.set("userList",userList)
+            else: 
+                userList = mc.get("userList")
+                   
+            context = RequestContext(request, {"userName":username, "userGender": userGender,"userIcon":userIcon, "appid": wxAppId, "sign": signature, "ticket":ticket, "userList": userList}) 
+        else:
+            return HttpResponse("生菜阅读 2017 台历制作中, 这里是预约页面，正在建设中....即将上线！")
+            
+            context = RequestContext(request, {"userName":"生菜", "userGender":1,"userIcon": "http://wx.qlogo.cn/mmopen/WmwqjsSBsZLOxtFibmeFoKLshjHL23vDEtkM4uKWS7j4K851NYjN6YFReAmuqrFZAcVShPylnRXGTCJwklFsSTGug77Qq6ECe/0"})
+        return HttpResponse(template.render(context))
+        
+        
+        
+        
+        
+        

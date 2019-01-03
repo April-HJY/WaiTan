@@ -1,0 +1,41 @@
+.poster-container {
+  align-items: center;
+  text-align: center;
+  margin-bottom: 100rpx;
+}
+.poster {
+  width: 750rpx;
+}
+.button-container {
+  display: flex;
+  background-color: #fff;
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  border: 0 solid #fff;
+  border-radius: 500px;
+  /*box-shadow: 4px 1px 1px #cccccc;*/
+}
+.setting-button {
+  background-color: #e64340;
+  color: #fff;
+  text-align: center;
+  font-size: 34rpx;
+  border: 0;
+  width: 750rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  border-radius: 0rpx;
+}
+.button {
+  text-align: center;
+  height: 100%;
+  line-height: 115rpx;
+  background-color: #e64340;
+  color: #fff;
+  font-size: 34rpx;
+}
+.save-pic {
+  width: 750rpx;
+}

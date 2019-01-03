@@ -1,0 +1,13 @@
+<view>
+  <view class="poster-container">
+    <image class='poster' src='{{poster_img}}' mode='widthFix'></image>
+  </view>
+  <view class="button-container">
+    <view wx:if="{{showSetting}}">
+      <button class="setting-button" open-type="openSetting" bindopensetting="handler">打开授权</button>
+    </view>
+    <view wx:if="{{!showSetting}}">
+      <view class="button save-pic" bindtap='saveImg'>保存图片并分享到朋友圈</view>
+    </view>
+  </view>
+</view>

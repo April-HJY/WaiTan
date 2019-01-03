@@ -1,0 +1,427 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <!--<link rel="Shortcut Icon" href="http://sss.qingting.fm/favicon.ico" type="image/x-icon"> -->
+
+        <title>外滩云课堂</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+        <!--<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">-->
+        <link href="/static/css/bootstrap-select.min.css" rel="stylesheet">
+        <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">-->
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <link href="/static/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="/static/css/dashboard.css" rel="stylesheet">
+
+        <!-- Datetimepicker -->
+        <!--<link href="/static/css/bootstrap-datetimepicker-4.15.35.min.css" rel="stylesheet">-->
+        <link href="/static/css/bootstrap-datetimepicker.css" rel="stylesheet">
+
+        <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">-->
+        <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+        <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+        <script src="/static/assets/js/ie-emulation-modes-warning.js"></script>
+        <script src="https://jic.talkingdata.com/app/h5/v1?appid=E1E53C5ED5794D4DA38FC29A89A5766A&vn=1.0&vc=v1"></script>
+
+        <link href="/static/css/bootstrap-table.css" rel="stylesheet">
+
+        <style type="text/css">
+            body{
+                font-size:16px !important;
+                color:#696969
+            }
+            .header-container{
+                width:100%;
+                margin-top:-40px;
+            }
+            .logo{
+                text-align:center;
+            }
+            .block{
+                margin-top:50px;
+                margin-bottom:50px;
+            }
+            .nav-list { 
+                font:18px verdana, arial, sans-serif; /* 设置文字大小和字体样式 */
+                list-style:none; /* 将默认的列表符号去掉 */
+                padding:0; /* 将默认的内边距去掉 */
+                margin-top:10px;
+				text-align:center;
+                margin-left:-30px;
+                color: #428bca;
+            }
+            .nav-list .menu-li {
+                display:inline;
+                list-style:none; /* 将默认的列表符号去掉 */
+                padding:0 10px; /* 将默认的内边距去掉 */
+                color: #428bca;
+            }
+
+            @media(max-width:450px){
+                .nav-list { 
+                    font:16px verdana, arial, sans-serif;
+                    margin-left:0px;
+                    text-align:center;
+                }
+                .nav-list .menu-li {
+                    padding:0 0; /* 将默认的内边距去掉 */
+                }
+            }
+            .body-container{
+                width:100%;
+            }
+            .brand-title{
+                text-align:center;
+                padding:0 20px;
+            }
+            .brand-title p{
+                margin-top:30px;
+                margin-bottom:30px;
+                font-size:18px;
+            }
+            .products-title{
+                text-align:center;
+                margin-top:20px;
+                margin-bottom:20px;
+            }
+            .lesson-container{
+                text-align:center;
+                padding:20px 20px;
+
+            }
+            .lesson-img{
+                width:100%;
+
+            }
+            .font-1{
+                font-size:18px;
+                color:#ff8888
+            }
+            .font-2{
+                font-size:16px;
+                color:#ff8888
+            }
+            .section-title{
+                margin:30px 0;
+                border-radius:10px;
+                padding-right:0.5em;
+                padding-left:0.5em;
+                max-width:100%;
+                font-family:Helvetica , 微软雅黑 , Arial , sans-serif;
+                text-align:center;
+                white-space:normal;
+                widows:1;
+                display:inline-block;
+                vertical-align:top;
+                height:2em;
+                line-height:2em;
+                box-sizing:border-box;
+            }
+            p{
+                margin:20px 0;
+            }
+            .input-field{
+                text-align:center;
+                margin:20px 0;
+            }
+            .input{
+                width:80%;
+            }
+            .button-container{
+                text-align:center;
+            }
+            .submit-button{
+                     
+            }
+            a{color:#3c3e3d;text-decoration:none}
+
+            a:hover {color:#3c3e3d; text-decoration:none;}
+            h2 :after, :before {
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                border-color:#60A6E9
+            }
+            h2:after {
+                content: "";
+                width: 64px;
+                height: 1px;
+                background-color: #60a6e9;
+                margin: 30px auto;
+                display: block;}
+            .section-title:after {
+                content: "";
+                width: 64px;
+                height: 1px;
+                background-color: #60a6e9;
+                margin: 30px auto;
+                display: block;}
+        </style>
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+    </head>
+
+    <body >
+
+
+        <div class="header-container ">
+            <a class="logo col-sm-12 col-md-4" href="//www.ddianke.com"><img src="http://www.ddianke.com/files/system/2018/04-25/1841128f2c2c636240.png"/></a>
+            <ul id="nav_list_common_" class="nav-list col-sm-12 col-md-8">
+                <li class="menu-li"><a href="#products" class="product-center" style="color: #428bca;">课程介绍</a></li>
+                <li class="menu-li"><a href="#userinfo" class="product-center" style="color: #428bca;">个人信息</a></li>
+                <li class="menu-li"><a href="#aboutus" class="product-center" style="color: #428bca;">联系我们</a></li>
+            </ul>
+        </div>
+        <div class="body-container">
+            <div class="">
+                <a name="brand" >
+                    <div class="light-title brand-title">
+                        <p>外滩教育平台专注于青少年核心素养能力的培养，利用独家优质师资，提供系统化在线学习课程</p>
+
+                    </div>
+                </a>
+            </div>
+            <div class="block">
+                <a name="products" >
+                    <div class="">
+                        <div class='col-xs-12 col-md-12 products-title'>
+                            <h2>课程介绍</h2>
+                        </div>
+                        <div class='col-xs-12 col-md-12 '>
+                            <div class='col-xs-12 col-md-6 lesson-container'>
+                                <img class="lesson-img" src="https://img.yzcdn.cn/upload_files/2018/03/07/FgjbLLfDEDUlObuHvGoIsiw9-4Xk.jpg?imageView2/2/w/580/h/580/q/75/format/jpg"/>
+                            </div>
+                            <div class='col-xs-12 col-md-6 lesson-container'>
+                                <img class="lesson-img" src="https://img.yzcdn.cn/upload_files/2018/03/26/FoiseuzXsU5jNcqaPtTDJ8Q1ioFa.jpg?imageView2/2/w/580/h/580/q/75/format/jpg"/>
+                            </div>
+                            <div class='col-xs-12 col-md-12 lesson-container'>
+                                <section style="" class = 'section-title'><span style="max-width:100%;font-size:20px;font-family:微软雅黑;">名师授课</span></section>
+                                <p>罗博深（Po-Shen Loh）</p>
+                                <p>卡耐基梅隆大学数学教授</p>
+                                <p>带领美国奥数国家队，三次摘取国际金牌。</p>
+                                <p>&nbsp;</p>
+                                <section style="" class = 'section-title'><span style="max-width:100%;font-size:20px;font-family:微软雅黑;">课程目标</span></section>
+                                <p>让数学学习变得有趣又有效</p>
+                                <p>引导孩子独立思考与深度思考</p>
+                                <p>全面提升孩子的数学思维能力</p>
+                                <p>&nbsp;</p>
+                                <section style="" class = 'section-title'><span style="max-width:100%;font-size:20px;font-family:微软雅黑;">课程简介</span></section>
+                                <p>精细化管理+小班直播</p>
+                                <p>“看-讲-练-评”循环式学习</p>
+                                <p>阶梯式课程体系，level1-level4分级训练（可以放分即课轮播海报）</p>
+                                <p>&nbsp;</p>
+                            </div>
+                        </div>
+                        <!--<div class='col-xs-12 col-md-12 '>
+                            <div class='col-xs-12 col-md-6 lesson-container'>
+                                <img class="lesson-img" src="https://img.yzcdn.cn/upload_files/2018/03/07/FgjbLLfDEDUlObuHvGoIsiw9-4Xk.jpg?imageView2/2/w/580/h/580/q/75/format/jpg"/>
+                                <p>好消息！好消息！</p>
+                                <p>外滩教育联合罗博深教授推出的</p>
+                                <p class='font-1'>青少年数学思维分级课程</p>
+                                <p>独家打造数学思维学习梯度</p>
+                                <p>4个 Level，10大数学能力</p>
+                                <p>6人小班，双专业教学</p>
+                                <p class='font-2'>帮您的孩子轻松掌握3-9年级数学知识！</p>
+                                <img class="lesson-img" src="https://img.yzcdn.cn/upload_files/2018/03/07/65f4b13553db901ce81ec9005f4c4ae8.png">
+                                <p>现推出秋季 <font class='font-2'>分级课程 Level 1</font></p>
+                                <p>12次课程</p>
+                                <p class='font-2'>面向3-4年级学生</p>
+                                <p>螺旋式学习</p>
+                                <p>直线式提升数学能力</p>
+                                <p>巧妙有趣的数学方法</p>
+                                <p>带你体验思维的魅力！</p>
+                                <p>&nbsp;</p>
+                                <p  class='font-2'>数论、代数、证明</p>
+                                <p>深奥的数学理论三年级就能轻松get!</p>
+                                <img class="lesson-img" src="https://img.yzcdn.cn/upload_files/2018/01/04/1e5eeb302f40f7a6504f2f200915786e.jpg">
+
+                                <section style="" class = 'section-title'><span style="max-width:100%;font-size:20px;font-family:微软雅黑;">适合人群</span></section>
+                                <p>3~4年级学生</p>
+                                <p>对数学不感兴趣的学生</p>
+                                <p>计算经常出错的学生</p>
+                                <p>希望系统化学习罗博深教授分级课程的学生</p>
+
+                                <section style="" class = 'section-title'><span style="max-width:100%;font-size:20px;font-family:微软雅黑;">课程内容</span></section>
+                                <img class="lesson-img" src="https://img.yzcdn.cn/upload_files/2018/06/22/281b2988923cdaf22e79296a30765463.png">
+
+
+                            </div>
+                            <div class='col-xs-12 col-md-6 lesson-container'>
+                                <img class="lesson-img" src="https://img.yzcdn.cn/upload_files/2018/03/26/FoiseuzXsU5jNcqaPtTDJ8Q1ioFa.jpg?imageView2/2/w/580/h/580/q/75/format/jpg"/>
+                                <p class='font-1'>分级课程Level 2秋季再度开班！</p>
+                                <img class="lesson-img" src="https://img.yzcdn.cn/upload_files/2018/03/26/a0413fd8b42edcf3a6a92a4beb2bfe26.jpg"/>
+                                <p class='font-2'>"让数学学习有趣，更有效！"</p>
+                                <p>外滩教育联合罗博深教授开发</p>
+                                <p>青少年数学思维分级课程<font class='font-2'>Level 2</font> 9月再献！</p>
+                                <p>面向<font class='font-2'>4-5年级</font>学生，6人直播小班，12次课程</p>
+                                <p>包含<font class='font-2'>计算、几何、代数、数论、排列等内容</font></p>
+                                <p>带您的孩子轻松 get 小学重点难点！</p>
+                                <p style="white-space:normal;max-width:100%;min-height:1em;color:rgb(62 , 62 , 62);widows:1;line-height:1.5em;letter-spacing:1px;"><span style="color:#7f7f7f;">▼</span></p>
+
+                                <img class="lesson-img" src="https://img.yzcdn.cn/upload_files/2018/06/22/dd4d1ba3f984b645d9e488d218d3167a.png!730x0.jpg">
+                                <section style="" class = 'section-title'><span style="max-width:100%;font-size:20px;font-family:微软雅黑;">课程设计</span></section>
+                                <p>6人直播小班精细化管理</p>
+                                <p>集结课程设计和教学方法双专业——</p>
+                                <p class='font-2'>奥数冠军队教练＋助教老师</p>
+                                <p>拒绝机械式刷题与死记硬背——</p>
+                                <p class='font-2'>“看-讲-练-评”循环式学习</p>
+                                <p>培养深度思考能力，设计有针对有层次练法</p>
+                                <p>让您孩子的数学能力稳步提升</p>
+                                <p>&nbsp;</p>
+                                <p class='font-2'>另有学员专属福利</p>
+                                <p>加赠——罗教授亲自直播课一堂</p>
+                                <p class='font-2'>时间待定 另行通知/p>
+
+                                <section style="" class = 'section-title'><span style="max-width:100%;font-size:20px;font-family:微软雅黑;">适合人群</span></section>
+                                <p>4~5年级学生</p>
+                                <p>想提高数学成绩的学生</p>
+                                <p>希望培养数学思维的学生</p>
+                                <p>学习过 Level 1 的学生</p>
+
+                                <section style="" class = 'section-title'><span style="max-width:100%;font-size:20px;font-family:微软雅黑;">课程内容</span></section>
+                                <img class="lesson-img" src="https://img.yzcdn.cn/upload_files/2018/03/26/7afa778496b87e3debe4925f73870660.png">
+
+                            </div>
+                        </div>
+                        <div class='col-xs-12 col-md-12 lesson-container'>
+                            <section style="" class = 'section-title'><span style="max-width:100%;font-size:20px;font-family:微软雅黑;">如何上课</span></section>
+                            <p>课前：</p>
+                            <p>通过大指点课平台，预习观看罗教授视频</p>
+                            <p>助教老师对上节课作业批改并反馈</p>
+                            <p>&nbsp;</p>
+                            <p>课中：</p>
+                            <p>5~10分钟作业答疑</p>
+                            <p>15~20分钟罗教授视频讲解</p>
+                            <p>30~40分钟助教老师组织讨论学习&归纳小结</p>
+                            <p>&nbsp;</p>
+                            <p>课后：</p>
+                            <p>根据当日学习内容完成相关作业</p>
+                            <p>（作业最晚于第二次课程前1小时提交）</p>
+                            <p>&nbsp;</p>
+                            <p>结课：</p>
+                            <p>1、 学习报告</p>
+                            <p>（助教老师个性化评语及等第）</p>
+                            <p>2、 罗教授签名的电子证书</p>
+                            <p>（直播上课率80%及以上）</p>
+                        </div>
+
+                        <div class='col-xs-12 col-md-12 lesson-container' style="border:1px solid #ccc;color:#333">
+                            <p>关于罗博深</p>
+                            <p style="margin:0px 20px 20px;text-align:left">罗博深 Po-Shen Loh 是现任美国奥数队总教练，同时也是美国卡内基梅隆大学的数学教授。自2014年正式接棒美国奥数队后，连续两年带领美国队在国际奥林匹克数学竞赛（IMO）赛场上夺得冠军。同时，罗教授也是世界级的数学教育推广人，致力于让更多孩子爱上数学</p>
+                            <img class="lesson-img" src="https://img.yzcdn.cn/upload_files/2018/03/26/a29b1caa48157b89f511a04fec282572.jpg">
+                            <p>什么是分级课程？</p>
+                            <p style="margin:0px 20px 40px;text-align:left">青少年数学思维分级课程是根据罗博深教授的数学设计思想，结合国内不同年级的知识结构与体系，参照学员对应年级及相应数学能力，渐进式学习的系列课程，从三年级开始，一直到初中二年级。</p>
+                            <p>为什么要做分级课程</p>
+                            <p style="margin:0px 20px 40px;text-align:left">经过一年半的合作，外滩教育和罗教授开发了数学思维的兴趣课，入门课，以及代数，几何，排列组合，数论，概率等十六门课，课程大受家长和中小学生的欢迎，与此同时我们也发现由于同学所属年级不同，数学能力不同，课程没有完整的针对性，另外，学生也需要配合的练习，答疑和讲解才能真正掌握相应思路，扎实转化为自身的能力.</p>
+                            <p style="margin:0px 20px 40px;text-align:left">为此，我们推出青少年数学思维分级课，根据不同年级和能力来设计综合性课程，配套练习和作业，配备直播老师和助教来答疑辅导，为学生提供完整，匹配的学习体验</p>
+                            <p>分级课的理念&目标</p>
+                            <p style="margin:0px 20px 20px;text-align:left">青少年数学思维分级课程以素质教育和思维训练为核心，让学生掌握深度思考的能力，学习解决复杂问题的方法，对数学产生深度的理解和兴趣，激发学生未来独立思考和自我学习，同时也必然会提升学生的整体能力和学校的学术表现。如果学生能持续跟随分级课程学习并完成相应的作业和练习，数学能力必然会有较大的提升。</p>
+
+                        </div>-->
+                    </div>
+                </a>
+            </div>
+            <div class="block">
+                <a name="userinfo" >
+                    <div class="">
+                        <div class='col-xs-12 col-md-12 products-title'>
+                            <h2>个人信息</h2>
+                        </div>
+                        <div class='col-xs-12 col-md-12' style="text-align:center">
+                            
+                            <p>外滩教育联手国际金牌教练罗博深</p>
+                            <p>新学期，让孩子爱上数学！</p>
+
+                        </div>
+                        <div class='col-sm-12 col-md-4 input-field'>
+                            <div class="controls">
+                                <input class="form-control input-sm" id="username" type="text" name="username" value="" required="" placeholder="请输入姓名" aria-required="true">
+                                <div class="help-block"></div>
+                            </div>
+                        </div>
+                        <div class='col-sm-12 col-md-4 input-field'>
+                            <div class="controls">
+                                <input class="form-control input-sm" id="mobile" type="tel" name="mobile" value="" required="" placeholder="请输入手机号" aria-required="true">
+                                <div class="help-block"></div>
+                            </div>
+                        </div>
+                        <div class='col-sm-12 col-md-4 input-field'>
+                            <div class="controls">
+                                <input class="form-control input-sm" id="age" type="number" name="age" value="" required="" placeholder="请输入年龄" aria-required="true">
+                                <div class="help-block"></div>
+                            </div>
+                        </div>
+                        <div class='col-sm-12 col-md-12 button-container' >
+                            <button class="submit-button">提交</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="block">
+                <a name="aboutus">
+                    <div class="">
+                        <div class='col-xs-12 col-md-12 products-title'>
+                            <h2>联系我们</h2>
+                        </div>
+                        <div class='col-sm-12 col-md-12' style="text-align:center">
+                            略
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+
+
+        <!-- Bootstrap core JavaScript
+================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script>window.jQuery || document.write('<script src="http://lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js"><\/script>')</script>
+        <!--<script src="/static/js/bootstrap.min.js"></script>-->
+        <script src="/static/js/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+
+        <script type='text/javascript'>
+            (function(m, ei, q, i, a, j, s) {
+                m[i] = m[i] || function() {
+                    (m[i].a = m[i].a || []).push(arguments)
+                };
+                j = ei.createElement(q),
+                    s = ei.getElementsByTagName(q)[0];
+                j.async = true;
+                j.charset = 'UTF-8';
+                j.src = 'https://static.meiqia.com/dist/meiqia.js?_=t';
+                s.parentNode.insertBefore(j, s);
+            })(window, document, 'script', '_MEIQIA');
+            _MEIQIA('entId', 115952);
+        </script>
+        <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+        <script src="/static/assets/js/holder.min.js"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="/static/assets/js/ie10-viewport-bug-workaround.js"></script>
+
+
+        <script>
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Transitions - jQuery Mobile Demos</title>
+	<link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+	
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+</head>
+<body>
+	
+	<div data-role="page" id="page-success" data-dom-cache="true"><!-- page-->
+		<div data-role="header" data-theme="a">
+            <h1>{{Info}}</h1>
+		</div><!-- /header -->
+	
+		<div class="ui-content" role="main">
+            <div class="ui-grid-a">
+                <div class="ui-block-a"><div class="ui-bar ui-bar-a ui-corner-all" style="height:40px;margin:3px">Block A</div></div>
+                <div class="ui-block-b"><div class="ui-bar ui-bar-a ui-corner-all" style="height:60px;margin:3px">Block B</div></div>
+                <div class="ui-block-a"><div class="ui-bar ui-bar-a ui-corner-all" style="height:60px;margin:3px">Block A</div></div>
+                <div class="ui-block-b"><div class="ui-bar ui-bar-a ui-corner-all" style="height:40px;margin:3px">Block B</div></div>
+            </div><!-- /grid-a -->
+            <!--<img src="http://qr.liantu.com/api.php?text=weixin://wxpay/bizpayurl?pr=03yFpi4"/>-->
+           
+		<p>Since it uses CSS animations, this should be hardware accelerated on many devices. To see transitions, 3D transform support is required so if you only saw a fade transition that's the reason.</p>
+        <p>{{Info}}</p>
+            <form action="../PaidCallback" method="post">
+			<h2>Here's a few form elements</h2>
+
+			<p>These are here to see if this slows down rendering.</p>
+
+				<div class="ui-field-contain">
+		         <label for="name">Text Input:</label>
+		         <input type="text" name="name" id="name" value="">
+				</div>
+
+				<div class="ui-field-contain">
+				<label for="textarea">Textarea:</label>
+				<textarea cols="40" rows="8" name="textarea" id="textarea"></textarea>
+				</div>
+
+				<div class="ui-field-contain">
+					<label for="slider2">Flip switch:</label>
+					<select name="slider2" id="slider2" data-role="slider">
+						<option value="off">Off</option>
+						<option value="on">On</option>
+					</select>
+				</div>
+
+				<div class="ui-field-contain">
+					<label for="file">File</label>
+				 	<input type="file" name="file" id="file">
+				</div>
+                <div class="ui-field-contain">
+					<button class="ui-btn">提交</button>
+				</div>
+                
+
+			</form>
+			<a href="step2" data-transition="slide" class="ui-btn ui-corner-all ui-shadow ui-btn-inline">page</a>
+			<a href="index.html" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-inline" data-rel="back">Take me back</a>
+		</div>
+
+		<div data-role="footer" data-theme="a">
+			<div style="margin:5px 10px;"><!-- To add a bit of spacing -->
+			<label for="search" class="ui-hidden-accessible">Search:</label>
+	        <input type="search" name="password" id="search" placeholder="Search..." value="">
+			</div>
+		</div><!-- /footer -->
+	</div>
+    
+</body>
+</html>

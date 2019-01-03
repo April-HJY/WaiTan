@@ -1,0 +1,47 @@
+<html>
+<head>
+    <title>订单确认</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <script src="../static/js/weui.min.js"></script>
+    <style>
+        .nav {
+    width:93%;
+    height:50px;
+    margin:0 auto;
+    position:fixed;
+    bottom:0;
+    text-align:center;
+}
+        i{
+    color:#f00;
+}
+        </style>    
+<link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.0/weui.min.css" />
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+<link rel="icon" href="../static/favicon.ico">	
+</head>
+<body >
+         {% ifequal OITM.Paid 1%}
+        <div class="weui-media-box weui-media-box_text">
+            	<h4 style="text-align:center">支付已完成，关注 生菜阅读 服务号，即可查看报名信息</h4>
+ <p style="text-align:center"> <img src="https://tsaistorage-1254256984.cos.ap-beijing.myqcloud.com/tsaireader/%E6%9C%8D%E5%8A%A1%E5%8F%B7.jpg" width="60%" /></p>
+        </div>
+        
+      {%endifequal%}
+       {% ifequal OITM.Paid 0%}
+       <h1>您尚未成功支付，请点击下方按钮立即支付</h1>
+         <div class="weui-btn-area">
+            <a class="weui-btn weui-btn_primary" id="gotoplay" href="/PayBill/?TradeNumber={{OITM.TradeNumber}}">立即支付</a>
+        </div> 
+   
+      {%endifequal%}
+    
+</body>
+
+
+    
+</html>
+
+  

@@ -1,0 +1,52 @@
+.customer-service-container{
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  top: 0rpx;
+  left: 0;
+  right: 0;
+  background-color: #f9f9f9;
+}
+.img-container{
+  display: inline-block;
+  position: absolute;
+  top: 150rpx;
+  width: 100%;
+  text-align: center;
+}
+.center-image{
+  width:300rpx;
+  display: inline-block;
+}
+.text1{
+  display: inline-block;
+  font-size:40rpx;
+  position: absolute;
+  top: 420rpx;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  color: #333;
+}
+.text2{
+  display: inline-block;
+  font-size:32rpx;
+  position: absolute;
+  top: 525rpx;
+  width: 100%;
+  text-align: center;
+  color:#333;
+}
+.button{
+  position: absolute;
+  top: 650rpx;
+  width:678rpx;
+  height: 92rpx;
+  margin-left:38rpx;
+  background-color: #ff4440;
+  color:#fff;
+  border-radius: 5rpx;
+}
+.color-red{
+  color: #FF4238;
+}

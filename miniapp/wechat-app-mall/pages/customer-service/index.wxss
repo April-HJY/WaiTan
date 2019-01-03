@@ -1,0 +1,61 @@
+.customer-service-container{
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  top: 0rpx;
+  left: 0;
+  right: 0;
+  background-color: #f9f9f9;
+  background: #fff url(https://tsaistorage-1254256984.cos.ap-beijing.myqcloud.com/img/waitan/subscribe_background.png) no-repeat bottom;
+  background-size: 750rpx auto;
+}
+.img-container{
+  display: inline-block;
+  position: absolute;
+  bottom: 852rpx;
+  width: 100%;
+  text-align: center;
+}
+.center-image{
+  width:172rpx;
+  display: inline-block;
+}
+.text1{
+  display: inline-block;
+  font-size:34rpx;
+  position: absolute;
+  bottom: 782rpx;
+  width: 100%;
+  text-align: center;
+}
+.text2{
+  display: inline-block;
+  font-size:28rpx;
+  position: absolute;
+  bottom: 690rpx;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+}
+.text3{
+  display: inline-block;
+  font-size:28rpx;
+  position: absolute;
+  bottom: 650rpx;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+}
+.button{
+  position: absolute;
+  bottom: 505rpx;
+  width:478rpx;
+  height: 92rpx;
+  margin-left:138rpx;
+  background-color: #ff4440;
+  color:#fff;
+  border-radius: 5rpx;
+}
+.color-red{
+  color: #FF4238;
+}

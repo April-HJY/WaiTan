@@ -1,0 +1,661 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style type="text/css">
+    .title-margin{
+        margin:10px 10px;
+    }
+
+    .button{
+        width:100px ;
+        height:40px ;
+        border:solid 1px #cccccc;
+        border-radius:5px;
+    }
+    .select-normal{
+        padding:0 20px;
+        height:32px;
+        line-height:32px;
+        border-radius:5px;
+        margin:0 5px;
+    }
+    .floatright{
+        float:right;
+    }
+    #bg{display:none;position: absolute; top: 0%; left: 0%; width: 100%; height: 100%; background-color: black; z-index:1001; -moz-opacity: 0.7; opacity:.70; filter: alpha(opacity=70); z-index:7000}
+    .pop-box-detail{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:400px;
+        height:360px;
+        top:50%;
+        left:50%;
+        margin-top: -200px;
+        margin-left: -200px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    .pop-box-mapping{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:800px;
+        height:460px;
+        top:50%;
+        left:50%;
+        margin-top: -200px;
+        margin-left: -400px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }.pop-box-mapping-new{
+        display:none;
+        position:absolute;
+        z-index:9500;
+        width:800px;
+        height:460px;
+        top:50%;
+        left:50%;
+        margin-top: -200px;
+        margin-left: -400px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    .item-c{
+        margin:10px;
+    }
+    .label{
+        color:#000;
+        font-size:14px;
+        padding-left:20px;
+        height:40px;
+        line-height:40px;
+    }
+    .table-c{
+        border-collapse:separate;
+        border-spacing:0px 10px;
+    }
+    .input-c{
+        height:40px;
+        line-height:40px;
+        padding-left:5px;
+        width:220px;
+        margin:0px 0 0 18px;
+    }
+    .set-date{
+        margin:20px 0 0 18px;
+        width:380px;
+    }
+    .remark-input{
+        margin:20px 0 0 18px;
+        width:653px;
+        padding-left:5px;
+        resize:none;
+    }
+    .addnew-button{
+        width:100px;
+        display:inline;
+    }
+    .lesson-menu{
+        display:block;
+    }
+    
+    .channel-container{
+        width:200px;
+        display:inline;
+    }
+    .search_channel{
+		width:180px;
+        display:inline;
+    }
+    .channels{
+        margin-left:20px;
+        width:220px;
+    }
+    .categories{
+        margin-left:20px;
+        width:220px;
+    }
+    .search-container{
+        width:400px;
+        display:inline;
+    }
+    .button{
+        margin-left:10px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class=" ">
+    <div id="bg"></div>
+    <div class="pop-box-mapping-new row" > 
+        <div class="col-xs-12 col-md-12 " style="text-align:right">
+            <img src="../../static/images/close.png" onclick="hideDiv('pop-box-mapping-new');" class="detail-close"/>
+        </div>
+        <div class="search-container"><input id="search_content_new" class="input input-c" placeholder='请输入课程名称包含的字符'/><button class='button' id="search_new">查询</button></div>
+        <div class="row placeholders" style='width:730px;margin-left:30px;'>     
+            <table id = "mapping_new_table">
+            </table>
+            <dev id="toolbar3"></dev>
+        </div>
+    </div>
+    <div class="pop-box-mapping row" > 
+        <div class="col-xs-12 col-md-12 " style="text-align:right">
+            <img src="../../static/images/close.png" onclick="hideDiv('pop-box-mapping');" class="detail-close"/>
+            <input id="thirdparty_id" class="" style="display:none"  value=""/>
+        </div>
+        <div class="col-xs-12 col-md-12 " >
+            <label id='thirdparty_name'></label>
+            <label id='thirdparty_sku'></label>
+            <div class=" addnew-button" id="addnew_relation" onclick='lesson_mapping_new();'><button class='button' >新增</button></div>
+        </div>
+        <div class="row placeholders" style='width:730px;margin-left:30px;'>     
+            <table id = "mapping_table">
+            </table>
+            <dev id="toolbar2"></dev>
+        </div>
+    </div>
+    <div class="pop-box-detail row" > 
+        <div class="col-xs-12 col-md-12 " style="text-align:right">
+            <img src="../../static/images/close.png" onclick="hideDiv('pop-box-detail');" class="detail-close"/>
+            <input id="selected_id" class="" style="display:none"  value=""/>
+        </div>
+        <table class='table-c'>
+            <tbody>
+                <tr class="item-c" style="z-index:9500">
+                    <td ><label class="label">渠道：</label></td>
+                    <td><select id="channels" class="input form-control channels"></select></td>
+                </tr>
+                <tr class="item-c" style="z-index:9500">
+                    <td ><label class="label">课程类别：</label></td>
+                    <td><select id="categories" class="input form-control categories"></select></td>
+                </tr>
+                <tr class="item-c" style="z-index:9500">
+                    <td ><label class="label">短信编号：</label></td>
+                    <td><input id="msg_id" type='text' class="input input-c" placeholder='请输入短信编号,不输则不发短息' maxlength="20" onkeyup="value=value.replace(/([^0-9])/g,'')" 
+                               onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/([^0-9])/g,''))"/></td>
+                </tr>
+                <tr class="item-c" style="z-index:9500">
+                    <td><label class="label">名称：&nbsp;&nbsp;</label></td>
+                    <td><input id="cname" type='text' class="input input-c" placeholder='输入课程名称' maxlength="80"/></td>
+                </tr>
+                <tr class="item-c" style="z-index:9500">
+                    <td><label class="label">教学计划：&nbsp;&nbsp;</label></td>
+                    <td><input id="skuname" type='text' class="input input-c" placeholder='输入SKU' maxlength="80"/></td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="button-div" >  
+            <div style="float:right;position:relative;margin-top:20px;right:50px">
+                <input id="btnSave" type=button class="button" onclick='save_lesson()' value="保存"/>
+                <input id="btnClose" type=button class="button" onclick="hideDiv('pop-box-detail');"  value="关闭"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-11 col-sm-offset-2 col-md-10 col-md-offset-x main">
+        <!-- TIME PICKER -->
+        <div style="display:inline-block;width:100%" class="">
+           <select id="search_channel" class="input form-control search_channel"></select>
+            <div class="search-container"><input id="search_content" class="input input-c" placeholder='请输入课程名称包含的字符'/><button class='button' id="search">查询</button></div>
+            <div class=" addnew-button" id="addnew"><button class='button'>新增</button></div>
+        </div>
+        <div style="display:inline-block;width:100%" class="row">
+            
+        </div>
+        <!-- table-->                   
+        <div class="row placeholders">     
+            <table id = "lesson_table">
+            </table>
+            <dev id="toolbar"></dev>
+        </div>
+
+
+    </div>
+</div>
+{% endblock %}
+
+{% block content2 %}
+
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/qrcode.js"></script>
+<script type="text/javascript">
+    "use strict";
+    function lesson_mapping_new(){
+        console.log(1)
+        showDiv('pop-box-mapping-new');
+        search_new();
+    }
+    function lesson_mapping(id){
+        $(".bootstrap-table .fixed-table-body tbody tr").each(function(i,item){
+            if ($(item).data('uniqueid') ==id){
+                $("#thirdparty_id").val(id)
+                showDiv('pop-box-mapping');
+                
+                //$("#channels").find("option:contains('"+$($(item).find('td')[1]).text()+"')").prop("selected",true);
+                $("#thirdparty_name").text($($(item).find('td')[2]).text());
+                $("#thirdparty_sku").text($($(item).find('td')[3]).text());
+                console.log($($(item).find('td')[2]).text())
+                console.log($($(item).find('td')[3]).text())
+                //$("#categories").find("option:contains('"+$($(item).find('td')[4]).text()+"')").prop("selected",true);
+                //$("#msg_id").val($($(item).find('td')[5]).text());
+                $('#mapping_table').bootstrapTable('refresh');
+            }
+        });
+    }
+    function setCatetories(){
+        let dataURL = encodeURI('../getcatetories');
+        $.ajax({
+            url: dataURL,
+            dataType: "json",
+            data: {
+				"condition":""
+            },
+            success: function(data){
+                console.log(data)
+                for (var i=0;i< data.length; i++){
+                    var channel = data[i]
+                    $("#categories").append($("<option value='" + channel.ID + "'>" + channel.Name + "</option>"))
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+    }
+    function setChannel(){
+        let dataURL = encodeURI('../getchannelsanddistributors');
+        $.ajax({
+            url: dataURL,
+            dataType: "json",
+            data: {
+				"condition":"channel"
+            },
+            success: function(data){
+                console.log(data)
+                //$("#upload_channel").append($("<option value='all'>选择渠道</option>"))
+                for (var i=0;i< data.length; i++){
+                    var channel = data[i]
+                    $("#channels").append($("<option value='" + channel.Key + "'>" + channel.Name + "</option>"))
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+        $.ajax({
+            url: dataURL,
+            dataType: "json",
+            data: {
+				"condition":"channel"
+            },
+            success: function(data){
+                console.log(data)
+                $("#search_channel").append($("<option value='all'>选择渠道</option>"))
+                for (var i=0;i< data.length; i++){
+                    var channel = data[i]
+                    $("#search_channel").append($("<option value='" + channel.Key + "'>" + channel.Name + "</option>"))
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+    }
+    function edit_lesson(id){
+        //alert(1)
+        $(".bootstrap-table .fixed-table-body tbody tr").each(function(i,item){
+            if ($(item).data('uniqueid') ==id){
+                $("#selected_id").val(id)
+                showDiv('pop-box-detail');
+                
+                $("#channels").find("option:contains('"+$($(item).find('td')[1]).text()+"')").prop("selected",true);
+                $("#cname").val($($(item).find('td')[2]).text());
+                $("#teachingplan").val($($(item).find('td')[3]).text());
+                $("#categories").find("option:contains('"+$($(item).find('td')[4]).text()+"')").prop("selected",true);
+                $("#msg_id").val($($(item).find('td')[5]).text());
+            }
+        });
+    }
+    function delete_relation(id){
+        if (!confirm('是否取消关联？')){
+            return;
+        }
+        let dataURL = encodeURI('../deleterelation/');
+        $.ajax({
+            url: dataURL,
+            type:'post',
+            data: {
+                "id":id,
+            },
+            success: function(data){
+                alert(data)
+                $('#mapping_table').bootstrapTable('refresh');
+                $('#mapping_new_table').bootstrapTable('refresh');
+            },
+            fail: function(err){
+                alert(err);
+                $('#mapping_table').bootstrapTable('refresh');
+                $('#mapping_new_table').bootstrapTable('refresh');
+            }
+        });
+    }
+    function relate_lesson(id){
+    	if (!confirm('是否关联？')){
+            return;
+        }
+        let dataURL = encodeURI('../relatelesson/');
+        $.ajax({
+            url: dataURL,
+            type:'post',
+            data: {
+                "id":id,
+                "thirdparty_id":$("#thirdparty_id").val(),
+            },
+            success: function(data){
+                alert(data)
+                $('#mapping_table').bootstrapTable('refresh');
+                $('#mapping_new_table').bootstrapTable('refresh');
+            },
+            fail: function(err){
+                alert(err);
+                $('#mapping_table').bootstrapTable('refresh');
+                $('#mapping_new_table').bootstrapTable('refresh');
+            }
+        });
+    }
+    function delete_lesson(id){
+        if (!confirm('是否删除？')){
+            return;
+        }
+        let dataURL = encodeURI('../deletethirdpartylesson/');
+        $.ajax({
+            url: dataURL,
+            type:'post',
+            data: {
+                "id":id,
+            },
+            success: function(data){
+                alert(data)
+                $('#lesson_table').bootstrapTable('refresh');
+            },
+            fail: function(err){
+                alert(err);
+                $('#lesson_table').bootstrapTable('refresh');
+            }
+        });
+    }
+    var btnsave = true;
+	function save_lesson(){
+        if (!btnsave){
+            return;
+        }
+        let cname= $("#cname").val();
+        if (!cname){
+            alert('名称不能为空');
+            return;
+        }
+        let msg_id= $("#msg_id").val();
+        if (!msg_id){
+            msg_id=0;
+        }
+        let skuname = $("#skuname").val();
+        let id = $("#selected_id").val();
+        let cate_id = $("#categories").val();
+        let channel_id = $("#channels").val();
+        btnsave = false
+        $('#btnSave').val('保存中..');
+        let dataURL = encodeURI('../savethirdpartylesson/');
+        $.ajax({
+            url: dataURL,
+            type:'post',
+            data: {
+                "id":id,
+                "cname":cname,
+                "skuname": skuname,
+                "cate_id": cate_id,
+                "channel_id": channel_id,
+                "msg_id": msg_id
+            },
+            success: function(data){
+                alert(data)
+                btnsave = true
+        		$('#btnSave').val('保存');
+                hideDiv('pop-box-detail');
+                $('#lesson_table').bootstrapTable('refresh');
+            },
+            fail: function(err){
+                alert(err);
+                btnsave = true
+        		$('#btnSave').val('保存');
+            }
+        });
+    }
+    function hideDiv(div_id) {   
+        var div_obj = $("."+div_id);
+        if (div_id != 'pop-box-mapping-new')
+        	$("#bg").hide()
+        div_obj.hide();
+        $("body").css("overflow-y","auto"); /*用来隐藏html的滚动条*/
+        $("#selected_id").val('')
+        $("#startDate").val('');
+        $("#endDate").val('');
+        $("#code").val('');
+        $("#cname").val('');
+        $("#balance").val('');
+        $("#url").val('');
+        $("#remark").val('');
+        $("#qrcode").text('')
+    }  
+    function showDiv(div_id){
+        var div_obj = $("."+div_id);
+        $("#bg").show()
+        div_obj.show(); 
+        $("body").css("overflow-y","hidden");
+    }
+    function sendMsg(){
+    }
+    var TableInit = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = $(window).height()-200;
+            $('#lesson_table').bootstrapTable({
+                url: '/getthirdpartylessons/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                fontSize:14,
+                columns: [{
+                    field: 'ID',
+                    title: 'ID'
+                },{
+                    field: 'Channel',
+                    title: '渠道'
+                },{
+                    field: 'Name',
+                    title: '名称'
+                },{
+                    field: 'SKUName',
+                    title: 'SKU'
+                },{
+                    field: 'Category',
+                    title: '课程类型'
+                },{
+                    field: 'MsgID',
+                    title: '短信编号'
+                },{
+                    field: 'Edit',
+                    title: '操作'
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                "channel_id":$("#search_channel").val(),
+                "condition":$("#search_content").val()
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+    var MappingTableInit = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = 350;
+            $('#mapping_table').bootstrapTable({
+                url: '/getlessonmapping/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar2',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                fontSize:14,
+                columns: [{
+                    field: 'ID',
+                    title: 'ID'
+                },{
+                    field: 'Name',
+                    title: '名称'
+                },{
+                    field: 'TeachingPlan',
+                    title: '教学计划'
+                },{
+                    field: 'Category',
+                    title: '课程类型'
+                },{
+                    field: 'Edit',
+                    title: '操作'
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                "thirdparty_id":$("#thirdparty_id").val(),
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+    var MappingNewTableInit = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = 350;
+            $('#mapping_new_table').bootstrapTable({
+                url: '/getlessonmappingnew/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar3',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                fontSize:14,
+                columns: [{
+                    field: 'ID',
+                    title: 'ID'
+                },{
+                    field: 'Name',
+                    title: '名称'
+                },{
+                    field: 'TeachingPlan',
+                    title: '教学计划'
+                },{
+                    field: 'Category',
+                    title: '课程类型'
+                },{
+                    field: 'Edit',
+                    title: '操作'
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                "thirdparty_id":$("#thirdparty_id").val(),
+                "condition_new":$("#search_content_new").val()
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+    function search(){
+        $('#lesson_table').bootstrapTable('refresh');
+    }
+    function search_new(){
+        console.log(2)
+        $('#mapping_new_table').bootstrapTable('refresh');
+    }
+    $(function () {
+        setChannel();
+        setCatetories();
+		$('#addnew').on('click',function(){
+            showDiv('pop-box-detail');
+        });
+        $("#thirdpartylesson_tab").addClass('tab-on')
+        //$('.selectpicker').selectpicker();
+        $("#search_channel").on('change',function(){
+            search();
+        });
+        $('#search').on('click',function(){
+            search();
+        });
+        $('#search_new').on('click',function(){
+            search_new();
+        });
+        var oTable = new TableInit();
+        oTable.Init();
+        var oMappingTable = new MappingTableInit();
+        oMappingTable.Init();
+        var oMappingNewTable = new MappingNewTableInit();
+        oMappingNewTable.Init();
+    });
+</script>
+{% endblock %}
+

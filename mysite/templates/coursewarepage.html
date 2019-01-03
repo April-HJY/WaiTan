@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style type="text/css">
+    .title-margin{
+        margin:10px 10px;
+    }
+
+    .button{
+        width:100px ;
+        height:40px ;
+        border:solid 1px #cccccc;
+        border-radius:5px;
+    }
+    .select-normal{
+        padding:0 20px;
+        height:32px;
+        line-height:32px;
+        border-radius:5px;
+        margin:0 5px;
+    }
+    .floatright{
+        float:right;
+    }
+    .pop-box-upload-ware{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:300px;
+        height:150px;
+        top:50%;
+        left:50%;
+        margin-top: -150px;
+        margin-left: -150px;
+        border:solid 1px #cccccc;
+        background-color:white;
+        overflow-y:auto;
+        overflow-x:hidden;
+    }
+    .upload-ware{
+    	margin: 20px 20px;
+    }
+    .upload_channel{
+        width:200px;
+        margin-bottom:10px;
+    }
+    .lesson-menu{
+        display:block;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class=" ">
+    <div id='pop-box-upload-ware' class="pop-box-upload-ware" >
+        <img src="../../static/images/close.png" style="right:5px;margin-top:5px;position:absolute;" onclick="hideUploadWare();" class="detail-close"/>
+        <div class="upload-ware">
+            <form id="upload_ware_form" method="post" enctype="multipart/form-data" onsubmit="return upload_ware();">
+                <input id='is_dynm' type="checkbox" name="is_dynm"/>是否动态ppt
+                <div data-role="collapsible" >
+                    <input type="file" name="filedata" id="filedata" data-clear-btn="false" value="">
+                </div>
+            </form>
+            <input type="button" onclick="upload_ware()" style="margin-top:10px" value="提交"/>
+        </div>
+    </div>
+    <div class="col-sm-11 col-sm-offset-2 col-md-10 col-md-offset-x main">
+        <!-- TIME PICKER -->          
+        <!--<div style="display:inline-block" class="row">
+<div class="timepicker col-sm-3 col-md-3" >                  
+<div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+<input class="form-control" size="14" id="startDate" type="text" placeholder="开始时间" readonly>
+<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+
+            
+            <div class="timepicker col-sm-3 col-md-3" >                  
+                <div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="14" id="endDate" type="text" placeholder="结束时间" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+            <div class="timepickerbtn col-sm-2 col-md-2" id="search"><button >查找</button></div>
+            
+        </div>-->
+		<!-- table-->          
+        <div>
+			<div class=""  style="display:inline"><button onclick="refleshCourseWare()" style="width:150px">刷新</button></div>
+            <div class=""  style="display:inline"><button onclick="showUploadWare()" style="width:150px">上传</button></div>
+        </div>
+		<div class="row placeholders">      
+			<table id = "courseware_table">
+			</table>
+			<dev id="toolbar"></dev>
+		</div>
+
+		
+	</div>
+</div>
+{% endblock %}
+
+{% block content2 %}
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    "use strict";
+    function showUploadWare(){
+        $("#pop-box-upload-ware").show();
+    }
+    function hideUploadWare(){
+        $("#pop-box-upload-ware").hide();
+    }
+    let is_uploading = false;
+    function upload_ware(){
+        if (is_uploading){
+            alert("处理中，请稍后")
+            return
+        }
+        is_uploading = true
+        var formData = new FormData($('#upload_ware_form')[0]);
+        $.ajax({
+            url: "../uploadfile/",
+            type: 'post',
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            //dataType: "json",
+            success: function(data){
+                alert(data);
+                refleshCourseWare();
+                hideUploadWare();
+                is_uploading = false;
+            },
+            fail: function(err){
+                alert(err);
+                hideUploadWare();
+                
+                is_uploading = false;
+            },
+            error: function(err){
+                alert(err)
+                hideUploadWare();
+                is_uploading = false;
+                //refleshCourseWare();
+            },
+        }); 
+        return false;
+    }
+    let is_deleting = false
+    function delete_file(file_id){
+        if(!confirm("是否删除?")){
+            return;
+        }
+        if (is_uploading){
+            alert("处理中，请稍后")
+            return
+        }
+        is_deleting = true
+        $.ajax({
+            url: "../deletefile/",
+            type: 'post',
+            data: {"file_id":file_id},
+            //dataType: "json",
+            success: function(data){
+                alert(data);
+                refleshCourseWare();
+                hideUploadWare();
+                is_deleting = false;
+            },
+            fail: function(err){
+                alert(err);
+                hideUploadWare();
+                
+                is_deleting = false;
+            },
+            error: function(err){
+                alert(err)
+                hideUploadWare();
+                is_deleting = false;
+                //refleshCourseWare();
+            },
+        }); 
+        return false;
+    }
+    function refleshCourseWare(){
+        $('#courseware_table').bootstrapTable('refresh');
+    }
+    var TableInit = function () {
+		var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = 380;
+            $('#courseware_table').bootstrapTable({
+                url: '/getcourseware/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "desc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "fileid",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                fontSize:14,
+                columns: [{
+                    field: 'fileid',
+                    title: 'ID'
+                },{
+                    field: 'filename',
+                    title: '名称'
+                },{
+                    field: 'active',
+                    title: '是否公开'
+                },{
+                    field: 'uploadtime',
+                    title: '上传时间'
+                },{
+                    field: 'edit',
+                    title: '操作'
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                //limit: params.limit,   //页面大小
+                //offset:params.offset,
+                //course_id: $("#course_id").val(),
+                //mobile: $("#mobile_course").val(),
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+    
+    
+    $(function () {
+        $("#courseware_tab").addClass('tab-on')
+        var oTable = new TableInit();
+        oTable.Init();
+    });
+</script>
+{% endblock %}
+

@@ -1,0 +1,186 @@
+.container {
+  width: 100%;
+  background-color: #f9f9f9;
+  min-height: 100%;
+}
+
+.banner {
+  width: 100%;
+  height: 440rpx;
+  background: #fff url(https://tsaistorage-1254256984.cos.ap-beijing.myqcloud.com/img/waitan/color.png) no-repeat bottom;
+  background-size: 750rpx 440rpx;
+  text-align: center;
+  color: #fff;
+}
+
+.point {
+  width: 100%;
+  font-size: 120rpx;
+  margin-top: 64rpx;
+  font-weight: bold;
+}
+
+.text1 {
+  font-size: 34rpx;
+  margin-top: 16rpx;
+}
+
+.text2 {
+  font-size: 28rpx;
+  margin:24rpx auto;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 30rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  width:78%;
+}
+
+.rule-button{
+  position: absolute;
+  font-size: 24rpx;
+  right: 32rpx;
+  top: 32rpx;
+}
+
+.strategy-button {
+  background-color: #fff;
+  color: #333;
+  height: 100rpx;
+  margin-top: -50rpx;
+  width: 686rpx;
+  text-align: center;
+  border-radius: 10rpx;
+  line-height: 100rpx;
+}
+
+.detail-container {
+  margin-top: 64rpx;
+  width: 100%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+
+.group-button {
+  margin: 0 10rpx;
+  width: 160rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  border-radius: 5rpx;
+}
+
+.button-container .on{
+  color:#fff;
+  background-color: #FFA462;
+}
+
+.button-container .off{
+  color:#999;
+  background-color: #fafafa;
+  border: 1rpx solid #ddd;
+}
+
+.detail-item{
+  display: flex;
+  justify-content: space-between;
+  height: 88rpx;
+  background-color: #fff;
+  border-bottom: 1rpx solid #f0f0f0;
+  padding-top:16rpx;
+}
+
+.detail-left{
+  margin-left:32rpx;
+}
+
+.detail-name{
+  display: block;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.detail-time{
+  display: block;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.detail-point{
+  margin-right: 32rpx;
+  line-height: 70rpx;
+}
+
+.show-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+}
+
+.popup-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5;
+}
+
+.popup-contents {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #fff;
+  z-index: 6;
+  padding-bottom: 30rpx;
+}
+
+.rule-title {
+  font-size: 34rpx;
+  color: #333;
+  margin-bottom: 60rpx;
+  text-align: center;
+  margin-top: 20rpx;
+}
+
+.popup-close {
+  position: relative;
+  top: 35rpx;
+  left: 675rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.rule-content {
+  margin: 20rpx 32rpx;
+  display: flex;
+  font-size: 30rpx;
+  color: #333;
+  line-height: 45rpx;
+}
+
+.li {
+  color: #999;
+  background-color: #eee;
+  font-size: 20rpx;
+  height: 32rpx;
+  width: 32rpx;
+  border-radius: 50%;
+  line-height: 32rpx;
+  text-align: center;
+  margin-top: 18rpx;
+  margin-right: 20rpx;
+}
+
+.rule-text {
+  width: 650rpx;
+}

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>我的优惠券</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+
+        <script src="../static/js/jquery-1.11.0.min.js"></script>
+        <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>    
+        <script src="../static/js/weui.min.js"></script>
+
+
+        <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.0/weui.min.css" />
+        <!--<link rel="icon" href="../static/favicon.ico">	-->
+    </head>
+
+    <style>
+        body{
+            background-image: ;
+        }
+        .container {
+            padding: 15px;
+        }
+        .banner{
+            margin:0px 0px;
+            height:160px;
+            width:100%;
+            background: url(../static/images/dzbanner2.png) no-repeat top;
+            background-size:100% 100%;
+        }
+        .qrcode{
+            margin:0px 0px;
+            width:100%;
+        }
+        .weui-tab{
+            height:80px;
+
+        }
+        .weui-navbar{
+            width: 300px;
+            position: absolute;
+            left: 50%;
+            margin-left: -150px;
+            margin-top:20px;
+            border:1px #41cc71 solid;
+            border-radius:5px;
+            
+        }
+        .weui-navbar__item{
+            font-size:18px;
+            padding:5px 0;
+        }
+        .weui-navbar__item.weui-bar__item_on{
+            background-color:#41cc71;
+            color:#fff;
+        }
+        .coupon-block{
+            background:url(../static/images/bg_yellow.png) no-repeat;
+            background-size:100% 150px;
+            height:150px;
+        }
+        .coupon-block-invalid{
+            background:url(../static/images/bg_grey.png) no-repeat;
+            background-size:100% 150px;
+            height:150px;
+        }
+        .first-line{
+            margin: 0px 10px 0px;
+            padding: 5px 10px 0px;
+            color:#fff;
+            font-size:18px
+        }
+        .discount-fee{
+            font-size:35px;
+        }
+        .condition-fee{
+            color:#ac8a00;
+            padding-left:10px;
+        }
+        .second-line{
+            padding:0 20px;
+            color:#fff;
+            font-size:16px;
+        }
+        .third-line{
+            padding:20px 20px;
+            font-size:18px;
+        }
+        .use-button{
+            color:#FFCC02;
+            border:1px #FFCC02 solid;
+            border-radius:5px;
+            float:right;
+            padding:0px 5px;
+            margin-right:5px;
+        }
+        .invalid-button{
+            color:#999;
+            float:right;
+            padding:0px 5px;
+            margin-right:5px;
+        }
+        .invalid{
+            display:none;
+        }
+        .non-coupons{
+            position:absolute;
+            z-index:9000;
+            width:140px;
+            height:177px;
+            top:50%;
+            left:50%;
+            margin-top: -144px;
+            margin-left: -70px;
+        }
+        .coupon-name{
+            display:inline-block;
+            white-space:nowrap; 
+            overflow:hidden; 
+            text-overflow:ellipsis;
+        }
+    </style>      
+    <body>
+        <div class="weui-tab">
+            <div class="weui-navbar">
+                <div class="weui-navbar__item weui-bar__item_on nav-valid">
+                    可用优惠券
+                </div>
+                <div class="weui-navbar__item nav-invalid">
+                    已失效
+                </div>
+
+            </div>
+        </div>
+        {% if coupons %}
+        {% for coupon in coupons %}
+        <div class="coupon-block valid" >
+            <div class="first-line">
+                <label class="">￥<font class="discount-fee">{{coupon.fee}}</font>{% if coupon.condition > 0 %}<font class="condition-fee">满 {{coupon.condition}} 元可用</font>{% endif %}</label>
+            </div>
+            <div class="second-line">
+                <label class="">使用期限:{{coupon.start}}至{{coupon.end}}</label>
+            </div>
+            <div class="third-line">
+                <label class="coupon-name">{{coupon.Name}}</label> <a href="{{coupon.url}}" class="use-button">立即使用</a>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="non-coupons valid">
+            <img src="../static/images/bg_custom.png" width="140px" height="177px"/>
+        </div>
+        {% endif %}
+        
+        {% if invalid_coupons %}
+        {% for coupon in invalid_coupons %}
+        <div class="coupon-block-invalid invalid">
+            <div class="first-line">
+                <label class="">￥<font class="discount-fee">{{coupon.fee}}</font></label>
+            </div>
+            <div class="second-line">
+                <label class="">使用期限:{{coupon.start}}至{{coupon.end}}</label>
+            </div>
+            <div class="third-line">
+                <label class="coupon-name" style="color:#999">{{coupon.Name}}</label>{% if coupon.is_used == 1 %} <label class="invalid-button">已使用</label> {% else %} <label class="invalid-button">已使用</label> {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="non-coupons invalid">
+            <img src="../static/images/bg_custom.png" width="140px" height="177px"/>
+        </div>
+        {% endif %}
+
+        <script>
+
+        </script>
+
+
+    </body>
+
+    <script>
+
+        $(function(){
+            //alert($(document.body).width())
+            $(".coupon-name").css('width', $(document.body).width() - 140)
+            $('.weui-navbar__item').on('click', function () {
+                $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
+                if($(this).hasClass('nav-valid')){
+                    console.log(1)
+                    $(".valid").show();
+                    $(".invalid").hide();
+                }
+                else{
+                    console.log(2)
+                    $(".valid").hide();
+                    $(".invalid").show();
+                }
+            });
+        });
+    </script>
+
+    <script>
+        wx.config({
+            //{{ticket}}
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '{{appid}}', // 必填，公众号的唯一标识
+            timestamp: '{{sign.timestamp}}', // 必填，生成签名的时间戳
+            nonceStr: '{{sign.nonceStr}}', // 必填，生成签名的随机串
+            signature: '{{sign.signature}}',// 必填，签名，见附录1
+            jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage','chooseWXPay','openProductSpecificView','addCard','chooseCard','openCard'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+
+
+        wx.ready(function () {
+            //var shareData = {
+            //    title: '快来创建菜园币账号吧',
+            //    desc: '菜园币即将上线，速来创建你的专属账号吧',
+            //    link: 'https://applinzi.ddianke.com/wxJSWeb/bindusertoken',
+            //    imgUrl: 'http://applinzi.ddianke.com/static/img/tsaireader2.png'
+            //};
+            //wx.onMenuShareAppMessage(shareData);
+            //wx.onMenuShareTimeline(shareData);
+
+        });    
+        wx.error(function(res){
+
+            //alert(res); // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+
+        });
+    </script>    
+
+</html>

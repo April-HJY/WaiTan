@@ -1,0 +1,365 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style type="text/css">
+    .title-margin{
+        margin:10px 10px;
+    }
+    .lesson-menu{
+        display:block;
+    }
+    .button{
+        width:100px ;
+        height:40px ;
+        border:solid 1px #cccccc;
+        border-radius:5px;
+    }
+    .select-normal{
+        padding:0 20px;
+        height:32px;
+        line-height:32px;
+        border-radius:5px;
+        margin:0 5px;
+    }
+    .floatright{
+        float:right;
+    }
+    .pop-box-upload-ware{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:300px;
+        height:280px;
+        top:50%;
+        left:50%;
+        margin-top: -150px;
+        margin-left: -150px;
+        border:solid 1px #cccccc;
+        background-color:white;
+        overflow-y:auto;
+        overflow-x:hidden;
+    }
+    .upload-ware, .select-ware{
+    	margin: 20px 20px;
+    }
+    .upload_channel{
+        width:200px;
+        margin-bottom:10px;
+    }
+    .class_ware{
+        display:block;
+    }
+    
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class=" ">
+    <div id='pop-box-upload-ware' class="pop-box-upload-ware" >
+        <img src="../../static/images/close.png" style="right:5px;margin-top:5px;position:absolute;" onclick="hideUploadWare();" class="detail-close"/>
+        <div class="upload-ware">
+            <label>上传并关联课件，课件为私密类型：</label>
+            <form id="upload_ware_form" method="post" enctype="multipart/form-data" onsubmit="return upload_ware();">
+                <input id="classroom_serial" style="display:none" name="classroom_serial" />
+                <input id='is_dynm' type="checkbox" name="is_dynm"/>是否动态ppt
+                <div data-role="collapsible" >
+                    <input type="file" name="filedata" id="filedata" data-clear-btn="false" value="">
+                </div>
+            </form>
+            <input type="button" onclick="upload_ware()" style="margin-top:10px" value="提交"/>
+        </div>
+        
+        <div class="select-ware">
+            <label>选择并关联课件：</label>
+            <select id='class_ware' class="input form-control class_ware"></select>
+            <input type="button" onclick="connect_ware()" style="margin-top:10px" value="关联"/>
+        </div>
+    </div>
+    
+    <div class="col-sm-11 col-sm-offset-2 col-md-10 col-md-offset-x main">
+        <!-- TIME PICKER -->          
+        <!--<div style="display:inline-block" class="row">
+<div class="timepicker col-sm-3 col-md-3" >                  
+<div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+<input class="form-control" size="14" id="startDate" type="text" placeholder="开始时间" readonly>
+<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+
+            
+            <div class="timepicker col-sm-3 col-md-3" >                  
+                <div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="14" id="endDate" type="text" placeholder="结束时间" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+            <div class="timepickerbtn col-sm-2 col-md-2" id="search"><button >查找</button></div>
+            
+        </div>-->
+		<!-- table-->          
+        <div>
+			<div class=""  style="display:inline"><button onclick="refleshclassroom()" style="width:150px">刷新</button></div>
+        </div>
+		<div class="row placeholders">      
+			<table id = "classroom_table">
+			</table>
+			<dev id="toolbar"></dev>
+		</div>
+
+		
+	</div>
+</div>
+{% endblock %}
+
+{% block content2 %}
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    "use strict";
+    function showUploadWare(id){
+        $("#classroom_serial").val(id)
+        $("#pop-box-upload-ware").show();
+    }
+    function hideUploadWare(){
+        $("#classroom_serial").val('')
+        $("#pop-box-upload-ware").hide();
+    }
+    function delete_classroom(serial){
+        if (!confirm("是否删除？")){
+            return;
+        }
+        $.ajax({
+            url: "../deleteclassroom/",
+            type: 'post',
+            data: {"serial":serial},
+            success: function(data){
+                alert(data)
+                refleshclassroom()
+            },
+            fail: function(err){
+                alert(err);
+                refleshclassroom()
+            },
+            error: function(err){
+                alert(err)
+                refleshclassroom()
+            },
+        }); 
+        return false;
+    }
+    function setClassWares(){
+        $.ajax({
+            url: "../getcourseware/",
+            cache: false,
+            processData: false,
+            contentType: false,
+            dataType: "json",
+            success: function(data){
+                for (var i=0;i< data.length; i++){
+                    var ware = data[i]
+                    $("#class_ware").append($("<option value='" + ware.fileid + "'>" + ware.filename + "</option>"))
+                }
+            },
+            fail: function(err){
+                alert(err);
+                hideUploadWare();
+
+                is_uploading = false;
+            },
+            error: function(err){
+                alert(err)
+                hideUploadWare();
+                is_uploading = false;
+                //refleshCourseWare();
+            },
+        }); 
+        return false;
+    
+    }
+    let is_uploading = false;
+    function upload_ware(){
+        if (is_uploading){
+            alert("处理中，请稍后")
+            return
+        }
+        is_uploading = true
+        var formData = new FormData($('#upload_ware_form')[0]);
+        $.ajax({
+            url: "../uploadfile/",
+            type: 'post',
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            //dataType: "json",
+            success: function(data){
+                //refleshCourseWare();
+                alert(data);
+                hideUploadWare();
+                is_uploading = false;
+            },
+            fail: function(err){
+                alert(err);
+                hideUploadWare();
+                
+                is_uploading = false;
+            },
+            error: function(err){
+                alert(err)
+                hideUploadWare();
+                is_uploading = false;
+                //refleshCourseWare();
+            },
+        }); 
+        return false;
+    }
+
+    function connect_ware(){
+        if (is_uploading){
+            alert("处理中，请稍后")
+            return
+        }
+        is_uploading = true
+        let classroom_serial = $("#classroom_serial").val()
+        let file_id = $("#class_ware").val()
+        console.log(file_id)
+        $.ajax({
+            url: "../connectfile/",
+            type: 'post',
+            data: {
+                "file_id":file_id,
+                "classroom_serial":classroom_serial,
+            },
+            //dataType:'json',
+            success: function(data){
+                //refleshCourseWare();
+                alert(data)
+                hideUploadWare();
+                is_uploading = false;
+            },
+            fail: function(err){
+                console.log(err)
+                alert(err);
+                hideUploadWare();
+                
+                is_uploading = false;
+            },
+            error: function(err){
+                console.log(err)
+                alert(err)
+                hideUploadWare();
+                is_uploading = false;
+                //refleshCourseWare();
+            },
+        }); 
+        return false;
+    }
+    function refleshclassroom(){
+        $('#classroom_table').bootstrapTable('refresh');
+    }
+    var TableInit = function () {
+		var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = 380;
+            $('#classroom_table').bootstrapTable({
+                url: '/getclassrooms/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "desc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                fontSize:14,
+                columns: [{
+                    field: 'ID',
+                    title: 'ID'
+                },{
+                    field: 'CourseName',
+                    title: '课程名称'
+                },{
+                    field: 'ClassName',
+                    title: '班级'
+                },{
+                    field: 'LessonStartTime',
+                    title: '课程开始时间'
+                },{
+                    field: 'Serial',
+                    title: '教室ID'
+                },{
+                    field: 'TeacherPwd',
+                    title: '老师密码'
+                },{
+                    field: 'PatrolPwd',
+                    title: '巡课密码'
+                },{
+                    field: 'AssistantPwd',
+                    title: '助教密码'
+                },{
+                    field: 'StudentPwd',
+                    title: '学生密码'
+                },{
+                    field: 'ClassStart',
+                    title: '开始上课'
+                },{
+                    field: 'Edit',
+                    title: '操作'
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                //limit: params.limit,   //页面大小
+                //offset:params.offset,
+                //course_id: $("#course_id").val(),
+                //mobile: $("#mobile_course").val(),
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+    
+    function edit_url(id){
+        //$('#student_table').bootstrapTable('refresh');
+    }
+    function init_timer(id){
+        $('#'+id).datetimepicker({
+            showOn: "button",
+            minView: "hour",
+            autoclose: true,
+            todayHighlight: true,
+            pickerPosition:"bottom-left",
+            format: "yyyy-mm-dd hh:ii",
+            startDate:"2018-07-01",
+            //endDate:new Date()
+        })
+    }
+    $(function () {
+        $("#courseclassroom_tab").addClass('tab-on')
+        setClassWares();
+        var oTable = new TableInit();
+        oTable.Init();
+    });
+</script>
+{% endblock %}
+

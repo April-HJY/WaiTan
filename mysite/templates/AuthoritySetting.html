@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>权限设置</title>
+
+        
+<script src="https://lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js"></script>
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<link href="../../static/css/bootstrap.min.css" rel="stylesheet"  />
+<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+        <script type="text/javascript">
+            $(function(){
+                var dataURL = encodeURI('../AuthoritySettingOperation');
+            	$('#AddNew').on('click', function(){
+                    $.ajax({
+                        url: dataURL,
+                        data: {
+                            add: 1,
+                            Name: $('#AddName').val(),
+                            Description: $('#AddDescription').val(),
+                            Type: $('#AddType').val(),
+                              },
+                        success: function(data){
+                            alert(data);
+                            window.location.reload(false);
+                        }
+                    });
+                });
+                
+                $('.Delete').on('click', function(){
+                    $.ajax({
+                        url: dataURL,
+                        data: {
+                            delete: 1,
+                            ID: $(this).parent().parent().attr("data-ID"),
+                              },
+                        success: function(data){
+                            alert(data);
+                            window.location.reload(false);
+                        }
+                    });
+                });
+                
+                
+                $('.Submit').on('click', function(){
+                    $.ajax({
+                        url: dataURL,
+                        data: {
+                            update: 1,
+                            ID: $(this).parent().parent().attr("data-ID"),
+                            Name:  $(this).parent().parent().find('.UpdateName').val(),
+                            Description: $(this).parent().parent().find('.UpdateDescription').val(),
+                            Type: $(this).parent().parent().find('.UpdateType').val(),
+                              },
+                        success: function(data){
+                            alert(data);
+                            window.location.reload(false);
+                        }
+                    });
+                });
+                $('.Update').on('click', function(){
+                    $(this).parent().parent().find('.display').hide();
+                    $(this).parent().parent().find('.edit').show();
+                    var id = "Select" + $(this).parent().parent().attr('data-ID');
+                    $("#"+id).val($("#"+id).attr('value').split(','));
+                    alert($("#"+id).val())
+                    //var $select = $(this).parent().parent().find('.UpdateAuthorities');
+                    //$select.val() = $select.attr('value');
+                });
+                $('.Cancel').on('click', function(){
+                    $(this).parent().parent().find('.display').show();
+                    $(this).parent().parent().find('.edit').hide();
+                });
+                $('.edit').hide();
+                //$("#AddAuthorities-button").hide();
+                //$('#AddAuthorities').multiselect({ header: false, selectedList: 1, noneSelectedText: "Select Organizations" });
+                //$('#AddAuthorities').multiselect('refresh');
+                //$('#AddAuthorities').multiselect("enable");
+            })
+            
+
+        </script>
+        <style type="text/css">
+            @media handheld, only screen and (max-width: 768px) {
+                .tableTitle
+                {
+                    display:none;
+                }
+            }
+        </style>
+
+</head>
+<body>
+
+        <div class="ui-content" role="main" id="content">
+            <h3 class="sub_title">
+                权限信息</h3>
+            <div class="row tableTitle">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Name</div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Description</div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Type</div>
+            </div>
+            {% for i in auths %}
+            <div  class="row " data-ID="{{i.ID}}">
+                <div class="display col-lg-3 col-md-3 col-sm-3 col-xs-3">{{i.Name}}</div>
+                <div class="display col-lg-3 col-md-3 col-sm-3 col-xs-3">{{i.Description}}</div>
+                <div class="display col-lg-4 col-md-4 col-sm-4 col-xs-4">{{i.Type}}</div>
+                <div class="display col-lg-1 col-md-1 col-sm-1 col-xs-1"><button class="ui-btn Update">修改</button></div>
+                <div class="display col-lg-1 col-md-1 col-sm-1 col-xs-1"><button class="ui-btn Delete">删除</button></div>
+                
+                <div class="edit col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="text" name="PostEditor" class="UpdateName" data-clear-btn="true" value='{{i.Name}}' ></div>
+                <div class="edit col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="text" name="PostEditor" class="UpdateDescription" data-clear-btn="true" value='{{i.Description}}' ></div>
+                <div class="edit col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <select id="Select{{i.ID}}" class="UpdateType" ata-native-menu='false' value='{{i.Type}}'>
+                    {% for i in authsType %}
+                    <option value='{{i.ID}}'>{{i.Name}}</option>
+                    {%endfor%}
+                </select></div>
+                <div class="edit col-lg-1 col-md-1 col-sm-1 col-xs-1"><button class="ui-btn Submit">提交</button></div>
+                <div class="edit col-lg-1 col-md-1 col-sm-1 col-xs-1"><button class="ui-btn Cancel">取消</button></div>
+            </div>
+            {%endfor%}
+            <div  class="row " data-ID="{{i.ID}}">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="text" name="PostEditor" id="AddName" data-clear-btn="true"  ></div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="text" name="PostEditor" id="AddDescription" data-clear-btn="true"></div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><select id="AddType" ata-native-menu='false' value='{{i.Type}}'>
+                    {% for i in authsType %}
+                    <option value='{{i.ID}}'>{{i.Name}}</option>
+                    {%endfor%}
+                </select></div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><button id='AddNew' class="ui-btn">新增</button></div>
+            </div>
+            
+        </div>
+   
+</body>
+</html>

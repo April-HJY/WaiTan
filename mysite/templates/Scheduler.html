@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>生菜阅读投稿系统</title>
+        <link rel="stylesheet" href="../static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css" />
+        <script src="../static/js/jquery-1.11.0.min.js"></script>
+        <script src="../static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>           
+        <!-- <script src="http://sdk.talkingdata.com/app/h5/v1?appid=31887010104EFF3BE3C6213FAAD21FB2&vn=投稿系统&vc=1.0"></script>-->
+        <style type="text/css">
+            .ui-li-desc {  
+                white-space: normal;  
+            } 
+
+
+        </style>
+
+
+
+    </head>
+
+    <body>
+
+        <div data-role="page" id="page-success" data-dom-cache="true"><!-- page-->
+            <div>
+
+            </div>
+
+            <div class="ui-content" role="main" id="content" >
+
+                <ul data-role="listview" data-divider-theme="c">
+                    <li data-role="list-divider" >
+                        <H1><strong> 当前存稿: {{Articles.count}} 篇</strong><p class="ui-li-aside"> <a href="http://mp.weixin.qq.com/s?__biz=MjM5MDE0ODM3Mg==&mid=201523092&idx=1&sn=64e7ed7a4d837a5786fee5433dc5e262">生菜阅读是个什么鬼？</a></p></H1>  
+                    </li>
+                    <form action="../calendar/" method="post" data-ajax="false" enctype="multipart/form-data">
+                        <div data-role="collapsible" >
+                            <h2>点此投稿</h2>
+                            <ul data-role="listview">
+                                <li class="ui-field-contain">
+                                    <a href="mailto:tsaireader@163.com">邮件投稿</a>
+                                </li>
+                                <li class="ui-field-contain">
+                                    <label for="author">署名（例如：小生菜）</label> <input type="text" name="author" id="author" value="" data-clear-btn="true">
+                                </li>
+                                <li class="ui-field-contain">
+                                    <label for="title">作品名（例如：某某游记）</label> <input type="text" name="title" id="title" value="" data-clear-btn="true">
+                                </li>
+                                <li class="ui-field-contain">
+                                    <label for="authorBio">作者简介（例如：文艺女青年、一枚逗比）</label> <textarea type="textarea" name="authorBio" id="authorBio" data-clear-btn="true"></textarea>
+                                </li>                   
+
+                                <li class="ui-field-contain">
+                                    <label for="urlLink">原文链接(例如：http://blog.163.com/doubi)</label> <input type="url" name="urlLink" id="urlLink" value="" data-clear-btn="true">
+                                </li>
+
+                                <li class="ui-field-contain">
+                                    <label for="titlePicture">附件(大小不要超过12m)</label>
+                                    <input type="file" name="titlePicture" id="titlePicture" data-clear-btn="false" value=""> 
+                                </li>
+                                <li class="ui-field-contain">
+                                    <label for="content">也可写在这里(手机现场创作更感人！)</label> <textarea type="textarea" name="content" id="content" data-clear-btn="true"></textarea>
+
+                                </li> 
+
+                                <li>
+                                    <button class="ui-btn">提交</button>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </form>
+                    <ul  data-role="listview" data-divider-theme="b" style="padding:0 20px;">
+                        {% for i in Articles %}
+                        <li >
+                            <!--<H1>{{i.ScheduleDate|date:"Y" }}年 {{i.ScheduleDate|date:"m" }} 月 {{i.ScheduleDate|date:"d" }} 日 {{i.ScheduleDate|date:"D" }}&nbsp 将推送</H1>-->
+                            <H1>来自 {{i.Author}} 的作品</H1>
+                            <H1>{{i.Title}} </H1>
+                            <p>作者简介：{{i.AuthorBio}}</p>
+
+                            {%if i.TitlePicture == "" %}
+
+                            {% else %}
+                            <p><a href={{i.TitlePicture}}>查看附件</a></p>
+                            {%endif%}
+                            <p>原文地址：<a href={{i.ArticleURL}} target="_Blank">{{i.ArticleURL}}</a></p>
+                            {%if EditMode%}
+
+                            {% else %}
+                            <p>内容简介：{{i.ArticleContent}}</p>
+                            {%endif%}
+                            {%if EditMode%}       
+                            <form action="../calendar/?IsEdit=1" method="post">					
+                                <input type="text" name="PostID" id="PostID" value={{i.ID}} style="display:none">
+                                <!--<label for="PostDate">重新预约推送日期</label><input type="date" name="PostDate" id="PostDate" value="" data-clear-btn="true">-->
+                                <label for="PostEditor">编辑/声优</label><input type="text" name="PostEditor" id="PostEditor" data-clear-btn="true" value={{i.Editor}} >
+                                <label for="PostExpired">设为已推(提交生效):</label><select name="PostExpired" id="PostExpired" data-role="slider"><option value="0">No</option><option value="1">Yes</option>
+                                </select>
+                                <label for="content">内容全文：</label><textarea type="textarea" name="content" id="content" data-clear-btn="true">{{i.ArticleContent}}</textarea>
+                                <button class="ui-btn">提交</button>
+                            </form>
+                            {%endif%}
+
+
+                        </li>
+                        <li data-role="list-divider" >
+                        </li>
+                        {%endfor%}
+
+                    </ul>
+                </ul>
+
+
+
+
+            </div>
+
+
+        </div>
+    </body>
+    <script>
+        wx.config({
+            //{{ticket}}
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '{{appid}}', // 必填，公众号的唯一标识
+            timestamp: '{{sign.timestamp}}', // 必填，生成签名的时间戳
+            nonceStr: '{{sign.nonceStr}}', // 必填，生成签名的随机串
+            signature: '{{sign.signature}}',// 必填，签名，见附录1
+            jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage','chooseWXPay','openProductSpecificView','addCard','chooseCard','openCard'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+
+
+        wx.ready(function () {
+
+            var shareData = {
+                title: '生菜阅读投稿系统',
+                desc: '查看当前稿库、认领配音请点击',
+                link: 'http://applinzi.ddianke.com/calendar/',
+                imgUrl: 'http://applinzi.ddianke.com/static/img/tsaireader2.png'
+            };
+            wx.onMenuShareAppMessage(shareData);
+            wx.onMenuShareTimeline(shareData);
+
+        });    
+        wx.error(function(res){
+
+            alert(res); // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+
+        });
+    </script>    
+
+
+</html>

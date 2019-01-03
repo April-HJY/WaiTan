@@ -1,0 +1,10 @@
+<view class="container">
+  <view class="customer-service-container">
+    <view class="img-container">
+    <image src="/images/golds.png" class="center-image" mode="widthFix" lazy-load="true" />
+    </view>
+    <text class="text1">支付成功</text>
+    <text class="text2">去外滩云课堂服务号，获得更多课程信息</text>
+    <button class="button" bindtap="toOrderList">确定</button>
+  </view>
+</view>

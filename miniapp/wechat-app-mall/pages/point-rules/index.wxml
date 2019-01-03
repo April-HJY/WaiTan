@@ -1,0 +1,62 @@
+<view class="container">
+  <view class="contents">
+    <view class="rule-title">奖学金使用细则</view>
+    <view class="rule-item">
+      <view class="rule-question">
+        <view class="li">Q</view>
+        <view class="rule-text">什么是奖学金？</view>
+      </view>
+      <view class="rule-answer">奖学金是此小程序用户的专属购课金。</view>
+    </view>
+    <view class="rule-item">
+      <view class="rule-question">
+        <view class="li">Q</view>
+        <view class="rule-text">奖学金的用途有哪些？</view>
+      </view>
+      <view class="rule-answer">目前奖学金可在此小程序购买课程时，当现金使 用，具体可抵扣金额，视课程而定。</view>
+    </view>
+    <view class="rule-item">
+      <view class="rule-question">
+        <view class="li">Q</view>
+        <view class="rule-text">奖学金有效期有多长？</view>
+      </view>
+      <view class="rule-answer">用户获得未使用的奖学金，有效期为奖学金进入账户之日起1年（例如：用户2018年6月22号的积分到2019年06月22号24点过期）过期自动清零。使用奖学金支付的时候，优先扣除先到期的奖学金。</view>
+    </view>
+    <view class="rule-item">
+      <view class="rule-question">
+        <view class="li">Q</view>
+        <view class="rule-text">如何查看奖学金数量？</view>
+      </view>
+      <view class="rule-answer">用户打开小程序 - 我的 - 我的奖学金中查看。</view>
+    </view>
+    <view class="rule-item">
+      <view class="rule-question">
+        <view class="li">Q</view>
+        <view class="rule-text">奖学金可变现吗？</view>
+      </view>
+      <view class="rule-answer">奖学金仅限在此小程序购课时使用，不可在任 何平台兑换现金。
+      </view>
+    </view>
+    <view class="rule-item">
+      <view class="rule-question">
+        <view class="li">Q</view>
+        <view class="rule-text">发生退货时奖学金会退还吗？</view>
+      </view>
+      <view class="rule-answer">发生退货时，奖学金不可退回</view>
+    </view>
+    <view class="rule-item">
+      <view class="rule-question">
+        <view class="li">Q</view>
+        <view class="rule-text">一个家长拥有多个用户账号，奖学金是否可 以合并/转账？
+        </view>
+      </view>
+      <view class="rule-answer">不支持合并/转账。每个账号都是独立存在的。</view>
+    </view>
+  </view>
+  <view class="mind-you">
+    <view class="mind-title">特别提示：</view>
+    <view class="mind-text">奖学金规则在不断完善中，以发布的最新版本为准；</view>
+    <view class="mind-text">如果用户对使用规则或外滩教育有任何疑问，请及时联系客服：021- 62483833；</view>
+    <view class="mind-text">“外滩教育”拥有奖学金使用规则的最终解释权；</view>
+  </view>
+</view>

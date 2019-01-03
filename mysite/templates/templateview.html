@@ -1,0 +1,312 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style type="text/css">
+    .title-margin{
+        margin:10px 10px;
+    }
+
+    .button{
+        width:100px ;
+        height:40px ;
+        border:solid 1px #cccccc;
+        border-radius:5px;
+    }
+    .select-normal{
+        padding:0 20px;
+        height:32px;
+        line-height:32px;
+        border-radius:5px;
+        margin:0 5px;
+    }
+    .floatright{
+        float:right;
+    }
+    .template-border{
+        border:1px solid #cccccc;
+        padding:10px 0px 0px 0px;
+        margin-top:20px;
+    }
+    .pop-box-addnew{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:500px;
+        height:300px;
+        top:50%;
+        left:50%;
+        margin-top: -150px;
+        margin-left: -250px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    .template-field{
+        padding-top:10px;
+        padding-left:30px;
+    }
+    .template-input{
+        margin:10px 10px;
+        width:90%;
+    }
+    .templates-container{
+        display:inline-block;
+        width:100%;
+        height:auto;
+    }
+    .input-container{
+        width:100%;
+        margin:10px 10px;
+    }
+    .input{
+        width:100%;
+    }
+    .openid_container{
+        width:100%;
+        margin:10px 10px;
+    }
+    .openids{
+        width:100%;
+        overflow-y:auto;
+        resize:none;
+    }
+    .button-container{
+        width:100%;
+        text-align:right;
+        position:relative;
+        margin-top:10px;
+    }
+    .marketing-menu{
+        display:block;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class=" ">
+    
+	<div class="col-sm-11 col-sm-offset-2 col-md-10 col-md-offset-x main">
+        <div >
+            <div class="selector ">
+                <select id='templates' class="input form-control ">
+
+                </select>
+                
+            </div>
+            <label style="margin-top:10px;margin-left:10px;">输入需要发送的内容，冒号前面的部分是固定标签，只需要输入冒号后面的内容。内容为空则说明模板没有此项。需要用户昵称可用{username}表示。</label>
+        </div>
+        <div class="templates-container">
+            <div class="input-container"><input class="input url" value='' placeholder='模板跳转url，不需要就不填'/></div>
+            <div class="input-container"><input class="input first" value='' placeholder=''/></div>
+            <div class="input-container"><input class="input keyword1" value='' placeholder=''/></div>
+            <div class="input-container"><input class="input keyword2" value='' placeholder=''/></div>
+            <div class="input-container"><input class="input keyword3" value='' placeholder=''/></div>
+            <div class="input-container"><input class="input keyword4" value='' placeholder=''/></div>
+            <div class="input-container"><input class="input keyword5" value='' placeholder=''/></div>
+            <div class="input-container"><input class="input keyword6" value='' placeholder=''/></div>
+            <div class="input-container"><input class="input remark" value='' placeholder=''/></div>
+        </div>
+        <div class="openid_container">
+            <label>发送的openid:</label>
+            <textarea id="openids" rows=4 class="openids"></textarea>
+        </div>
+        <div class="button-container">
+			<input id="btnPreview" type=button class="button preview" value="预览"/>
+			<input id="btnSend" type=button class="button"  value="发送"/>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block content2 %}
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    "use strict";
+    let template_list = []
+	function loadTemplates(){
+        let dataURL = encodeURI('../getaccounttemplates');
+        $.ajax({
+            url: dataURL,
+            data: {
+				//userId:$("#selected_id").val()
+            },
+            dataType: "json",
+            success: function(data){
+                console.log(data);
+                $("#templates").append($("<option value=''>选择模板</option>"))
+                template_list = data.template_list
+                for (var i=0;i< data.template_list.length; i++){
+                    var template = data.template_list[i]
+                    $("#templates").append($("<option value='" + template['template_id'] + "'>" + template['title'] + "</option>"))
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });   
+    }
+    //发送模板消息接口，将来会写成通用模式
+    $('#btnPreview').on('click',function(){
+        let dataURL = encodeURI('../SendTemplateMessage/');
+        let template_id = $("#templates").val()
+        if (sessionStorage.getItem("dzunionid") == undefined || sessionStorage.getItem("dzunionid") == '')
+        {
+            window.location.href = "https://open.weixin.qq.com/connect/qrconnect?appid=wx09d63c5dd8a6960d&redirect_uri=http%3A%2F%2Fapplinzi.ddianke.com%2FwxLoginRedirect%2F&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect";
+        }
+        console.log(sessionStorage.getItem("dzunionid"))
+        if (!template_id){
+            alert("请选择模板");
+            return
+        }
+        
+        let paraDic = {};
+        paraDic["url"] = $('.url').val();
+        paraDic['token'] = 'test'
+        template_list.forEach(function(item){
+            if (item["template_id"] == template_id){
+                console.log(template_id)
+                let content = item['content']
+                let example = item['example']
+                let contents = content.split('\n')
+                let examples = example.split('\r\n')
+                paraDic['first'] = $(".first").val()
+                for(var i = 1; i<contents.length-1; i++){
+                    let key = 'keyword' + i
+                    paraDic[key] = $(".keyword"+i).val()
+                }
+                paraDic['remark'] = $(".remark").val()
+                
+                paraDic["template_id"] = template_id;
+                paraDic["unionid"] = sessionStorage.getItem("dzunionid");
+            }
+        })
+
+        $.ajax({
+            url: dataURL,
+            type: 'post',
+            data: paraDic,
+            //dataType: "json",
+            success: function(data){
+                alert(data)
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+
+    });
+    var btnsend = true;
+    $('#btnSend').on('click',function(){
+        let token = parseInt("{{token}}")
+        if (!btnsend){
+            return;
+        }
+        let dataURL = encodeURI('../SendTemplateMessage/');
+        let template_id = $("#templates").val()
+        if (!template_id){
+            alert("请选择模板");
+            return
+        }
+        let openids = $("#openids").val();
+        if (!openids){
+            alert("请输入openid");
+            return
+        }
+        if(!confirm('确认发送?')){
+            return;
+        }
+        btnsend = false
+        $('#btnSend').val('发送中..');
+        let paraDic = {};
+        paraDic["template_id"] = template_id;
+        paraDic["openids"] = openids;
+        paraDic["url"] = $('.url').val();
+        paraDic['token'] = token
+        console.log(paraDic["url"])
+        template_list.forEach(function(item){
+            if (item["template_id"] == template_id){
+                console.log(template_id)
+                let content = item['content']
+                let example = item['example']
+                let contents = content.split('\n')
+                let examples = example.split('\r\n')
+                console.log(examples)
+                paraDic['first'] = $(".first").val()
+                for(var i = 1; i<contents.length-1; i++){
+                    let key = 'keyword' + i
+                    paraDic[key] = $(".keyword"+i).val()
+                }
+                paraDic['remark'] = $(".remark").val()
+            }
+        })
+
+        $.ajax({
+            url: dataURL,
+            type: 'post',
+            data: paraDic,
+            //dataType: "json",
+            success: function(data){
+                alert(data)
+                btnsend = true
+        		$('#btnSend').val('发送');
+            },
+            fail: function(err){
+                alert(err);
+                btnsend = true
+        		$('#btnSend').val('发送');
+            }
+        });
+
+    })
+
+
+    function clearPop(){
+        $("#tagID").val('')
+        $("#tagName").val('')
+        $("#tagDesc").val('')
+    }
+    function popShow(){
+        $("#pop-box-addnew").show();
+        clearPop();
+    }
+    function popHide(){
+        $("#pop-box-addnew").hide();
+    }
+    $(function () {
+        if (sessionStorage.getItem("template_openids") != undefined && sessionStorage.getItem("template_openids") != ''){
+            $("#openids").val(sessionStorage.getItem("template_openids"));
+            sessionStorage.setItem("template_openids", '');
+        }
+        else{
+            $("#openids").val('');
+        }
+        $("#template_tab").addClass('tab-on')
+        loadTemplates();
+
+        $("#templates").on("change", function(){
+            let template_id = $("#templates").val()
+            console.log(template_id)
+            template_list.forEach(function(item){
+                //console.log(item)
+                if (item["template_id"] == template_id){
+                    console.log(template_id)
+                    let content = item['content']
+                    let example = item['example']
+                    let contents = content.split('\r\n')
+                    let examples = example.split('\r\n')
+                    console.log(examples)
+                    $(".first").attr("placeholder",examples[0])
+                    for(var i = 1; i<examples.length-1; i++){
+                        $(".keyword"+i).attr("placeholder",examples[i])
+                    }
+                    $(".remark").attr("placeholder",examples[examples.length - 1])
+                }
+            })
+        });
+    });
+</script>
+{% endblock %}
+

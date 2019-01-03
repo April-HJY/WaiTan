@@ -1,0 +1,32 @@
+<view class="detail-container">
+  <view class="button-container">
+    <view class="group-button {{show_positive ? 'on' : 'off'}} btn1" bindtap = 'show_positive_list'> 未提现 </view>
+    <view class="group-button {{show_positive ? 'off' : 'on'}} btn2" bindtap = 'show_negative_list'> 已提现 </view>
+  </view>
+  <view wx:if="{{detail_list!=null}}">
+    <view class='detail-count'>
+      <view class='count-icon'></view>
+      <view class='count-text'>金额：</view>
+      <view class='count-all'>{{count}}</view>
+    </view>
+    <view class="detail-item" wx:for-items="{{detail_list}}" wx:key="{{index474}}" data-index="{{index}}">
+      <view class="detail-left">
+        <text class="detail-name">{{item.Reason}}</text>
+        <text class="detail-time">{{item.Created}}</text>
+      </view> 
+      <view class="detail-point"> 
+        {{signal}}{{item.Amount}}
+      </view>
+    </view>
+    <view class='positive_txt {{show_txt?"show":"hide"}}'>当前账户处于冻结状态，AMC预备课程开课后（2019 年2月24日），系统通过审核新、老用户订单，确认无 误后，工作人员会直接转账到您的微信零钱，小助手微 信（tbe011）咨询。</view>
+  </view>
+  <view wx:elif="{{detail_list==null}}">
+    <image src='/pages/images/wu.png'></image>
+    <view class='nutxt1'>对不起，您暂时没有提现记录</view>
+    <view  class='nutxt2'>通过专属海报邀请新用户购课，就能获得 现金奖励，赶快行动吧～</view>
+  </view>
+  <view>
+    <button class='back' bindtap='toMy'>返回</button>
+    <text class='txt' bindtap='toTakeRules'>老带新活动规则>></text>
+  </view>
+</view>

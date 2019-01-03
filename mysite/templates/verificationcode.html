@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>绑定手机号</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+
+        <script src="../static/js/jquery-1.11.0.min.js"></script>
+        <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>    
+        <script src="../static/js/weui.min.js"></script>
+
+
+        <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.3/weui.min.css" />
+        <!--<link rel="icon" href="../static/favicon.ico">	-->
+    </head>
+
+    <style>
+        body{
+            background-image: ;
+        }
+        .container {
+            padding: 15px;
+        }
+        .banner{
+            margin:0px 0px;
+            height:160px;
+            width:100%;
+            background: url(../static/images/dzbanner2.png) no-repeat top;
+            background-size:100% 100%;
+        }
+        .qrcode{
+            margin:0px 0px;
+            width:100%;
+        }
+        .weui-mask {
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, .6);
+        }
+
+        .weui-mask_transparent{
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+        }
+        .weui-toast{
+            min-height:20px;
+            width:auto;
+            font-size: 18px;
+        }
+        .weui-toast__content{
+            margin:10px;
+        }
+    </style>      
+    <body>
+        <div id="toast" style="opacity: 1.0; display: none;">
+            <div class="weui-mask_transparent"></div>
+            <div class="weui-toast">
+                <!--<i class="weui-icon-success-no-circle weui-icon_toast"></i>-->
+                <p class="weui-toast__content">已完成</p>
+            </div>
+        </div>
+        {% if not subscribed %}
+        <div >
+            <img src="../static/images/ddianke.png" class = "qrcode" />
+        </div>
+        {% else %}
+        <div class="banner"></div>
+        {% endif %}
+        {% if not subscribed %}
+        <div style="margin-top:30px;color:#666;text-align:center;"><h3>请先关注外滩云课堂公众号再绑定手机，谢谢~</h3></div>
+        <div class="weui-btn-area">
+            <a class="weui-btn weui-btn_primary" data-openid="{{openid}}" data-appid="{{appid}}" href="javascript:" id="close">关闭</a>
+        </div>
+        {% elif not bind %}
+        <div style="margin-top:50px" class="weui-cell weui-cell_vcode">
+            <div class="weui-cell__hd">
+                <label class="weui-label">手机号</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input id="mobile" class="weui-input" type="tel" placeholder="请输入手机号" >
+            </div>
+            <div class="weui-cell__ft">
+                <button class="weui-vcode-btn" data-openid="{{openid}}" data-appid="{{appid}}" onclick="settime(this)">获取验证码</button>
+            </div>
+        </div>
+        <div class="weui-cell weui-cell_vcode">
+            <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id='vcode' style="margin-top:5px" placeholder="请输入收到的验证码">
+            </div>
+        </div>
+        <div class="weui-btn-area">
+            <a class="weui-btn weui-btn_primary" data-openid="{{openid}}" data-appid="{{appid}}" href="javascript:" id="submit">确定</a>
+        </div>
+        {% else %}
+        <div style="margin-top:30px;color:#666;text-align:center;"><h3>您已经成功绑定过该手机号啦~</h3></div>
+        <div class="weui-btn-area">
+            <a class="weui-btn weui-btn_primary" data-openid="{{openid}}" data-appid="{{appid}}" href="javascript:" id="close">关闭</a>
+        </div>
+        {% endif %}
+
+
+        <script>
+
+        </script>
+
+
+    </body>
+
+    <script>
+        function toast(text){
+            $('#toast .weui-toast__content').text(text);
+            //console.log($('#toast .weui-toast').css('margin-left'))
+            $('#toast').show()//.delay(3000).hide(0);
+            //console.log($('#toast .weui-toast').outerWidth())
+            $('#toast .weui-toast').css('margin-left','-' + $('#toast .weui-toast').outerWidth()/2 + 'px')
+            //console.log($('#toast .weui-toast').css('margin-left'))
+            $('#toast').show().delay(2000).hide(0);
+        }
+        var countdown=60; 
+        function settime(obj) { 
+            //toast(obj.text)
+            if (countdown == 0) { 
+                obj.removeAttribute("disabled");    
+                obj.textContent="获取验证码"; 
+                countdown = 60; 
+                return;
+            } else { 
+                obj.setAttribute("disabled", true); 
+                obj.textContent="重新发送(" + countdown + ")"; 
+                countdown--;
+            } 
+            setTimeout(function() { 
+                settime(obj) }
+                       ,1000) 
+        }
+        $(function(){
+            var send = false;
+            $('.weui-vcode-btn').on('click', function(){
+                let dataURL = encodeURI('../../sendverificationcode1');
+                var openid = $(this).attr('data-openid');
+                var appid =$(this).attr('data-appid') 
+                var mobile = $("#mobile").val();
+                if (send){return;}
+                if (mobile == "")
+                {
+                    countdown = 0;
+                    toast('手机号不能为空');
+                    return;
+                }
+                send = true;
+                $.ajax({
+                    url: dataURL,
+                    data: {
+                        openid: openid,
+                        appid: appid,
+                        mobile: mobile,
+                    },
+                    //dataType: "json",
+                    success: function(data){
+                        if(data == '1'){
+                            //alert(1)
+                            toast('验证码已发送，请注意查收');
+                        }
+                        else{
+                            //alert(2)
+                            toast(data);
+                            countdown = 0;
+                        }
+                        send = false;
+                        //window.location.reload(false);
+                    },
+                    fail: function(err){
+                        toast(err);
+                        send = false;
+                    }
+                });
+
+            });
+            $('#close').on('click', function(){
+                window.close();
+                WeixinJSBridge.call('closeWindow');
+            });
+            var click = false;
+            $('#submit').on('click', function(){
+                dataURL = encodeURI('../../VerifyCode/');
+                var openid = $(this).attr('data-openid');
+                var appid =$(this).attr('data-appid') 
+                var mobile = $("#mobile").val();
+                var code = $("#vcode").val();
+                if (mobile == "")
+                {
+                    toast('手机号不能为空')
+                    return;
+                }
+                if (code == ''){
+                    toast('请输入验证码')
+                    return
+                }
+                if (click){
+                    return;
+                }
+                click = true;
+                $('#submit').html('绑定中...')
+
+                $.ajax({
+                    url: dataURL,
+                    type: 'post',
+                    data: {
+                        openid: openid,
+                        appid: appid,
+                        mobile: mobile,
+                        code: code
+                    },
+                    success: function(data){
+                        
+                        if(data == 'ok')
+                        {
+                            toast("恭喜您成功绑定，可以立即领取免费课程！");
+                            params = {
+                                "text": "手机绑定成功",
+                                "appID": appid,
+                                "toUser": openid
+                            }
+                            para = {
+                                "action": "SendMsg",
+                                "params": JSON.stringify(params)
+                            }
+                            //$.ajax({
+                            //    url: "http://applinzi.ddianke.com/action/",
+                            //    type: 'post',
+                            //    data: para,
+                            //    success: function(data){
+                            //        alert(data);
+                            //    },
+                            //    fail: function(err){
+                            //        alert(err);
+                            //    }
+                            //});
+                            WeixinJSBridge.call('closeWindow');
+                            window.close();
+                        }
+                        else{
+                            toast(data)
+                            click = false;
+                            $('#submit').html('确定')
+                        }
+                    },
+                    fail: function(err){
+                        toast(err);
+                        click = false;
+                        $('#submit').html('确定')
+                    }
+                });
+
+
+            });
+
+
+        });
+    </script>
+
+    <script>
+        wx.config({
+            //{{ticket}}
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '{{appid}}', // 必填，公众号的唯一标识
+            timestamp: '{{sign.timestamp}}', // 必填，生成签名的时间戳
+            nonceStr: '{{sign.nonceStr}}', // 必填，生成签名的随机串
+            signature: '{{sign.signature}}',// 必填，签名，见附录1
+            jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage','chooseWXPay','openProductSpecificView','addCard','chooseCard','openCard'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+
+
+        wx.ready(function () {
+            //var shareData = {
+            //    title: '快来创建菜园币账号吧',
+            //    desc: '菜园币即将上线，速来创建你的专属账号吧',
+            //    link: 'https://applinzi.ddianke.com/wxJSWeb/bindusertoken',
+            //    imgUrl: 'http://applinzi.ddianke.com/static/img/tsaireader2.png'
+            //};
+            //wx.onMenuShareAppMessage(shareData);
+            //wx.onMenuShareTimeline(shareData);
+
+        });    
+        wx.error(function(res){
+
+            //alert(res); // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+
+        });
+    </script>    
+
+</html>

@@ -1,0 +1,11 @@
+<view class="container">
+  <view class="customer-service-container">
+    <view class="img-container">
+    <image src="/images/money_right.png" class="center-image" mode="widthFix" lazy-load="true" />
+    </view>
+    <text class="text1">恭喜您，已经完成支付！</text>
+    <text class="text2">点击关注并 <text class="color-red"> 回复数字 1</text></text>
+    <text class="text3">根据图文消息获取您的课程账号及密码</text>
+    <button class="button" open-type="contact" bindtap="toOrderList">关注</button>
+  </view>
+</view>

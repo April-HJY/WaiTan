@@ -1,0 +1,55 @@
+.container{
+  margin: 0;
+  padding: 0;
+}
+
+.container-title{
+  color: #0284FF;
+  margin:48rpx 0;
+  font-size: 40rpx;
+  line-height:56rpx;
+  letter-spacing: 10rpx;
+  font-weight: bold;
+}
+
+.container-section{
+  margin-left:32rpx;
+}
+
+.section{
+  margin-bottom:48rpx;
+}
+
+.section-row{
+  font-weight: 600;
+  font-size: 34rpx;
+}
+
+.section-char{
+  color: #0284FF;
+}
+
+.section-title{
+  margin-left: 15rpx;
+}
+
+.section-content{
+  color: #555555;
+  font-size: 30rpx;
+  line-height: 44rpx;
+  margin:8rpx 42rpx;
+  width: 646rpx;
+}
+
+.alarm{
+  color: #FF6443;
+}
+
+.container-btn{
+  background-color: #F24724;
+  color: white;
+  width:686rpx;
+  height:94rpx;
+  border-radius: 8rpx;
+  margin-bottom: 32rpx;
+}

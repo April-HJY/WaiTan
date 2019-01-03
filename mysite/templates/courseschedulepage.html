@@ -1,0 +1,459 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style type="text/css">
+    .title-margin{
+        margin:10px 10px;
+    }
+
+    .button{
+        width:100px ;
+        height:40px ;
+        border:solid 1px #cccccc;
+        border-radius:5px;
+    }
+    .select-normal{
+        padding:0 20px;
+        height:32px;
+        line-height:32px;
+        border-radius:5px;
+        margin:0 5px;
+    }
+    .floatright{
+        float:right;
+    }
+    .pop-box-addnew{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:800px;
+        height:500px;
+        top:50%;
+        left:50%;
+        margin-top: -250px;
+        margin-left: -400px;
+        border:solid 1px #cccccc;
+        background-color:white;
+        overflow-y:auto;
+        overflow-x:hidden;
+    }
+    .pop-box-upload-course{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:300px;
+        height:100px;
+        top:50%;
+        left:50%;
+        margin-top: -150px;
+        margin-left: -150px;
+        border:solid 1px #cccccc;
+        background-color:white;
+        overflow-y:auto;
+        overflow-x:hidden;
+    }
+    .upload-course{
+    	margin: 20px 20px;
+    }
+    .course-name{
+        padding:20px 0px 20px 30px;
+        width:60%;
+    }
+    .course-sku{
+        padding:20px 10px;
+        width:40%;
+    }
+    .lesson-title{
+        padding:10px;
+        border-bottom:1px solid #ccc;
+    }
+    .lesson-container{
+        padding:10px;
+    }
+    .coupon-url{
+        margin:10px 10px;
+        width:90%;
+        resize:none;
+    }
+    .lessons{
+        
+    }
+    .title{
+        text-align:center;
+    }
+    .lesson_name{
+        margin-left:20px;
+    }
+    .buttons{
+        padding-top:15px;
+        border-bottom:1px solid #ccc;
+        height:70px;
+    }
+    .lesson-menu{
+        display:block;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class=" ">
+    <div id='pop-box-upload-course' class="pop-box-upload-course" >
+        <img src="../../static/images/close.png" style="right:5px;margin-top:5px;position:absolute;" onclick="hideUploadCourse();" class="detail-close"/>
+        <div class="upload-course">
+            <form id="upload_course_form" method="post" enctype="multipart/form-data" onsubmit="return upload_course();">
+                <div data-role="collapsible" >
+                    <input type="file" name="course_file" id="course_file" data-clear-btn="false" value="">
+                </div>
+            </form>
+            <input type="button" onclick="upload_course()" value="提交"/>
+        </div>
+    </div>
+    <div id='pop-box-addnew' class="pop-box-addnew" >
+        <div class="row buttons">
+            <div class=" col-sm-6 col-md-6"> </div>
+            <div class=" col-sm-2 col-md-2" id="addNew" ><button >新增</button></div>
+            <div class=" col-sm-2 col-md-2" id="save" ><button >保存</button></div>
+            <div class=" col-sm-2 col-md-2" id="cancel" ><button >取消</button></div>
+        </div>
+        <label class="course-name"></label><label class="course-sku"></label>
+        <input id="course_id" class="" style="display:none"  value=""/>
+        
+        <div class='row lesson-title'>
+            <input id="lesson_id" class="" style="display:none"  value=""/>
+            <div class='title col-sm-4 col-md-4'><label id="" class="" >课节名称</label></div>
+            <div class='title col-sm-6 col-md-6'><label id="" class="" >上课时间</label></div>
+        </div>
+        <div class="lessons">
+            <!--<div class='row lesson-container'>
+                <div class='field col-sm-4 col-md-4'><input id="lesson_name" class="lesson_name" value=""/></div>
+                <div class="timepicker col-sm-6 col-md-6" >                  
+                    <div class="input-group date form_date_hour" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        <input class="form-control" size="14" id="startDate" type="text" placeholder="上课时间" readonly>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
+                    <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+                </div>
+                <div class='field col-sm-2 col-md-2'><button >删除</button></div>
+            </div>-->
+        </div>
+        
+    </div>
+    
+	<div class="col-sm-11 col-sm-offset-2 col-md-10 col-md-offset-x main">
+		<!-- TIME PICKER -->          
+        <!--<div style="display:inline-block" class="row">
+            <div class="timepicker col-sm-3 col-md-3" >                  
+                <div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="14" id="startDate" type="text" placeholder="开始时间" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+
+            
+            <div class="timepicker col-sm-3 col-md-3" >                  
+                <div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="14" id="endDate" type="text" placeholder="结束时间" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+            <div class="timepickerbtn col-sm-2 col-md-2" id="search"><button >查找</button></div>
+            <div class=" col-sm-4 col-md-4">
+                <div class="selector floatright">
+                    <select id='failedType' class="input form-control floatright">
+                        <option value='all'>导入状态</option>
+                        <option value='课程错误'>课程错误</option>
+                        <option value='电话错误'>电话错误</option>
+                        <option value='导入成功'>导入成功</option>
+                    </select>
+                </div>
+                <div class="selector floatright">
+                    <select id='channel' class="input form-control ">
+                        <option value='all'>渠道</option>
+                        <option value='2'>有赞</option>
+                        <option value='3'>小鹅通</option>
+                        <option value='4'>服务号绑定</option>
+                    </select>
+                </div>
+            </div>
+        </div>-->
+		<!-- table-->
+        <div>
+			<div class=""  style="display:inline"><button onclick="showUploadCourse()" style="width:150px">导入课程</button></div>
+        </div>
+		<div class="row placeholders">      
+			<table id = "course_table">
+			</table>
+			<dev id="toolbar"></dev>
+		</div>
+
+		
+	</div>
+</div>
+{% endblock %}
+
+{% block content2 %}
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+	"use strict";
+    let curr_id=1;
+    function addNew(){
+        set_lesson(0,'','')
+    }
+	function popShow(id){
+        let name = ''
+        let sku = ''
+        $(".lessons").empty();
+        $("tbody tr").each(function(index, item){
+            if (id == parseInt($(item).data('uniqueid'))){
+                name = $($(item).find("td")[1]).text()
+                sku = $($(item).find("td")[2]).text()
+                console.log(name)
+            }
+        });
+        $("#pop-box-addnew").show();
+        $("#course_id").val(id)
+        $(".course-name").html(name)
+        $(".course-sku").html(sku)
+        curr_id = 1
+        get_lessons(id);
+    }
+    function set_lesson(lesson_id, lesson_name, lesson_time){
+        if (lesson_name == ''){
+            lesson_name = '课节' + curr_id
+        }
+        let item = '<div class="row lesson-container" style="width:95%" id="lesson_'+curr_id+'">\
+			<input id="lesson_id" class="lesson_id" style="display:none"  value="'+lesson_id+'"/>\
+        	<div class="field col-sm-4 col-md-4"><input id="lesson_name" class="lesson_name" value="'+lesson_name+'"/></div>\
+            <div class="timepicker col-sm-6 col-md-6" >\
+                <div class="input-group date form_date_minute" id="time'+curr_id+'" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">\
+                    <input class="form-control" size="14" type="text" placeholder="上课时间" readonly value="'+lesson_time+'">\
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>\
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>\
+                </div>\
+                <input class="" type="hidden" id="dtp_input2" value="" /><br/>\
+            </div>\
+        	<div class="field col-sm-2 col-md-2"><button onclick="remove_lesson('+curr_id+')">删除</button></div>\
+        </div>'
+        $(".lessons").append($(item));
+        init_timer("time"+curr_id);
+        curr_id++;
+        console.log(curr_id)
+    }
+    function get_lessons(course_id){
+        $.ajax({
+            url: "../getcourselesson/",
+            type: 'get',
+            data: {
+                "course_id": course_id,
+            },
+            dataType: "json",
+            
+            success: function(data){
+                console.log(data)
+                $.each(data, function(index,item){
+                    set_lesson(item['ID'],item['Name'],item['StartTime'])
+                });
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });  
+    }
+    let is_uploading = false;
+    function upload_course(){
+        if (is_uploading){
+            alert("处理中，请稍后")
+            return
+        }
+        is_uploading = true
+        var formData = new FormData($('#upload_course_form')[0]);
+        $.ajax({
+            url: "../uploadcourse/",
+            type: 'post',
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            //dataType: "json",
+            success: function(data){
+                alert(data)
+                if (data=='ok'){
+                    hideUploadCourse();
+                }
+                is_uploading = false;
+            },
+            fail: function(err){
+                alert(err);
+                is_uploading = false;
+            }
+        }); 
+        return false;
+    }
+    function showUploadCourse(){
+        $("#pop-box-upload-course").show();
+    }
+    function hideUploadCourse(){
+        $("#pop-box-upload-course").hide();
+    }
+    
+    function remove_lesson(id){
+        $("#lesson_"+id).remove();
+    }
+
+    function popHide(){
+        $("#pop-box-addnew").hide();
+        clearPop()
+    }
+    function clearPop(){
+        $(".coupon_name").val('')
+        $("#coupon_id").val('')
+        $(".coupon_url").val('')
+    }
+    
+    let btnupdate = true
+	function update_lessons(){
+        if(!btnupdate){
+            return;
+        }
+        var course_id = $("#course_id").val();
+        if (course_id == undefined){
+            return;
+        }
+        let lessons = []
+        let is_return =false
+        $(".lesson-container").each(function(index,item){
+            let lesson_id = $(item).find('.lesson_id').val()
+            let lesson_name = $(item).find('.lesson_name').val()
+            let start_time = $(item).find('.form-control').val()
+            
+            if (start_time == ''){
+                alert('请输入课节时间')
+                is_return =true
+            }
+            lessons.push({"lesson_id":lesson_id, "lesson_name":lesson_name, "start_time":start_time})
+            //console.log('x')
+        })
+        if(is_return) return;
+        btnupdate = false
+        $('#save').children(0).text('保存中..');
+        let dataURL = encodeURI('../UpdateCourseLesson/');
+        $.ajax({
+            url: dataURL,
+            type: 'post',
+            data: {
+                "course_id": course_id,
+                "lessons": JSON.stringify(lessons)
+            },
+            //dataType: "json",
+            success: function(data){
+                if(data == 'ok'){
+                	alert("保存成功");
+                	popHide();
+					window.location.reload(false);
+                }else{
+                    alert(data);
+                }
+                btnupdate = true
+        		$('#save').children(0).text('保存');
+            },
+            fail: function(err){
+                alert(err);
+                btnupdate = true
+        		$('#save').children(0).text('保存');
+            }
+        });  
+    }
+	var TableInit = function () {
+		var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = $(window).height()-190;
+            $('#course_table').bootstrapTable({
+                url: '/getcloudcourses/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "desc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                fontSize:14,
+                columns: [{
+                    field: 'ID',
+                    title: 'ID'
+                },{
+                    field: 'Name',
+                    title: '名称'
+                },{
+                    field: 'SKU',
+                    title: 'SKU'
+                },{
+                    field: 'Edit',
+                    title: '操作'
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset:params.offset,
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+    
+    function edit_url(id){
+        //$('#student_table').bootstrapTable('refresh');
+    }
+    function init_timer(id){
+        $('#'+id).datetimepicker({
+            showOn: "button",
+            minView: "hour",
+            autoclose: true,
+            todayHighlight: true,
+            pickerPosition:"bottom-left",
+            format: "yyyy-mm-dd hh:ii",
+            startDate:"2018-07-01",
+            //endDate:new Date()
+        })
+    }
+    $(function () {
+        
+        $("#courseschedule_tab").addClass('tab-on')
+        var oTable = new TableInit();
+        oTable.Init();
+        $("#cancel").on("click", function(){
+            popHide();
+        });
+        $("#save").on("click", function(){
+            update_lessons();
+        });
+        $("#addNew").on("click", function(){
+            addNew();
+        });
+    });
+</script>
+{% endblock %}
+

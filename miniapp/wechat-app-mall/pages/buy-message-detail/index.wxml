@@ -1,0 +1,40 @@
+<view class="container">
+  <view class="message-label-box message-container" >
+    <view class="message-block">
+      <view class="label">
+        <text style="color:red">*</text>手机号码:</view>
+      <view class="label-item-box">
+        <input placeholder="请填写手机号码，用户唯一" class="message-input" maxlength="30" type="number" value='{{mobile}}' data-key="mobile" bindinput='getmsgvalue' />
+      </view>
+    </view>
+    <view class="message-block">
+      <view class="label">
+        <text style="color:red">*</text>学生姓名:</view>
+      <view class="label-item-box">
+        <input placeholder="请填写学生姓名" class="message-input" maxlength="30" type="text" data-key="name" value='{{name}}'  bindinput='getmsgvalue' />
+      </view>
+    </view>
+    <view class="message-block">
+      <view class="label">
+        <text style="color:red">*</text>学生年龄:</view>
+      <view class="label-item-box">
+        <input placeholder="请填写学生年龄" class="message-input" maxlength="30" type="number" data-key="age" value='{{age}}'  bindinput='getmsgvalue' />
+      </view>
+    </view>
+    <view class="message-block">
+      <view class="label">
+        <text style="color:red">*</text>学生年级:</view>
+      <view class="label-item-box">
+        <input placeholder="请填写学生年级" class="message-input" maxlength="30" type="number" data-key="grade" value='{{grade}}'  bindinput='getmsgvalue' />
+      </view>
+    </view>
+    <view class="message-block">
+      <view class="label">
+        <text style="color:red">*</text>微信号码:</view>
+      <view class="label-item-box">
+        <input placeholder="请填写微信号" class="message-input" maxlength="30" type="text" data-key="wxcode" value='{{wxcode}}'  bindinput='getmsgvalue' />
+      </view>
+    </view>
+  </view>
+  <view bindtap='saveMsg' class="save-button">保存</view>
+</view>

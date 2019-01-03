@@ -1,0 +1,47 @@
+<view class="container">
+  <image src='../../images/bg_mine.png' style='z-index=-1' class='userinfo-bg' mode='widthFix'></image>
+  <view class="userinfo">
+    <view class='userinfo-section'>
+      <image wx:if="{{userInfo && userInfo.avatarUrl}}" class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{ userInfo.nickName }}</text>
+      <text class="all-orders" bindtap='toOrderList'>查看全部订单></text>
+    </view>
+    <view class="type-container">
+      <scroll-view class="type-navbar" scroll-x="true">
+        <view class="type-box">
+          <view data-id="0" class="type-item" bindtap="tabClick">
+            <image class="title-icon" src="../../images/icon_paying.png"></image>
+            <text class='title-name'>待付款</text>
+          </view>
+        </view>
+        <view class="type-box">
+          <view data-id="1" class="type-item" bindtap="tabClick">
+            <image class="title-icon" src="../../images/icon_refund.png"></image>
+            <text class='title-name'>退款中</text>
+          </view>
+        </view>
+        <view class="type-box">
+          <view data-id="2" class="type-item" bindtap="tabClick">
+            <image class="title-icon" src="../../images/icon_completed.png"></image>
+            <text class='title-name'>已完成</text>
+          </view>
+        </view>
+      </scroll-view>
+   </view>
+  </view>
+  <view><image src='../../images/banner_mine.png' mode='widthFix' class='withdraw' bindtap='toWithDrawSelf'></image></view>
+  <view class="detail-container">
+    <view bindtap='toBuyerMessages' class="detail-item" hover-class="navigator-hover">
+      <image class="detail-img" src="../../images/buy_messages.png"></image>
+      <text class="detail-text">常用信息</text>
+    </view>
+    <view bindtap='toPointDetail' class="detail-item" hover-class="navigator-hover">
+      <image class="detail-img" src="../../images/my_points.png"></image>
+      <text class="detail-text">我的奖学金</text>
+    </view>
+    <view bindtap='toReturnMoney' class="detail-item" hover-class="navigator-hover">
+      <image class="detail-img" src="../../images/icon_money.png"></image>
+      <text class="detail-text">我的返现</text>
+    </view>
+  </view>
+</view>

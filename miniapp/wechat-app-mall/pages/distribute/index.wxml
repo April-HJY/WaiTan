@@ -1,0 +1,48 @@
+<view>
+  <view class="poster-container">
+    <image class='poster' src='{{poster_img}}'></image>
+  </view>
+  <view class="button-container">
+    <view wx:if="{{showSetting}}">
+      <button class="setting-button" open-type="openSetting" bindopensetting="handler">打开授权</button>
+    </view>
+    <view wx:if="{{!showSetting}}">
+      <view class="button save-pic" bindtap='saveImg'>保存图片并分享到朋友圈</view>
+    </view>
+  </view>
+  <view class="rule-button" bindtap='showPopup'>
+    <text class="button-name">活动规则</text>
+  </view>
+  <!--<canvas canvas-id="mycanvas" class='canvas' id="mycanvas" wx:if="true" style=''/>-->
+  <view class="show-popup" hidden="{{hideShopPopup}}">
+    <view class="popup-mask" bindtap="closePopupTap"></view>
+    <view class="popup-contents">
+      <image class="popup-close" src="/images/popup-close.png" bindtap='closePopupTap' />
+      <view class="rule-title">活动规则</view>
+      <view class="rule-content">
+        <view class="li">1</view>
+        <view class="rule-text">好友通过分享的二维码成功付款之后，分享者可获得好友实际付款金额5%的奖学金</view>
+      </view>
+      <view class="rule-content">
+        <view class="li">2</view>
+        <view class="rule-text">奖学金不可提现、不可转让</view>
+      </view>
+      <view class="rule-content">
+        <view class="li">3</view>
+        <view class="rule-text">1奖学金 = 1元现金</view>
+      </view>
+      <view class="rule-content">
+        <view class="li">4</view>
+        <view class="rule-text">自购课程，可获实际支付金额10%的奖学金</view>
+      </view>
+      <view class="rule-content">
+        <view class="li">5</view>
+        <view class="rule-text">单次订单最多可使用所购课程金额15%的奖学金</view>
+      </view>
+      <view class="rule-content">
+        <view class="li">6</view>
+        <view class="rule-text">本活动最终解释权归外滩教育所有</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>菜园子信息绑定</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <script src="../../static/js/zepto.min.js" type="text/javascript"></script>
+    <script src="../../static/js/jquery-1.11.0.min.js"></script>
+   <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>    
+    <script src="../../static/js/weui.min.js"></script>
+    
+<link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.0/weui.min.css" />
+<link rel="icon" href="../../static/favicon.ico">	
+        </head>
+        
+    <style>
+        .container {
+            padding: 15px;
+        }
+    </style>      
+<body>
+ 
+    <div class="weui-panel weui-panel_access">
+      
+  
+        
+<div class="weui-cells__title">请选择你所在的菜园子微信群</div>
+<div class="weui-cells weui-cells_select">
+                <select class="weui-select" id="groupselect" onchange= 'ChangeItems();'>
+
+            </select>
+
+
+</div>
+<div class="weui-cells__title">请选择你在该园的昵称</div>
+<div class="weui-cells weui-cells_select">
+                <select class="weui-select" id="nickname">
+                <option value="1">小可爱</option>
+                <option value="2">小透明</option>
+                <option value="3">很好</option>
+                <option value="4">很不好</option>
+            </select>
+
+
+
+
+</div>
+
+        <div class="weui-btn-area"><!--wx92a26ba6653d5b56-->
+            <a class="weui-btn weui-btn_primary" id="btnActionSheet" href="#" >马上绑定</a>
+            <!--<a class="weui-btn weui-btn_primary" id="gotoplay" href="https://applinzi.ddianke.com/wxJSWeb/newarticle&response_type=code&scope=snsapi_userinfo&state=STATE" id="showTooltips">我要种菜</a>-->
+        </div>   
+        
+</div>
+
+    
+    </body>
+
+<script>
+    $(function (){
+       // $.weui.alert('hi');
+    $('#btnActionSheet').on('click', function (){
+        $.weui.actionSheet([{
+            label: '示例菜单',
+            onClick: function (){
+                console.log('click1');
+            }
+        },{
+            label: '示例菜单',
+            onClick: function (){
+                console.log('click2');
+            }
+        },{
+            label: '示例菜单',
+            onClick: function (){
+                console.log('click3');
+            }
+        }]);
+    });
+});
+
+var  groupSelect = document.getElementById('groupselect');     
+    with(groupSelect) {
+        {%for group in grouplist%}
+        options[{{forloop.counter}}] = new Option('{{group}}', '{{forloop.counter}}');
+         {%if forloop.first%}
+          options[{{forloop.counter}}].selected=true;
+         {%endif%}
+        {% endfor %}
+    }
+var namelist = new Array();
+   {%for item in namelist%}
+    namelist[{{forloop.counter}}-1] = new Array();
+   {%for name in item.namelist%}
+   namelist[{{forloop.parentloop.counter}}-1][{{forloop.counter}}-1] = "{{name}}";
+   {%endfor%}
+   {%endfor%} 
+ChangeItems();          
+function ChangeItems() {  
+    var select = document.getElementById('nickname');  
+    var groupselect = document.getElementById('groupselect');  
+    array = namelist[groupselect.value-1]
+    with (select) {  
+        length = 0;//清空子项  
+
+        var index = 0;
+     array.forEach(function(e){
+     options[index] = new Option(e, index);
+         index++;
+     })  
+    }  
+ 
+}      
+    
+</script>
+    
+<script>
+wx.config({
+    //{{ticket}}
+    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    appId: '{{appid}}', // 必填，公众号的唯一标识
+    timestamp: '{{sign.timestamp}}', // 必填，生成签名的时间戳
+    nonceStr: '{{sign.nonceStr}}', // 必填，生成签名的随机串
+    signature: '{{sign.signature}}',// 必填，签名，见附录1
+    jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage','chooseWXPay','openProductSpecificView','addCard','chooseCard','openCard'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+});
+
+
+wx.ready(function () {
+
+  var shareData = {
+      title: '穿越历史看数据分析——神策数据桑文锋',
+      desc: '刘邦的首席数据官是萧何？ 毛主席也懂数据分析？ 快来听神策数据桑文锋老师穿越历史谈数据分析！',
+      //link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx92a26ba6653d5b56&redirect_uri=http%3A%2F%2Fwxhoutai.com%2Fcalendar%2F&response_type=code&scope=snsapi_userinfo&state=STATE',
+      link: 'https://applinzi.ddianke.com/wxJSWeb/vplayer',
+      imgUrl: 'http://applinzi.ddianke.com/static/img/tsaireader2.png'
+  };
+  wx.onMenuShareAppMessage(shareData);
+  wx.onMenuShareTimeline(shareData);
+      
+  });    
+wx.error(function(res){
+
+     alert(res); // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+
+});
+</script>    
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>生菜阅读公众号信息</title>
+        <link rel="stylesheet" href="../static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css"> 
+<script src="http://lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js"></script>
+        <script src="../static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+
+</head>
+<body>
+	<form action="../UpdateAccountConfig" method="post">
+        <div class="ui-content" role="main" id="content">
+            <h3 class="sub_title">
+                公众号基本信息</h3>   
+            <input type="text" name="appid" id="appid" style="display:none" value={{Account.appId}} >
+            <ul data-role="listview" data-divider-theme="b">
+                <li >
+                    <h4>头像</h4>
+                    <div class="meta_content">
+                        <img src={{ Account.headImg }} width="90" height="90"/>
+                    </div>
+                </li>
+                <li >
+					<h4>二维码</h4>
+
+					<div class="meta_content">
+						
+						<img src={{ Account.QRCodeURL }} class="qrcode_pic"
+						width="90" height="90" />
+						
+					</div>
+				</li>
+                <li >
+                    <h4>名称</h4>
+                    
+                    <div class="meta_content">
+                        {{ Account.appName }}
+                    </div>
+                </li>
+                <li  >
+                    <h4>微信号</h4>
+                    
+                    <div class="meta_content">
+                        <span>{{ Account.Alias }}</span>
+                    </div>
+                </li>
+                
+                <li>
+                    <h4>加入日期</h4>
+                    <div class="meta_content">
+                        {{Account.OnboardDate|date:"Y" }}年 {{Account.OnboardDate|date:"m" }} 月 {{Account.OnboardDate|date:"d" }} 日 {{Account.OnboardDate|date:"D" }}
+                    </div>
+                </li>
+                <li>
+                    <h4>当前用户数</h4>
+                    <div class="meta_content">
+                        非常多
+                    </div>
+                </li>
+                <li>
+                    <h4>收录文章数</h4>
+                    <div class="meta_content">
+                        {{ Account.ProcessIndex }}
+                    </div>
+                </li>
+                <!--
+                {% for config in Configs %}
+                <li>
+                    {% if config.ConfigType == 'bool' %}
+                    <div class="ui-field-contain">
+                        <label for="slider2">{{config.CName}}:</label>
+                        <select name={{config.ConfigName}} id={{config.ConfigName}} data-role="slider">
+                            <option value="0">Off</option>
+                            {% if config.ConfigValue == '1' %}
+                            <option value="1" selected='selected'>On</option>
+                            {% else %}
+                            <option value="1">On</option>
+                            {%endif%}
+                        </select>
+                    </div>
+                    {%else%}
+                    <div class="ui-field-contain">
+                        <label for="slider2">{{config.CName}}:</label>
+                        <input type="text" name={{config.ConfigName}} id={{config.ConfigName}} value={{config.ConfigValue}}>
+                    </div>
+                    {%endif%}
+                </li>
+                {%endfor%}
+                {%for image in ImageList%}
+                <li>
+                    <h4>图片: {{image.name}}素材: {{image.media_id}}</h4>
+                    <div class="meta_content">
+                        <img src={{ image.url }} /> 
+                    </div>
+                </li>                        
+                {%endfor%}
+                <li>
+                    <div class="ui-field-contain">
+                        <button class="ui-btn">提交</button>
+                    </div>
+                </li>
+-->
+            </ul>
+        </div>
+    </form>
+</body>
+</html>

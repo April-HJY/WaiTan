@@ -1,0 +1,140 @@
+﻿<!DOCTYPE HTML> 
+<html>
+<head>
+    <title>生菜阅读 2017</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <script src="../static/js/zepto.min.js" type="text/javascript"></script>
+   <script src="http://sdk.talkingdata.com/app/h5/v1?appid=31887010104EFF3BE3C6213FAAD21FB2&vn=台历2017&vc=1.0"></script>    
+    <script src="../static/js/weui.min.js"></script>
+<link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.1.0/weui.min.css" />
+</head>
+<body >
+
+
+        <h1 class="page__title">
+            <img src="../static/img/3.png" width="100%" />
+        </h1>
+        <p class="page__desc">2017 就要来啦！ 新的一年，你想对其他读者说些什么呢？</p>
+        <div class="weui-cells">
+
+         
+                <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <textarea class="weui-textarea" placeholder="请写下新的一年 你想对 生菜阅读 说的话" rows="3" id="comment"></textarea>
+                    <div class="weui-textarea-counter"><span>0</span>/200</div>
+                </div>
+            </div>  
+            <div class="weui-cell weui-cell_switch">
+                <div class="weui-cell__bd">我对生菜阅读台历有兴趣</div>
+                <div class="weui-cell__ft">
+                    <label for="switchCP" class="weui-switch-cp">
+                        <input id="switchCP" class="weui-switch-cp__input" type="checkbox" checked="checked" />
+                        <div class="weui-switch-cp__box"></div>
+                    </label>
+                </div>
+            </div>            
+               <div class="weui-cell weui-cell_select">
+                <div class="weui-cell__bd">
+                <select class="weui-select" id="Astro">
+                        <option selected="" value="13">我的星座是...</option>
+                        <option value="1">白羊座</option>
+                        <option value="2">金牛座</option>
+                        <option value="3">双子座</option>
+                        <option value="4">巨蟹座</option>
+                        <option value="5">狮子座</option>
+                        <option value="6">处女座</option>
+                        <option value="7">天秤座</option>
+                        <option value="8">天蝎座</option>
+                        <option value="9">射手座</option>
+                        <option value="10">摩羯座</option>
+                        <option value="11">水瓶座</option>
+                        <option value="12">双鱼座</option>                        
+                    </select>
+                </div>
+            </div>
+         
+ <!--<div class="weui-cells weui-cells_radio">
+            <label class="weui-cell weui-check__label" for="x11">
+                <div class="weui-cell__bd">
+                    <p>白羊座 </p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" class="weui-check" name="radio1" id="x11">
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="x12">
+                <div class="weui-cell__bd">
+                    <p>金牛座</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" class="weui-check" name="radio1" id="x12">
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="x13">
+                <div class="weui-cell__bd">
+                    <p>双子座</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" class="weui-check" name="radio1" id="x13">
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="x14">
+                <div class="weui-cell__bd">
+                    <p>巨蟹座</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" class="weui-check" name="radio1" id="x14">
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+
+        </div>-->
+    </div>            
+        <div class="weui-btn-area">
+            <a class="weui-btn weui-btn_primary" id="gotoplay" onclick="gotoplay();" id="showTooltips">确定</a>
+        </div>  
+</body>
+    <script>
+       function gotoplay() {
+            
+            var gourl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx92a26ba6653d5b56&redirect_uri="+encodeURIComponent('http://applinzi.ddianke.com/tsaiServer/webcallback?redirecturl=wxJSWeb/campaign2017')+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+            //if (Math.random()>0.8) {
+            //gourl = 'http://mp.weixin.qq.com/s?__biz=MzIzNzA2MjU4MA==&mid=208803670&idx=1&sn=df9cf1daa7564b538b60966731896153&scene=0#rd';   
+            //}
+           
+			var obj = document.getElementById("Astro"); //selectid
+			var index = obj.selectedIndex; // 选中索引
+			var value = obj.options[index].value;   
+            var text = obj.options[index].text;
+            var comment =  document.getElementById("comment").value;
+           if (value == "13")
+           {
+               alert('请先选择您的星座！');
+               return;
+           }
+                location.href=gourl;
+ 
+           //			$.ajax({
+           //      type: "POST",
+           //     url: "../UpdateSession/",
+           //     data: {
+           //         "Astro": text,
+           //         "comment": document.getElementById("comment").value
+                    //""
+           //     },
+
+           //            success: function (data) {
+           //     location.href=gourl;
+           // },
+           // error: function (msg) {
+           //     alert(msg);
+           // }
+           //});           
+            
+        };    
+    </script>
+</html>

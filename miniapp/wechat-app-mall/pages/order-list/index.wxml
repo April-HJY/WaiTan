@@ -1,0 +1,45 @@
+<view class="container">
+  <view class="status-box">
+    <view bindtap="statusTap" class="status-label {{index == currentType ? 'active' : ''}}" wx:for-items="{{statusType}}" wx:key="{{index}}" data-index="{{index}}">
+      {{item}}
+      <view class="{{tabClass[index]}}"></view>
+    </view>
+  </view>
+  <view class="no-order" hidden="{{orderList.length > 0 ? true : false}}">
+    <image src="/images/no-order.png" class="no-order-img"></image>
+    <view class="text">暂无订单</view>
+  </view>
+  <view class="order-list" hidden="{{orderList.length > 0 ? false : true}}">
+    <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}">
+      <view class="order-date">
+        <view class="date-box">{{item.dateAdd}}</view>
+        <view class="status red}}">{{item.statusStr}}</view>
+      </view>
+      <view>
+        <view class="goods-img-container" scroll-x="true">
+          <view class="img-box">
+            <image src="{{item.pic}}" class="goods-img"></image>
+          </view>
+          <view class="info-box">
+            <view class="goods-title">{{item.goodsName}}</view>
+            <view class="goods-footer">
+              <view class="goods-price">¥{{item.unit_price}}</view>
+              <view class="goods-quantity">×{{item.quantity}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="price-box">
+        <view class="total-price">
+          <text class="price-title" wx:if="{{item.paid==0}}">应付金额：</text><text class="price-title" wx:if="{{item.paid!=0}}">实际支付：</text>¥{{item.display_amount}}</view>
+      </view>
+      <view class="price-box2" wx:if="{{item.paid==0}}">
+        <view class="btn cancel-btn" bindtap="cancelOrderTap" wx:if="{{item.paid==0}}" data-id="{{item.id}}">取消订单</view>
+        <view class="btn topay-btn" bindtap="toPayTap" wx:if="{{item.paid==0}}" data-id="{{item.id}}" data-money="{{item.amountReal}}" data-score="{{item.score}}">立即付款</view>
+      </view>
+    </view>
+    <view class="bottom-block">
+    </view>  
+  </view>
+  
+</view>

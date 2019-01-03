@@ -1,0 +1,394 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style type="text/css">
+    .pop-box-detail{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:1000px;
+        height:500px;
+        top:50%;
+        left:50%;
+        margin-top: -250px;
+        margin-left: -500px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    .button{
+        width:80px ;
+        height:33px ;
+        border:solid 1px #cccccc;
+        border-radius:5px;
+    }
+    .detail-close{
+        width:30px;
+    }
+    .user_list{
+        width:940px;
+        height:300px;
+        margin-left:30px;
+    }
+    .user_title{
+        margin-right:420px;
+    }
+    #lessons{
+        width:300px;
+    }
+    #channels{
+        margin-left:-10px;
+        width:200px;
+    }
+    .dashboard-container{
+        border-top:1px solid #ccc;
+        margin-top:15px;
+        padding-top:15px;
+    }
+    .reports-menu{
+        display:block;
+    }
+    .categories{
+        width:200px;
+        display:inline;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class=" ">
+	<div class="pop-box-detail row" >
+        <input id="viewType" style="display:none" />
+		<div class="col-sm-12 col-md-12 " style="text-align:right">
+            <label class='user_title'></label>
+            <img src="../../static/images/close.png" onclick="hideDiv('pop-box-detail');" class="detail-close"/>
+            <input id="is_new" class="" style="display:none"  value=""/>
+		</div>
+		<div class="col-sm-12 col-md-12 row user_list" >      
+			<table id = "user_table">
+			</table>
+			<dev id="toolbar"></dev>
+		</div>
+	</div>
+	<div class="col-sm-11 col-sm-offset-2 col-md-10 col-md-offset-x main">
+        
+		<div style="" class="row">
+            <div class="col-sm-11 col-md-11 col-lg-11" style="margin-bottom:20px;">
+                <select id="lessons" class="selectpicker" data-dropdown-align-right="auto" data-actions-box="true" multiple data-live-search="true">
+
+                </select>
+                <select id="categories" class="input form-control categories">
+
+                </select>
+            </div>
+            <div class="timepicker col-sm-4 col-md-4 col-lg-4" >
+                <input id="dailyview" type=button class="button" value="日报表"/>
+                <input id="weeklyview" type=button class="button" value="周报表"/>
+                <input id="monthlyview" type=button class="button" value="月报表"/>
+            </div>
+            <div class="timepicker col-sm-3 col-md-3 col-lg-3" >                  
+                <div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="14" id="startDate" type="text" placeholder="开始时间" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+            
+            <div class="timepicker col-sm-3 col-md-3 col-lg-3" >                  
+                <div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="14" id="endDate" type="text" placeholder="结束时间" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+            <div class="col-sm-1 col-md-1 col-lg-1" ><input id="search" type=button class="button" value="查询"/></div>
+            
+        </div>
+        <!--<div style="" class="row">
+            <div class=" col-sm-6 col-md-6 col-lg-6">
+                <div class="selector floatright">
+                    <select id='channels' class="input form-control ">
+
+                    </select>
+                </div>
+            </div>
+        </div>-->
+
+		<!-- highcharter-->                   
+        <div class="row placeholders dashboard-container" >      
+            <div class="col-sm-12 row">
+                <div class="col-xs-12 col-sm-12 placeholder">
+                    <table id = "salestable">
+                    </table>
+                    <dev id="toolbar"></dev>
+                </div>
+                <div class="col-xs-12 col-sm-12 placeholder">
+                    <table id = "tradestable">
+                    </table>
+                    <dev id="toolbar"></dev>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+{% endblock %}
+
+{% block content2 %}
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    "use strict";
+    function hideDiv(div_id) {   
+		var div_obj = $("."+div_id);
+        div_obj.hide();
+		//hiedMask();
+	}
+	function showDiv(div_id){
+        var div_obj = $("."+div_id);
+        div_obj.show(); 
+        //showMask();
+    }
+    function showMask(){
+        $("#bg").show();
+        $("body").css("overflow-y","hidden");
+    }
+	function hiedMask(){
+        $("#bg").hide();
+        $("body").css("overflow-y","auto"); /*用来隐藏html的滚动条*/
+    }
+    function setCategories(){
+        let dataURL = encodeURI('../getcategories');
+        $.ajax({
+            url: dataURL,
+            dataType: "json",
+            data: {
+
+            },
+            success: function(data){
+                console.log(data)
+                $("#categories").append($("<option value='all'>选择分类 All</option>"))
+                for (var i=0;i< data.length; i++){
+                    var cate = data[i]
+                    $("#categories").append($("<option value='" + cate.ID + "'>" + cate.Name + "</option>"))
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+    }
+    function setChannelAndDistributor(){
+        let dataURL = encodeURI('../getchannelsanddistributors');
+        $.ajax({
+            url: dataURL,
+            dataType: "json",
+            data: {
+
+            },
+            success: function(data){
+                console.log(data)
+                $("#channels").append($("<option value='all'>选择渠道 All</option>"))
+                for (var i=0;i< data.length; i++){
+                    var channel = data[i]
+                    $("#channels").append($("<option value='" + channel.Key + "'>" + channel.Name + "</option>"))
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+    }
+    function setSelectLesson(){
+        let dataURL = encodeURI('../thirdpartylessons');
+        $.ajax({
+            url: dataURL,
+            dataType: "json",
+            data: {
+
+            },
+            success: function(data){
+                console.log(data)
+                for (var i=0;i< data.length; i++){
+                    var lesson = data[i]
+                    $("#lessons").append($("<option value='" + lesson['ID'] + "'>" + lesson.ChannelName + ':' + lesson.Name + "</option>"))
+                }
+                $('.selectpicker').selectpicker('refresh');
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+    }
+    var TableSales = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = 220//$(window).height()-300;
+            $('#salestable').bootstrapTable({
+                url: '/salesstatisticsdata/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "Name",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                columns: [{
+                    field: 'Name',
+                    title: '用户分类',
+                },{
+                    field: 'Count',
+                    title: '用户数量'
+                },{
+                    field: 'TotalFee',
+                    title: '总金额'
+                },{
+                    field: 'AvgTradeCount',
+                    title: '平均订单数'
+                },{
+                    field: 'AvgTradeFee',
+                    title: '平均订单金额'
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset:params.offset,
+                startDate: $("#startDate").val(),
+                endDate: $("#endDate").val(),
+                lesson_id:$("#lessons").val(),
+                category:$("#categories").val(),
+                viewType:$("#viewType").val(),
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+    
+    var TableTrades = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = 400//$(window).height()-300;
+            $('#tradestable').bootstrapTable({
+                url: '/tradesdata/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: true,                     //是否启用排序
+                sortOrder: "desc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "Name",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                columns: [{
+                    field: 'Name',
+                    title: '订单名',
+                },{
+                    field: 'Count',
+                    title: '数量',
+                    sortable : true,
+                    width:120,
+                },{
+                    field: 'TotalFee',
+                    title: '总金额',
+                    sortable : true,
+                    width:120,
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset:params.offset,
+                sortOrder:params.order,
+                sortName:params.sort,
+                startDate: $("#startDate").val(),
+                endDate: $("#endDate").val(),
+                lesson_id:$("#lessons").val(),
+                category:$("#categories").val(),
+                viewType:$("#viewType").val(),
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+    
+	$(function () {
+        setCategories();
+        setSelectLesson();
+        setChannelAndDistributor();
+		$('#viewType').val('daily');
+        var salesTable = new TableSales();
+        salesTable.Init();
+        var tradesTable = new TableTrades();
+        tradesTable.Init();
+        $("#categories").on('change', function(){
+            $('#salestable').bootstrapTable('refresh');
+            $('#tradestable').bootstrapTable('refresh');
+        });
+        $('#lessons').on('hidden.bs.select', function (e) {
+            $(".bootstrap-select .dropdown-menu").hide();
+        });
+        $('#lessons').on('show.bs.select', function (e) {
+            $(".bootstrap-select .dropdown-menu").show();
+        });
+
+        $("#search").on('click', function(){
+            let start = $("#startDate").val()
+            if (start == ''){
+                $("#startDate").val('2016-07-01');
+                //alert('请输入开始时间')
+                //return;
+            }
+            $('#viewType').val('');
+            $('#salestable').bootstrapTable('refresh');
+            $('#tradestable').bootstrapTable('refresh');
+        })
+        $("#dailyview").on('click', function(){
+            $('#viewType').val('daily');
+            $('#salestable').bootstrapTable('refresh');
+            $('#tradestable').bootstrapTable('refresh');
+        })
+        $("#weeklyview").on('click', function(){
+            $('#viewType').val('weekly');
+            $('#salestable').bootstrapTable('refresh');
+            $('#tradestable').bootstrapTable('refresh');
+        })
+        $("#monthlyview").on('click', function(){
+            $('#viewType').val('monthly');
+            $('#salestable').bootstrapTable('refresh');
+            $('#tradestable').bootstrapTable('refresh');
+        })
+		$("#sales_tab").addClass('tab-on')
+	});
+
+</script>
+{% endblock %}
+

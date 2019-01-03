@@ -1,0 +1,399 @@
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+}
+
+button {
+  height: 34px;
+  width: auto;
+  padding: 0 20px;
+  text-align: center;
+  background: #5e7ae5;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px; 
+}
+button:hover {
+  background: #5255b6;
+}
+option {
+  height: 24px;
+  line-height: 24px;
+  border: none;
+}
+/*
+ * Global add-ons
+ */
+#tag1{
+  color: #555;
+  font-size: 16px;
+}
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+  border: 0;
+}
+
+ 
+
+ .step{
+ margin-bottom:12px;
+ height: 80px;
+ }
+ .labelwrap {
+  margin-bottom: 13px;
+  height: 32px;
+  }
+.group1{
+  margin-left: 0px;
+  zoom:1;
+  overflow: hidden;
+ margin-bottom: 35px;
+}
+.group0{
+  margin-left: 0px;
+  zoom:1;
+  overflow: hidden;
+ margin-bottom: 4px;
+}
+.dashlabel_a{
+  float: left;
+  line-height: 30px;
+  padding-right:10px;
+  
+}
+.dashlabel_b{
+  float: left;
+  line-height: 30px;
+  padding: 0 10px;
+  display: none;
+  
+}
+.timepicker{ 
+  /*width: 200px;*/
+  height: 40px;
+  line-height: 30px;
+  float: left;
+}
+.timepickerbtn{
+  /*width: 100%;*/
+  display: block;
+  /*float: right;*/
+}
+.timepickerbtn > button{
+  width: 100px;
+  margin-left: 0px;
+}
+.new > button{
+  
+  width: 80%;
+  margin-left: 10%;
+  height: 32px;
+  margin-bottom: 4px;   
+}
+.bigbtn > button{
+  width: 100%;  
+  height: 32px;
+  margin-bottom:14px;   
+  margin-top: 14px;
+}
+
+.selector{
+  /*width: 200px;*/
+  height: 40px;
+  line-height: 30px;
+  float: left;
+  margin:0 10px;
+}
+.sidebar {
+ 
+}
+.floatation {
+  border-radius: 12px;
+  border: 1px solid #b2b2b2;
+
+}
+.create {
+  position: absolute;
+  top:50px;
+  width: 100%;
+  background: #f0f0f0;
+  height: auto;
+  z-index: 999;
+  display: none; 
+  min-height: 60%;
+  padding-bottom: 35px;
+  overflow: scroll;
+}
+.create h2 {
+  margin-left:20px;
+  display: inline-block;
+  height:52px;
+}
+.create .cancel {
+  float: right;
+  margin:20px;
+  background: #bfbfbf;
+}
+.create label{
+  float: left;   
+  line-height: 32px;
+  height: 32px;
+  width: 100%;
+}
+.create select{
+  width: 100%;
+}
+.selectorform,
+.selector_button{
+  float: left; 
+
+}
+.selector_button{
+  float: left;
+  margin-right: 8px;
+  line-height: 34px;  
+}
+ .selectorform{
+   margin-bottom: 4px;
+   margin-right: 8px;
+ }
+ .s_remove{
+  background: #bfbfbf;
+
+} 
+ .submit {
+  margin-bottom: 13px;
+  height: auto;
+  }
+
+@media (min-width: 768px) {
+  .create {
+    position: absolute;
+    top:120px;
+    display: none; 
+    height: 80%;
+    min-height: 60%;
+    width: 50%;
+    z-index: 1100;
+    margin-left: 25%;
+
+  }
+  .step  {
+  margin-bottom: 13px;
+  height: 32px;
+  }
+  
+  .create select{
+  width: 70%;
+ }
+  .dashlabel_b{
+    float: left;
+    line-height: 30px;
+    padding: 0 10px;
+    display:inline;  
+  }
+  .sidebar {
+    position: fixed;
+    line-height: 20px;
+    list-style: none;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+    width: 15.4%;
+    min-width: 180px;
+  }
+  .new > button, .bigbtn > button{  
+    width: 220px;
+    height: 40px;      
+    margin-left: 0px;
+   
+  }
+  .timepickerbtn{
+    /*width: 100%;*/
+    display: block;
+    /*float: none;*/
+  }
+  .timepickerbtn > button{
+    width: 100px;
+    margin-left: 20px;
+  }
+}
+.sidebar li{
+  margin: 12px;
+}
+
+
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+
+/*
+ * Main content
+ */
+
+.main {
+  padding: 20px;
+}
+
+.form_date{
+  /*width: 200px;*/
+  height: 32px;   
+}
+
+.main .page-header {
+  margin-top: 0;
+}
+
+
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+  .col-md-offset-x {
+      margin-left: 15.6%;
+      
+  }
+   
+}
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+/*login*/
+.loginbody{
+  background: #7cb5ec;
+  }
+.loginnav{
+  text-align: center;
+  color: #777;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 6px;
+}  
+.loginnav a{
+ text-decoration: none;
+} 
+
+.code2d {
+  width: 70%;
+  max-width: 400px;
+  height: 80%;
+  max-height: 600px;
+  padding:20px; 
+  margin: 0 auto;
+  text-align: center;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 2px 3px  rgba(0,0,0,.3) ;
+  margin-top: 72px;
+
+}
+
+.code2d>img {
+  width: 95%;
+  height: auto;
+}
+.scan{
+  zoom:1;
+  overflow: hidden;
+  text-align: left;
+  margin-top: 14px;
+  height: auto;
+  min-height: 40px;
+  line-height: 16px;
+  width: 84%;
+  margin-left: 10%; vertical-align: text-bottom; 
+   
+}
+.code2d h4{
+  margin-bottom: 20px;
+  height: 32px;
+}
+.scan p{
+     margin-left: 44px;
+     min-height: 32px;
+     color: #8f8f8f;
+
+
+}
+.code2d>.scan>img {
+  width: 32px;
+  height: 32px;
+  float: left;
+  margin-right: 8px;
+}
+
+.p_info{
+  padding-top: 30px;
+  width: 40%;
+  text-align: center;
+  margin:0 auto;
+}
+
+/*noauthority*/
+.noauthority{
+  width: 100%;
+  text-align: center;
+}
+.noauthority h4 {
+   line-height: 24px;
+}
+
+@media (min-width: 768px) {
+  .noauthority  {
+   padding-top: 120px;
+
+}
+
+}

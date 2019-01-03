@@ -1,0 +1,222 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    position: relative;
+    font-size: 12px;
+    -webkit-text-size-adjust: none;
+}
+
+figure img {
+    width: 100%;
+}
+
+.p1_1 {
+    position: absolute;
+    width: 168px;
+    height: 114px;
+    left: 22px;
+    top: 767px;
+}
+
+.p1_2 {
+    position: absolute;
+    width: 168px;
+    height: 114px;
+    left: 206px;
+    top: 766px;
+}
+
+.p1_3 {
+    position: absolute;
+    width: 168px;
+    height: 114px;
+    left: 415px;
+    top: 784px;
+}
+
+.p1fc {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    display: none;
+}
+
+.hdpage {
+    position: absolute;
+    top: 66px;
+    left: 0;
+    width: 640px;
+    overflow-x: scroll;
+}
+
+.jia1 {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    left: 454px;
+    top: 277px;
+}
+
+.jia2 {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    left: 385px;
+    top: 459px;
+}
+
+.jia3 {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    left: 1299px;
+    top: 529px;
+}
+
+.toy {
+    position: absolute;
+    width: 219px;
+    height: 33px;
+    left: 99px;
+    top: 789px;
+}
+
+.toz {
+    position: absolute;
+    width: 219px;
+    height: 33px;
+    left: 1260px;
+    top: 789px;
+}
+
+.jcsp {
+    position: absolute;
+    width: 183px;
+    height: 53px;
+    left: 31px;
+    top: 52px;
+}
+
+.p2fc {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+}
+
+.p2gb {
+    position: absolute;
+    display: block;
+    width: 45px;
+    height: 45px;
+    left: 590px;
+    top: 795px;
+}
+
+.name {
+    position: absolute;
+    width: 260px;
+    height: 27px;
+    left: 214px;
+    top: 355px;
+    font-size: 18px;
+}
+
+.phone {
+    position: absolute;
+    width: 260px;
+    height: 27px;
+    left: 214px;
+    top: 408px;
+    font-size: 18px;
+}
+
+.type {
+    position: absolute;
+    width: 214px;
+    height: 37px;
+    left: 266px;
+    top: 459px;
+    font-size: 18px;
+}
+
+.shengf {
+    position: absolute;
+    width: 133px;
+    height: 36px;
+    left: 211px;
+    top: 515px;
+    font-size: 18px;
+}
+
+.city {
+    position: absolute;
+    width: 134px;
+    height: 35px;
+    left: 409px;
+    top: 516px;
+    font-size: 18px;
+}
+
+.jxs {
+    position: absolute;
+    width: 243px;
+    height: 36px;
+    left: 239px;
+    top: 569px;
+    font-size: 18px;
+}
+
+.submit {
+    position: absolute;
+    width: 109px;
+    height: 35px;
+    left: 187px;
+    top: 630px;
+}
+
+.reset {
+    position: absolute;
+    width: 109px;
+    height: 35px;
+    left: 345px;
+    top: 630px;
+}
+
+.arrowup {
+    position: absolute;
+    bottom: 4%;
+    left: 47%;
+    width: 6%;
+    z-index: 200;
+    display: none;
+    -webkit-animation: arrowup 2s 1s infinite ease forwards;
+}
+
+@-webkit-keyframes arrowup {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 30%, 0);
+    }
+    70% {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -30%, 0);
+    }
+}
+
+.spgb {
+    position: absolute;
+    width: 54px;
+    height: 40px;
+    background: url(../images2/spfh.png);
+    left: 26px;
+    top: 97px;
+}

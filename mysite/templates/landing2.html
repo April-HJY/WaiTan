@@ -1,0 +1,373 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <!--<link rel="Shortcut Icon" href="http://sss.qingting.fm/favicon.ico" type="image/x-icon"> -->
+
+        <title>外滩云课堂</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+        <!--<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">-->
+        <link href="/static/css/bootstrap-select.min.css" rel="stylesheet">
+        <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">-->
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <link href="/static/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="/static/css/dashboard.css" rel="stylesheet">
+
+        <!-- Datetimepicker -->
+        <!--<link href="/static/css/bootstrap-datetimepicker-4.15.35.min.css" rel="stylesheet">-->
+        <link href="/static/css/bootstrap-datetimepicker.css" rel="stylesheet">
+        
+
+        <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">-->
+        <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+        <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+        <script src="/static/assets/js/ie-emulation-modes-warning.js"></script>
+        <script src="https://jic.talkingdata.com/app/h5/v1?appid=E1E53C5ED5794D4DA38FC29A89A5766A&vn=2.0&vc=v1"></script>
+        <script type="text/javascript">
+            var _hmt = _hmt || [];
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?8dfc20d29a84c4c061cf69a881b38e63";
+                var s = document.getElementsByTagName("script")[0]; 
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+
+        <link href="/static/css/bootstrap-table.css" rel="stylesheet">
+
+        <style type="text/css">
+            body{
+                font-size:16px !important;
+                color:#696969
+            }
+            .body-container{
+                width:1260px;
+                height:4020px;
+                text-align:center;
+                margin-top:-60px;
+                background-image:url(../static/images/landing3.png);
+                background-size:1260px 4020px;
+            }
+
+            .pop-box-user{
+                text-align:center;
+                position:fixed;
+                z-index:1000;
+                width:1260px;
+                height:80px;
+                bottom:0px;
+                padding-top: 25px;
+                left:50%;
+                margin-left:-630px;
+                background-color:grey;
+                opacity:0.95;
+                filter:Alpha(opacity=50);
+            }
+            .usercontainer{
+                text-align:center;
+                margin-left:300px;
+                width:660px;
+                filter:Alpha(opacity=50);
+            }
+            .submit-button{
+                background-color:#ffc070;
+                width:100%;
+                border:0px;
+                border-radius:3px;
+                height:30px;
+                color:#c8681b;
+            }
+            .top-button{
+                height:29px;
+                width:160px;
+                font-size:16px;
+                font-weight:bold;
+                margin-left:525px;
+                margin-top:42px;
+            }
+            .link-button-color{
+                color:#fff;
+                background:#ffd04e;
+            }
+            .banner-button{
+                position:absolute;
+                z-index:20px;
+                height:43px;
+                width:158px;
+                font-size:20px;
+                font-weight:bold;
+                margin-left:-729px;
+                margin-top:371px;
+            }
+            .feature-button{
+                position:absolute;
+                font-weight:bold;
+                color:#fff;
+                background:#61a6e9;
+                border-radius:0px;
+                font-size:16px;
+                height:38px;
+                width:145px;
+                margin-top:2769px;
+            }
+            .feature-button-top1{
+                margin-left:-714px;
+            }
+            .feature-button-top2{
+                margin-left:-514px;
+                
+            }
+            .feature-button-top3{
+                margin-left:-313px;
+            }
+            .feature-button-top4{
+                margin-left:-112px;
+            }
+            .listen-button{
+                position:absolute;
+                color:#c35c10;
+                background-color:#ffd04e;
+                border-radius:0px;
+                font-size:12px;
+                height:22px;
+                width:88px;
+
+                border-radius:2px;
+            }
+            .firstline{
+                margin-top:3145px;
+            }
+            .listen-button1{
+                margin-left:-726px;
+            }
+            .listen-button2{
+                margin-left:-459px;
+            }
+            .listen-button3{
+                margin-left:-191px;
+            }
+            .secondline{
+                margin-top:3368px;
+            }
+            .listen-button1{
+                margin-left:-726px;
+            }
+            .listen-button2{
+                margin-left:-459px;
+            }
+            .listen-button3{
+                margin-left:-191px;
+            }
+            .detail-button{
+                position:absolute;
+                color:#fff;
+                background:#61a6e9;
+                border-radius:2px;
+                font-size:13px;
+                height:24px;
+                width:117px;
+                margin-top:3701px;
+                margin-left:-66px;
+                
+            }
+            
+        </style>
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+    </head>
+
+    <body >
+        <div style="text-align:-webkit-center;width:100%">
+            <div class="body-container ">
+                <button class='top-button link-button-color' onclick='show_service();'>领取体验课</button>
+                <button class='banner-button link-button-color' onclick='show_service();'>0元预约</button>
+                <button class='feature-button-top1 feature-button' onclick='show_service();'>预约体验</button>
+                <button class='feature-button-top2 feature-button' onclick='show_service();'>预约体验</button>
+                <button class='feature-button-top3 feature-button' onclick='show_service();'>预约体验</button>
+                <button class='feature-button-top4 feature-button' onclick='show_service();'>预约体验</button>
+                <button class='listen-button1 listen-button firstline' onclick='show_service();'>在线试听</button>
+                <button class='listen-button2 listen-button firstline' onclick='show_service();'>在线试听</button>
+                <button class='listen-button3 listen-button firstline' onclick='show_service();'>在线试听</button>
+				<button class='listen-button1 listen-button secondline' onclick='show_service();'>在线试听</button>
+                <button class='listen-button2 listen-button secondline' onclick='show_service();'>在线试听</button>
+                <button class='listen-button3 listen-button secondline' onclick='show_service();'>在线试听</button>
+                <button class='detail-button' onclick='show_service();'>查看详细</button>
+                <div class='pop-box-user'>
+                    <div class="usercontainer">
+                        <div class='col-sm-3 col-md-3 input-field'>
+                            <div class="controls">
+                                <input class="form-control input-sm" id="username" type="text" name="username" value="" required="" placeholder="请输入姓名" aria-required="true">
+                                <div class="help-block"></div>
+                            </div>
+                        </div>
+                        <div class='col-sm-3 col-md-3 input-field'>
+                            <div class="controls">
+                                <input class="form-control input-sm" id="mobile" type="tel" name="mobile" value="" required=""  onkeyup="value=value.replace(/[^\d]/g,'') " 
+                                       onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" placeholder="请输入手机号" maxlength="11" aria-required="true">
+                                <div class="help-block"></div>
+                            </div>
+                        </div>
+                        <div class='col-sm-3 col-md-3 input-field'>
+                            <div class="controls">
+                                <input class="form-control input-sm" id="age" type="age" name="age" value="" required="" onkeyup="value=value.replace(/[^\d]/g,'') " 
+                                       onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" placeholder="请输入年龄" maxlength="2" aria-required="true">
+                                <div class="help-block"></div>
+                            </div>
+                        </div>
+                        <div class='col-sm-3 col-md-3 button-container' >
+                            <input type="button" class="submit-button" value="立即预约"/>
+                        </div>
+                    </div>
+                </div>
+                <!--<img src="../static/images/landing.jpg" width='1260px' usemap="#planetmap" alt="Planets"/>-->
+                <!--<map name="planetmap" id="planetmap">
+                    <area shape="rect" coords="245,193,402,235" href ="javascript:;" alt="Sun" onclick='show_service();' />
+                    <area shape="rect" coords="615,33,770,60" href ="javascript:;" alt="Sun" onclick='show_service();' />
+                    <area shape="rect" coords="259,715,402,750" href ="javascript:;" alt="Sun" onclick='show_service();' />
+                    <area shape="rect" coords="460,715,603,750" href ="javascript:;" alt="Sun" onclick='show_service();' />
+                    <area shape="rect" coords="661,715,804,750" href ="javascript:;" alt="Sun" onclick='show_service();' />
+                    <area shape="rect" coords="862,715,1005,750" href ="javascript:;" alt="Sun" onclick='show_service();' />
+                    <area shape="rect" coords="910,1875,1025,1897" href ="javascript:;" alt="Sun" onclick='show_service();' />
+                </map>-->
+
+            </div>
+        </div>
+
+
+
+        <!-- Bootstrap core JavaScript
+================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+        <script>window.jQuery || document.write('<script src="http://lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js"><\/script>')</script>
+        <!--<script src="/static/js/bootstrap.min.js"></script>-->
+        <!--<script type='text/javascript'>
+            (function(m, ei, q, i, a, j, s) {
+                m[i] = m[i] || function() {
+                    (m[i].a = m[i].a || []).push(arguments)
+                };
+                j = ei.createElement(q),
+                    s = ei.getElementsByTagName(q)[0];
+                j.async = true;
+                j.charset = 'UTF-8';
+                j.src = 'https://static.meiqia.com/dist/meiqia.js?_=t';
+                s.parentNode.insertBefore(j, s);
+            })(window, document, 'script', '_MEIQIA');
+            _MEIQIA('entId', 115952);
+        </script>-->
+        <script type='text/javascript'>
+            
+            function show_service(){
+                //alert('跳转客服');
+                window.open('http://p.qiao.baidu.com/cps/chat?siteId=12360483&userId=25957863');
+                //window.location.href = 'http://p.qiao.baidu.com/cps/chat?siteId=12360483&userId=25957863'
+            }
+            function getQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]); return null;
+            }
+            $(function (){
+                $(".banner-button").on('mouseover',function(){
+                    $(this).css('backgroundColor','#8dc63f');
+                })
+                $(".banner-button").on('mouseout',function(){
+                    $(this).css('backgroundColor','#ffd04e');
+                })
+                $(".feature-button, .detail-button").on('mouseover',function(){
+                    $(this).css('backgroundColor','#ffd04e');
+                })
+                $(".feature-button, .detail-button").on('mouseout',function(){
+                    $(this).css('backgroundColor','#61a6e9');
+                })
+                $(".listen-button").on('mouseover',function(){
+                    $(this).css('color','#fff');
+                })
+                $(".listen-button").on('mouseout',function(){
+                    $(this).css('color','#c35c10');
+                })
+                let btncondition = true;
+                $('.submit-button').on('click', function(){
+                    let username = $('#username').val()
+                    if (username == ''){
+                        alert('请输入名字！')
+                        return;
+                    }
+                    let mobile = $('#mobile').val()
+                    if (mobile == ''){
+                        alert('请输入手机号号码！')
+                        return;
+                    }
+                    if (mobile.length < 11){
+                        alert('手机号码位数不足！')
+                        return;
+                    }
+                    let age = $('#age').val()
+                    if (age == ''){
+                        alert('请输入您孩子的年龄！')
+                        return;
+                    }
+                    let campaign = getQueryString('campaign')
+                    let data = {
+                        'username':username,
+                        'mobile':mobile,
+                        'age':age,
+                        'campaign':campaign
+                    }
+                    
+                    if (!btncondition){
+                        return;
+                    }
+                    btncondition = false
+                    let that = this;
+                    $(that).val('预约中..')
+                    let dataURL = encodeURI('../SetCampaignUser/');
+                    $.ajax({
+                        type: 'post',
+                        url: dataURL,
+                        data: data,
+                        //dataType: "json",
+                        success: function(data){
+                            if (data == 'ok'){
+                                alert("预约成功，会有客服人员联系您！")
+                            }
+                            else
+                                alert(data)
+                            btncondition = true;
+                            $(that).val('立即预约');
+                        },
+                        fail: function(err){
+                            alert(err);
+                            btncondition = true;
+                            $(that).val('立即预约');
+                        }
+                    });
+                })
+            })
+        </script>
+        <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+        <script src="/static/assets/js/holder.min.js"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="/static/assets/js/ie10-viewport-bug-workaround.js"></script>
+
+
+        <script>
+
+        </script>
+    </body>
+</html>

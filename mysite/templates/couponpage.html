@@ -1,0 +1,266 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style type="text/css">
+    .title-margin{
+        margin:10px 10px;
+    }
+	.marketing-menu{
+        display:block;
+    }
+    .button{
+        width:100px ;
+        height:40px ;
+        border:solid 1px #cccccc;
+        border-radius:5px;
+    }
+    .select-normal{
+        padding:0 20px;
+        height:32px;
+        line-height:32px;
+        border-radius:5px;
+        margin:0 5px;
+    }
+    .floatright{
+        float:right;
+    }
+    .pop-box-addnew{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:500px;
+        height:150px;
+        top:50%;
+        left:50%;
+        margin-top: -150px;
+        margin-left: -250px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    .coupon-name, .coupon-field{
+        padding-top:10px;
+        padding-left:30px;
+    }
+    .coupon-url{
+        margin:10px 10px;
+        width:90%;
+        resize:none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class=" ">
+    <div id='pop-box-addnew' class="pop-box-addnew" >
+        <input id="coupon_id" class="" style="display:none"  value=""/>
+
+        <div style="text-align:center"><label class="coupon-name"></label></div>
+        <div class="row">
+            <div class="col-sm-2 col-md-2"><label class="coupon-field">URL</label></div>
+            <div class="col-sm-10 col-md-10"><input class='coupon-url' id="coupon_url"/></div>
+        </div>
+        <div class="row">
+            <div class=" col-sm-5 col-md-5"> </div>
+            <div class="timepickerbtn col-sm-3 col-md-3" id="confirm" ><button >确定</button></div>
+            <div class="timepickerbtn col-sm-3 col-md-3" id="cancel" ><button >取消</button></div>
+        </div>
+    </div>
+	<div class="col-sm-11 col-sm-offset-2 col-md-10 col-md-offset-x main">
+		<!-- TIME PICKER -->          
+        <!--<div style="display:inline-block" class="row">
+            <div class="timepicker col-sm-3 col-md-3" >                  
+                <div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="14" id="startDate" type="text" placeholder="开始时间" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+
+            
+            <div class="timepicker col-sm-3 col-md-3" >                  
+                <div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="14" id="endDate" type="text" placeholder="结束时间" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+            <div class="timepickerbtn col-sm-2 col-md-2" id="search"><button >查找</button></div>
+            <div class=" col-sm-4 col-md-4">
+                <div class="selector floatright">
+                    <select id='failedType' class="input form-control floatright">
+                        <option value='all'>导入状态</option>
+                        <option value='课程错误'>课程错误</option>
+                        <option value='电话错误'>电话错误</option>
+                        <option value='导入成功'>导入成功</option>
+                    </select>
+                </div>
+                <div class="selector floatright">
+                    <select id='channel' class="input form-control ">
+                        <option value='all'>渠道</option>
+                        <option value='2'>有赞</option>
+                        <option value='3'>小鹅通</option>
+                        <option value='4'>服务号绑定</option>
+                    </select>
+                </div>
+            </div>
+        </div>-->
+		<!-- table-->                   
+		<div class="row placeholders">      
+			<table id = "student_table">
+			</table>
+			<dev id="toolbar"></dev>
+		</div>
+
+		
+	</div>
+</div>
+{% endblock %}
+
+{% block content2 %}
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+	"use strict";
+	function popShow(id){
+        
+        let name = ''
+        $("tbody tr").each(function(index, item){
+            if (id == parseInt($(item).data('uniqueid'))){
+                name = $($(item).find("td")[1]).text()
+                console.log(name)
+            }
+        });
+        $("#pop-box-addnew").show();
+        $("#coupon_id").val(id)
+        $(".coupon-name").html(name)
+    }
+    function popHide(){
+        $("#pop-box-addnew").hide();
+        clearPop()
+    }
+    function clearPop(){
+        $(".coupon_name").val('')
+        $("#coupon_id").val('')
+        $(".coupon_url").val('')
+    }
+    
+    let btnupdate = true
+	function updateCoupon(){
+        if(!btnupdate){
+            return;
+        }
+        var id = $("#coupon_id").val();
+        if (id == undefined){
+            id = 0;
+        }
+
+        btnupdate = false
+        $('#confirm').children(0).text('保存中..');
+        var coupon_url = $("#coupon_url").val()
+        let dataURL = encodeURI('../UpdateCouponUrl/');
+        $.ajax({
+            url: dataURL,
+            type: 'post',
+            data: {
+                "coupon_id": id,
+				"coupon_url": coupon_url,
+            },
+            //dataType: "json",
+            success: function(data){
+                if(data == 'ok'){
+                	alert("保存成功");
+                	popHide();
+					window.location.reload(false);
+                }else{
+                    alert(data);
+                }
+                btnupdate = true
+        		$('#confirm').children(0).text('确定');
+            },
+            fail: function(err){
+                alert(err);
+                btnupdate = true
+        		$('#confirm').children(0).text('确定');
+            }
+        });  
+    }
+	var TableInit = function () {
+		var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = $(window).height()-150;
+            $('#student_table').bootstrapTable({
+                url: '/GetAllCoupons/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "desc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                fontSize:14,
+                columns: [{
+                    field: 'ID',
+                    title: 'ID'
+                },{
+                    field: 'Name',
+                    title: '名称'
+                },{
+                    field: 'StartDate',
+                    title: '开始时间'
+                },{
+                    field: 'EndDate',
+                    title: '结束时间'
+                },{
+                    field: 'Coupon_URL',
+                    title: '链接'
+                },{
+                    field: 'Edit',
+                    title: '修改连接'
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset:params.offset,
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+    
+    function edit_url(id){
+        //$('#student_table').bootstrapTable('refresh');
+    }
+    $(function () {
+        $("#coupon_tab").addClass('tab-on')
+        var oTable = new TableInit();
+        oTable.Init();
+        $("#cancel").on("click", function(){
+            popHide();
+        });
+        $("#confirm").on("click", function(){
+            updateCoupon();
+        });
+    });
+</script>
+{% endblock %}
+

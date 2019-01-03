@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb">
+<head>
+    <meta property="og:image" content="http://how-old.net/Images/faces2/main6_results.png" />
+    <meta property="og:site_name" content="How Old Do I Look?"/>
+    <meta property="og:url" content="http://how-old.net/">
+    <meta charset=" utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Old Do I Look?</title>
+    <link href="http://how-old.net/Content/css?v=0sB6T7pufI2Sf-3wXX4yPPpM_fnl6_8jWesdjqxadAo1" rel="stylesheet"/>
+
+    <script src="http://how-old.net/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1"></script>
+
+
+</head>
+<body >
+    <div id="fb-root"></div>
+<div class="container" style="max-width: 800px;text-align: center ">
+    
+<div id="header" class="row center-block">  
+    <img  id="headerimage" src="http://how-old.net/Images/photo-icon.png"/>
+    <div id="headertext">
+        <div class="row">
+            <div >
+                <h1 id="picmeh1id" >
+                    How-Old.net
+                </h1>
+            </div>
+            <div class="subheader">
+                HOW OLD DO I LOOK? <span id="demoSpan">#HowOldRobot</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="selectImage">
+    
+
+<form role="search" id="searchform" onsubmit="return searchImages()">
+    <div class="input-group" style="background-color: white">
+        <span class="input-group-addon" style="padding: 0px 0px 0px 0px; border: none"><img id="bLogo" class="" src="http://how-old.net/Images/bing2.png" data-bm="3"></span>
+        <input type="search" name="Search" style="border-style: none;" class="form-control"  placeholder="Search Faces..." id="searchText">
+        <div class="input-group-btn">b_searchboxSubmit
+            <input name="go" tabindex="0" title="Search" class="b_searchboxSubmit" id="searchsubmit" type="submit" value="Submit Query">
+        </div>
+    </div>
+</form>
+
+<h5 id="searchError" class="bodyfont" style="padding-bottom: 2px; font-size: Medium; text-align: center; visibility: hidden;"></h5>
+
+
+
+
+
+    <label id="uploadLabel" class="center-block" style="width: 230px;" >
+        <button id="uploadFileId" class="btn btn-default center-block action" style="background-color: rgb(174, 117, 11); border-radius:0" onclick=" document.getElementById('uploadBtn').click(); ">
+            <span>
+                <img src="http://how-old.net/Images/browse-icon.svg" style="width: 25px; height: 25px" />
+            </span>
+            Use your own photo
+        </button>
+        <p id="maxImageSize" class="help-block center-block bodyfont">Max Photo Size 3MB</p>
+        <input id="uploadBtn" type="file" accept="image/*" style="visibility: hidden; width: 0px; height: 0px">
+    </label>
+</div>
+<div id="results" hidden>
+    <h5 id="analyzingLabel" class="bodyfont" style="font-size: Medium; text-align: center; visibility: hidden;"></h5>
+    <div id="thumbContainer" class="center-block" style="padding-left: 0px; position: relative;">
+        <img id="thumbnail" src="http://how-old.net/Images/placeholder.png" class="img-responsive center-block" onerror=" this.onerror = null;this.src = 'http://how-old.net/Images/placeholder.png'; "/>
+        <div id="faces">
+            <div></div>
+        </div>
+    </div>
+    <div id="jsonEventDiv" style="margin-top: 30px;" hidden>
+        <pre id="jsonEvent" style="text-align: left"></pre>
+    </div>
+</div>
+<img id="microsoftIcon" src="http://how-old.net/Images/microsoft-rev-01.png" class="center-block"/>
+<input data-val="true" data-val-required="The IsTest field is required." id="isTest" name="isTest" type="hidden" value="False" />
+
+
+
+
+
+</div>
+
+
+</body>
+</html>

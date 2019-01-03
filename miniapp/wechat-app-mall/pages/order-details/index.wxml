@@ -1,0 +1,67 @@
+<view class="container">
+  <view class="order-banner">
+    <view class="banner-box">
+      <text class="no-pay">待付款</text>
+      <text class="mind">订单支付时间为<text class="color333">30分钟</text>，超时订单将自动关闭</text>
+    </view>
+    <image class="banner-img" src="../../images/time.png"></image>
+  </view>
+  <view class="order-code">
+    <view class="code-box">订单号：{{orderDetail.trade_no}}</view>
+    <view class="status red}}">{{orderDetail.statusStr}}</view>
+  </view>
+  <view class="goods-info">
+    <view class="goods-img-container" scroll-x="true">
+      <view class="img-box">
+        <image src="{{orderDetail.title_img}}" class="goods-img"></image>
+      </view>
+      <view class="info-box">
+        <view class="goods-title">
+          <view class="goods-name">{{orderDetail.name}}</view>
+          <view class="goods-price">¥{{orderDetail.display_price}}</view>
+        </view>
+        <view class="goods-footer">
+          <view class="goods-sku">{{orderDetail.sku}}</view>
+          <view class="goods-quantity">×{{orderDetail.quantity}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="price-box">
+    <view class="total-price">
+      <text class="price-quantity">共{{orderDetail.quantity}}件商品</text>
+      <text class="price-title">小计：</text>
+      <text class="price-value"> ¥{{orderDetail.display_price}}</text>
+    </view>
+  </view>
+  <view class="point-box">
+    <view class="total-points">
+      <text class="point-title">奖学金</text>
+      <text class="point-value">共<text class='point-num'>{{orderDetail.user_points}}</text>奖学金</text>
+    </view>
+  </view>
+  <view class="use-points">
+    <text class="point-title" wx:if="{{orderDetail.point_limit>0}}">使用{{orderDetail.point_limit}}奖学金抵扣{{orderDetail.point_limit}}元现金</text>
+    <text class="point-title" wx:if="{{orderDetail.point_limit==0}}">不可使用奖学金</text>
+    <switch class="check-box" disabled="{{orderDetail.point_limit==0 || orderDetail.user_points==0}}" bindchange="usepoint" />
+  </view>
+  <view class="price-box2">
+    <view class="price-item">
+      <text class="price-title">商品金额</text>
+      <text class="price-value">￥{{orderDetail.display_price}}</text>
+    </view>
+    <view class="price-item">
+      <text class="price-title">奖学金</text>
+      <text class="point-value">-￥{{used_points}}</text>
+    </view>
+  </view>
+  <view class="pay-box">
+    <view class="curr-amount">
+      <text class="amount-text">合计：</text>
+      <text class="amount-value">￥{{curr_display_amount}}</text>
+    </view>
+    <view class="topay-btn" bindtap="payBill" data-id="{{orderDetail.id}}" data-money="{{orderDetail.amountReal}}" data-score="{{orderDetail.score}}">去支付</view>
+  </view>
+  <view class="bottom-block">
+  </view>
+</view>

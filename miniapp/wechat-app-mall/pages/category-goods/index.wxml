@@ -1,0 +1,69 @@
+<!--index.wxml-->
+<!--1px = 750/320 = 2.34rpx;-->
+<view class="container">
+  <view class="swiper-container">
+    <swiper class="swiper_box" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
+      <block wx:for="{{banners}}" wx:key="id">
+        <swiper-item>
+          <image bindtap="tapBanner" data-linkid="{{item.linkid}}"  data-id="{{item.linkid}}" src="{{item.picUrl}}" class="slide-image" width="750rpx" height="562.5rpx" />
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="dots">
+      <block wx:for="{{banners}}" wx:key="unique">
+        <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>
+      </block>
+    </view>
+  </view>
+  <view class="type-container" wx:if="{{show_tag}}">
+    <scroll-view class="type-navbar" scroll-x="true">
+      <view class="type-box" wx:for-items="{{tag_list}}" wx:key="id">
+        <view id="{{item.ID}}" data-id="{{item.ID}}" class="type-navbar-item {{item.Active ? 'type-item-on' : ''}}" bindtap="tabClick">
+          {{item.Name}}
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="goods-container">
+    <view class="tags" wx:if="{{show_tag&&tag.Active}}" wx:for="{{tag_list}}"  wx:for-item="tag" wx:key="{{index2}}" bindtap="toDetailsTap" data-id="{{tag.ID}}">
+      <view class="tag-container">
+        <view class="goods-box2" wx:for="{{tag.Products}}" wx:for-item="product" wx:key="{{index3}}" bindtap="toDetailsTap" data-id="{{product.ID}}">
+          <view class="img-box">
+            <image src="{{product.ProductUrl1}}" class="image" mode="aspectFill" lazy-load="true" />
+          </view>
+          <view class="info-box">
+            <view class="goods-title">{{product.Name}}</view>
+            <view class="goods-properties">
+              <text class='goods-prop' wx:for="{{product.ProductProperties}}" wx:key="{{index}}">{{item}}</text>
+            </view>
+            <view class="goods-teacher-desc">{{product.TeacherDesc}}</view>
+            <view class="goods-footer">
+              <view class="goods-price">¥{{product.Price}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="tags" wx:if="{{!show_tag}}" >
+      <view class="tag-container">
+        <view class="goods-box2" wx:for="{{prod_list}}" wx:for-item="product" wx:key="{{index3}}" bindtap="toDetailsTap" data-id="{{product.ID}}">
+          <view class="img-box">
+            <image src="{{product.ProductUrl1}}" class="image" mode="aspectFill" lazy-load="true" />
+          </view>
+          <view class="info-box">
+            <view class="goods-title">{{product.Name}}</view>
+            <view class="goods-properties">
+              <text class='goods-prop' wx:for="{{product.ProductProperties}}" wx:key="{{index}}">{{item}}</text>
+            </view>
+            <view class="goods-teacher-desc">{{product.TeacherDesc}}</view>
+            <view class="goods-footer">
+              <view class="goods-price">¥{{product.Price}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</view>

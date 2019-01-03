@@ -1,0 +1,15 @@
+<view class="container">
+  <view class="message-label-box message-container">
+    <view class="message-block" wx:for="{{usermessages}}" wx:key="{{index}}" bindtap='editMsg' data-id="{{item.ID}}">
+      <view class="label">{{item.Name}}</view>
+      <view class="label-item-box">
+        {{item.Mobile}}
+      </view>
+      <view class="label-right">></view>
+    </view>
+  </view>
+  <view bindtap='newMsg' class="new-button">
+    <view class="plus-icon">+</view>
+    <view>新增常用信息</view>
+  </view>
+</view>

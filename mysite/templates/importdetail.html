@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style type="text/css">
+    .title-margin{
+        margin:10px 10px;
+    }
+
+    .button{
+        width:100px ;
+        height:40px ;
+        border:solid 1px #cccccc;
+        border-radius:5px;
+    }
+    .select-normal{
+        padding:0 20px;
+        height:32px;
+        line-height:32px;
+        border-radius:5px;
+        margin:0 5px;
+    }
+    .floatright{
+        float:right;
+    }
+    .user-menu{
+        display:block;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class=" ">
+	<div class="col-sm-11 col-sm-offset-2 col-md-10 col-md-offset-x main">
+		<!-- TIME PICKER -->          
+        <div style="display:inline-block" class="row">
+            <div class="timepicker col-sm-3 col-md-3" >                  
+                <div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="14" id="startDate" type="text" placeholder="开始时间" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+
+            
+            <div class="timepicker col-sm-3 col-md-3" >                  
+                <div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="14" id="endDate" type="text" placeholder="结束时间" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+            <div class="timepickerbtn col-sm-2 col-md-2" id="search"><button >查找</button></div>
+            <div class=" col-sm-4 col-md-4">
+                <div class="selector floatright">
+                    <select id='failedType' class="input form-control floatright">
+                        <option value='all'>导入状态</option>
+                        <option value='课程错误'>课程错误</option>
+                        <option value='电话错误'>电话错误</option>
+                        <option value='导入成功'>导入成功</option>
+                    </select>
+                </div>
+                <div class="selector floatright">
+                    <select id='channel' class="input form-control ">
+                        <option value='all'>渠道</option>
+                        <option value='2'>有赞</option>
+                        <option value='3'>小鹅通</option>
+                        <option value='4'>服务号绑定</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+		<!-- table-->                   
+		<div class="row placeholders">      
+			<table id = "student_table">
+			</table>
+			<dev id="toolbar"></dev>
+		</div>
+
+		
+	</div>
+</div>
+{% endblock %}
+
+{% block content2 %}
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+	"use strict";
+	function popupDiv(div_id) {   
+		var div_obj = $("#"+div_id);  
+		var windowWidth = document.body.clientWidth;       
+		var windowHeight = document.body.clientHeight;  
+		var popupHeight = div_obj.height();       
+		var popupWidth = div_obj.width();    
+
+		div_obj.css({"position": "absolute"})   
+		.animate({left: windowWidth/2-popupWidth/2,    
+			top: windowHeight/2-popupHeight/2, opacity: "show" }, "slow");   
+		
+	}   
+	
+	function hideDiv(div_id) {   
+		var div_obj = $("."+div_id);
+		$("#bg").hide()
+		div_obj.hide();
+		$("body").css("overflow-y","auto"); /*用来隐藏html的滚动条*/
+	}  
+	function showMsg(div_id){
+		var div_obj = $("."+div_id);
+		$("#bg").show()
+		div_obj.show(); 
+		$("body").css("overflow-y","hidden");
+	}
+	function sendMsg(){
+	}
+	var TableInit = function () {
+		var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = $(window).height()-190;
+            $('#student_table').bootstrapTable({
+                url: '/importdetaillist/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                fontSize:14,
+                columns: [{
+                    field: 'TradeID',
+                    title: '订单号'
+                },{
+                    field: 'ChannelName',
+                    title: '渠道'
+                },{
+                    field: 'FailedType',
+                    title: '结果'
+                },{
+                    field: 'Info',
+                    title: '详情'
+                },{
+                    field: 'LessonName',
+                    title: '课程名称'
+                },{
+                    field: 'TimeStamp',
+                    title: '导入时间',
+                    width: 100
+                },{
+                    field: 'MsgSentInfo',
+                    title: '短信状态'
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset:params.offset,
+                startDate: $("#startDate").val(),
+                endDate:$("#endDate").val(),
+                failedType:$("#failedType").val(),
+                channel:$("#channel").val(),
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+    function search(){
+        $('#student_table').bootstrapTable('refresh');
+    }
+    $(function () {
+        
+        $("#import_tab").addClass('tab-on')
+        //$('.selectpicker').selectpicker();
+        $("#channel,#failedType").on('change',function(){
+            search();
+        });
+        $("#search").on('click',function(){
+            search();
+        });
+        var oTable = new TableInit();
+        oTable.Init();
+        $('.template').on('click',function(){
+            $(this).toggleClass('template-on');
+        })
+        $('.preview').on('click',function(){
+
+            let dataURL = encodeURI('../SignupTemplateMseeage');
+            $.ajax({
+                url: dataURL,
+                data: {
+
+                },
+                //dataType: "json",
+                success: function(data){
+                    alert(data)
+                    //console.log(data)
+                    //if(data.errcode == '0')
+                    //    alert('发送成功')
+                    //else
+                    //    alert(data.errmsg);
+                },
+                fail: function(err){
+                    alert(err);
+                }
+            });
+
+        })
+
+    });
+</script>
+{% endblock %}
+

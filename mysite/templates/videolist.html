@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>菜园子北京站视频集锦</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <script src="../static/js/zepto.min.js" type="text/javascript"></script>
+    <script src="../static/js/jquery-1.11.0.min.js"></script>
+   <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>    
+    <script src="../static/js/weui.min.js"></script>
+    
+<link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.0/weui.min.css" />
+<link rel="icon" href="../static/favicon.ico">	
+        </head>
+        
+    <style>
+        body{
+            background-image: ;
+        }
+        .container {
+            padding: 15px;
+        }
+    </style>      
+<body>
+ 
+    <div class="weui-panel weui-panel_access">
+   
+    <div class="weui-panel__bd">
+      
+
+         <div class="weui-media-box weui-media-box_text">
+            <h4 class="weui-media-box__title">  <a href="https://applinzi.ddianke.com/wxJSWeb/vplayer?video_id=7447398155107089819">吆喝科技王晔分享</a></h4>
+        </div>
+        <div class="weui-media-box weui-media-box_text">
+            <h4 class="weui-media-box__title">  <a href="https://applinzi.ddianke.com/wxJSWeb/vplayer?video_id=7447398155111100036">DTalk顾青分享</a></h4>
+        </div>        
+        <div class="weui-media-box weui-media-box_text">
+            <h4 class="weui-media-box__title">  <a href="https://applinzi.ddianke.com/wxJSWeb/vplayer?video_id=7447398155249280198">穿越历史看数据思维——桑文锋</a></h4>
+        </div>
+
+
+        <div class="weui-media-box weui-media-box_text">
+            <h4 class="weui-media-box__title">  <a href="https://applinzi.ddianke.com/wxJSWeb/vplayer?video_id=7447398155111324904">BBC 队</a></h4>
+        </div>
+       
+        <div class="weui-media-box weui-media-box_text">
+            <h4 class="weui-media-box__title">  <a href="https://applinzi.ddianke.com/wxJSWeb/vplayer?video_id=7447398155111374773">星云战队</a></h4>
+        </div>
+        <div class="weui-media-box weui-media-box_text">
+            <h4 class="weui-media-box__title">  <a href="https://applinzi.ddianke.com/wxJSWeb/vplayer?video_id=7447398155111382658">地表最强队</a></h4>
+        </div>
+        <div class="weui-media-box weui-media-box_text">
+            	<h4 style="text-align:center">菜园子产品经理社群，等你加入</h4>
+ <p style="text-align:center"> <img src="https://applinzi.ddianke.com/static/img/qrcode.jpg" width="60%" /></p>
+        </div>
+        
+    </div>
+
+</div>
+        <div class="weui-btn-area">
+            
+        </div>   
+    
+    </body>
+
+<script>
+    $(function (){
+       // $.weui.alert('hi');
+    $('#btnActionSheet').on('click', function (){
+        $.weui.actionSheet([{
+            label: '示例菜单',
+            onClick: function (){
+                console.log('click1');
+            }
+        },{
+            label: '示例菜单',
+            onClick: function (){
+                console.log('click2');
+            }
+        },{
+            label: '示例菜单',
+            onClick: function (){
+                console.log('click3');
+            }
+        }]);
+    });
+});
+</script>
+    
+<script>
+wx.config({
+    //{{ticket}}
+    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    appId: '{{appid}}', // 必填，公众号的唯一标识
+    timestamp: '{{sign.timestamp}}', // 必填，生成签名的时间戳
+    nonceStr: '{{sign.nonceStr}}', // 必填，生成签名的随机串
+    signature: '{{sign.signature}}',// 必填，签名，见附录1
+    jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage','chooseWXPay','openProductSpecificView','addCard','chooseCard','openCard'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+});
+
+
+wx.ready(function () {
+
+  var shareData = {
+      title: '菜园子北京站视频集锦',
+      desc: '菜园子北京站完整视频大放送！',
+      link: 'https://applinzi.ddianke.com/wxJSWeb/videolist',
+      imgUrl: 'http://applinzi.ddianke.com/static/img/tsaireader2.png'
+  };
+  wx.onMenuShareAppMessage(shareData);
+  wx.onMenuShareTimeline(shareData);
+      
+  });    
+wx.error(function(res){
+
+     //alert(res); // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+
+});
+</script>    
+
+</html>

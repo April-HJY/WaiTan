@@ -1,0 +1,143 @@
+.container {
+  min-height: 100%;
+  overflow: hidden;
+  overflow-y: hidden;
+  background-color: #f9f9f9;
+  height: 100%;
+}
+
+.userinfo-bg{
+  width: 100%;
+}
+
+.userinfo {
+  width: 686rpx;
+  height: 332rpx;
+  /*background: linear-gradient(to right, #f24724, #fff4c7);*/
+  margin-top: -292rpx;
+  border-radius: 10rpx;
+}
+
+.userinfo-section{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: white;
+  border-radius: 10rpx 10rpx 0 0;
+  width: 100%;
+}
+
+.userinfo-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  margin:32rpx 0 0 32rpx;
+}
+
+.userinfo-nickname {
+  color: black;
+  font-size: 34rpx;
+  margin-left: 24rpx;
+  line-height:48rpx;
+  margin-top: 68rpx;
+}
+
+.my-item {
+  font-size: 28rpx;
+  width: 100%;
+  background: url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 750rpx center;
+  background-size: 16rpx auto, 750rpx auto;
+  border-bottom: 1px solid #eee;
+  height: 80rpx;
+  line-height: 80rpx;
+  padding-left: 64rpx;
+  background-color: #fff;
+}
+
+.about {
+  width: 100%;
+  background: url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 750rpx center;
+  background-size: 16rpx auto, 750rpx auto;
+  margin: 20rpx 0;
+  height: 80rpx;
+  line-height: 80rpx;
+  padding-left: 100rpx;
+}
+
+.all-orders {
+  margin-left: 182rpx;
+  font-size: 24rpx;
+  color: #999;
+  margin-top:76rpx;
+}
+
+.type-container {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 0 0 10rpx 10rpx;
+}
+
+.type-navbar {
+  white-space: nowrap;
+  height: 200rpx;
+  width: 100%;
+  background-color: #fff;
+  text-align: center;
+}
+
+.title-icon {
+  width: 80rpx;
+  height: 80rpx;
+  overflow: hidden;
+  display: block;
+  margin-top: 30rpx;
+}
+
+.type-box {
+  width: 140rpx;
+  box-sizing: content-box;
+  font-size: 24rpx;
+  line-height: 84rpx;
+  text-align: center;
+  display: inline-block;
+  overflow: hidden;
+  margin: 0 58rpx;
+}
+
+.type-item {
+  text-align: center;
+}
+
+.title-name {
+  margin-right: 60rpx;
+}
+
+.withdraw{
+  margin-top:48rpx;
+  width: 686rpx;
+}
+
+.detail-container {
+  width: 100%;
+  background-color: #fff;
+  margin-top:32rpx;
+}
+
+.detail-item {
+  background: url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 715rpx center;
+  background-size: 16rpx auto, 750rpx auto;
+  height: 88rpx;
+  line-height: 88rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.detail-img {
+  width: 35rpx;
+  height: 35rpx;
+  margin: 5rpx 32rpx -3rpx;
+}
+
+.detail-text {
+  font-size: 34rpx;
+  color: #333;
+}

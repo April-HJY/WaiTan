@@ -1,0 +1,14 @@
+<view class="container">
+  <view class="message-label-box message-container">
+    <checkbox-group bindchange="checkboxChange">
+      <view class="message-block" wx:for="{{usermessages}}" wx:key="{{index}}" bindtap='selectMsg' data-id="{{item.ID}}">
+        <checkbox value="{{item.Name}}" color='#f24724' class="check-box" checked="{{item.checked}}" />
+        <view class="label">{{item.Name}}</view>
+        <view class="label-item-box">
+          {{item.Mobile}}
+        </view>
+      </view>
+    </checkbox-group>
+  </view>
+  <view bindtap='saveDefaultMsg' class="save-button">保存</view>
+</view>

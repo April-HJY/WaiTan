@@ -1,0 +1,23 @@
+<view class="container">
+  <image class="activity_img" src="{{banner_url}}" mode='widthFix'></image>
+  <view class="tag-container" >
+    <view class='text'>
+      {{chat_gt}}老带新专属课程{{char_lt}}
+    </view>
+    <view class="goods-box2" wx:for="{{product_list}}" wx:for-item="item" data-id="{{item.ID}}" wx:key="{{index101}}" bindtap="toDetailsTap">
+      <view class="img-box">
+        <image src="{{item.ProductUrl1}}" class="image" mode="aspectFill" lazy-load="true" />
+      </view>
+      <view class="info-box">
+        <view class="goods-title">{{item.Name}}</view>
+        <view class="goods-footer">
+          <view class="goods-price">¥{{item.Price}}</view>
+          <button class="goods-pay">马上抢</button>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view>
+    <button class='report_btn' bindtap='toReportSelf'>生成我的专属邀请海报</button>
+  </view>
+</view>

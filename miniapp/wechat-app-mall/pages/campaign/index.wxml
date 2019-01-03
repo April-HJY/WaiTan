@@ -1,0 +1,46 @@
+<!--index.wxml-->
+<!--1px = 750/320 = 2.34rpx;-->
+<view class="container">
+  <view class="banner">
+    <image class="banner-img" src="{{banner_url}}"></image>
+  </view>
+  <view class="goods-container">
+    <view class="tags" wx:for="{{tag_list}}" wx:for-item="tag" wx:key="{{index2}}" bindtap="toDetailsTap" data-id="{{tag.ID}}">
+      <view class="tag-title">
+        <image class="tag-left tag-beside" src="/images/left.png" mode="aspectFit"></image>
+        <text class='tag-name'>{{tag.Name}}</text>
+        <image class="tag-right tag-beside" src="/images/right.png" mode="aspectFit"></image>
+      </view>
+      <view class="tag-container" wx:if="{{tag.IsSpecial}}">
+        <view class="goods-box" wx:for="{{tag.Products}}" wx:for-item="product" wx:key="{{index3}}" bindtap="toDetailsTap" data-id="{{product.ID}}">
+          <view class="img-box {{index%2==1?'position-right':''}}">
+            <view class="child-name">{{tag.ChildName}}</view>
+            <image src="{{product.ProductUrl1}}" class="image" mode="aspectFill" lazy-load="true" />
+          </view>
+          <view class="info-box ">
+            <view class="goods-title">{{product.Name}}</view>
+            <view class="goods-footer">
+              <view wx:if="{{product.OriginalPrice>0}}" class="detail-goods-originalprice">原价:¥{{product.OriginalPrice}}</view>
+              <view class="goods-price"><text class="price-text">惊喜价¥</text>{{product.Price}}</view>
+              <button class="goods-pay">马上抢</button>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="tag-container" wx:if="{{!tag.IsSpecial}}">
+        <view class="goods-box2" wx:for="{{tag.Products}}" wx:for-item="product" wx:key="{{index3}}" bindtap="toDetailsTap" data-id="{{product.ID}}">
+          <view class="img-box">
+            <image src="{{product.ProductUrl1}}" class="image" mode="aspectFill" lazy-load="true" />
+          </view>
+          <view class="info-box">
+            <view class="goods-title">{{product.Name}}</view>
+            <view class="goods-footer">
+              <view class="goods-price">¥{{product.Price}}</view>
+              <button class="goods-pay">马上抢</button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

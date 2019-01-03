@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>梦想“价”到，超乎所想！</title>
+    <link rel="stylesheet" href="../static/css/swiper.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="../static/js/common.js"></script>
+    <script src="../static/js/jquery-1.4.4.min.js"></script>
+</head>
+<style>
+    .video {
+        position: absolute;
+        left: 0;
+        top: 316px;
+        padding-left: 27px;
+        width: 586px;
+        height: 540px;
+        overflow: hidden;
+    }
+    
+    .swiper-container2 {
+        width: 586px;
+        height: 385px;
+    }
+    
+    .swiper-pagination2 {
+        position: absolute;
+        left: 246px;
+        top: 479px;
+    }
+    
+    .swiper-pagination-bullet {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        border-radius: 100%;
+        background: #898989;
+        opacity: 1;
+        margin-left: 13px;
+    }
+    
+    .swiper-pagination-bullet-active {
+        background: #ffffff;
+        opacity: 1;
+    }
+    
+    .swiper-container {
+        width: 640px;
+        height: 1049px;
+    }
+    
+    .vg {
+        position: absolute;
+        left: 0;
+        top: 2px;
+    }
+</style>
+
+<body>
+    <script>
+        resetPage();
+    </script>
+    <div class="main">
+        <div class="swiper-container" style="display:block">
+            <div class="swiper-wrapper">
+                <div class="page1 swiper-slide">
+                    <figure>
+                        <img src="../static/images2/page5.jpg" alt="">
+                    </figure>
+                    <div class="arrowup" style="display: block;">
+                        <img width="100%" src="../static/images2/arrowup.png">
+                    </div>
+                </div>
+                <div class="page1_1 swiper-slide">
+                    <figure>
+                        <img src="../static/images2/page6.jpg" alt="">
+                    </figure>
+                    <div class="arrowup" style="display: block;">
+                        <img width="100%" src="../static/images2/arrowup.png">
+                    </div>
+                </div>
+                <div class="page1_2 swiper-slide">
+                    <figure>
+                        <img src="../static/images2/page7.jpg" alt="">
+                    </figure>
+                    <div class="arrowup" style="display: block;">
+                        <img width="100%" src="../static/images2/arrowup.png">
+                    </div>
+                </div>
+                <div class="page4 swiper-slide">
+                    <figure>
+                        <img src="../static/images2/page4.jpg" alt="">
+                    </figure>
+                    <!-- <div class="spgb"></div>-->
+                    <div class="arrowup" style="display: block;">
+                        <img width="100%" src="../static/images2/arrowup.png">
+                    </div>
+                    <div class="video">
+                        <div class="swiper-container2">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <style>
+
+                                    </style>
+                                    <video id="video1" width="586" height="385" src="../static/video/video1.mp4" preload="none" poster="../static/images2/sp1.jpg">您的浏览器不支持video，请更换浏览器再观看！</video>
+                                    <img src="../static/images2/sp1.jpg" alt="" width="586" height="385" class="vg" id="vg1">
+                                </div>
+                                <div class="swiper-slide">
+                                    <video id="video2" width="586" height="385" src="../static/video/video2.mp4" preload="none" poster="../static/images2/sp2.jpg">您的浏览器不支持video，请更换浏览器再观看！</video>
+                                    <img src="../static/images2/sp2.jpg" alt="" width="586" height="385" class="vg" id="vg2">
+                                </div>
+                                <div class="swiper-slide">
+                                    <video id="video3" width="586" height="385" src="../static/video/video3.mp4" preload="none" poster="../static/images2/sp3.jpg">您的浏览器不支持video，请更换浏览器再观看！</video>
+                                    <img src="../static/images2/sp3.jpg" alt="" width="586" height="385" class="vg" id="vg3">
+                                </div>
+                                <div class="swiper-slide">
+                                    <video id="video4" width="586" height="385" src="../static/video/video4.mp4" preload="none" poster="../static/images2/sp4.jpg">您的浏览器不支持video，请更换浏览器再观看！</video>
+                                    <img src="../static/images2/sp4.jpg" alt="" width="586" height="385" class="vg" id="vg4">
+                                </div>
+                            </div>
+                            <div class="swiper-pagination2"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="page3 swiper-slide">
+                    <figure>
+                        <img src="../static/images2/page3.jpg" alt="">
+                    </figure>
+                    <input type="text" class="name">
+                    <input type="text" class="phone">
+                    <select class="type">
+                        <option>请选择车型</option>
+                        <option data-mId="1">迈腾</option>
+                        <option data-mId="2">新速腾</option>
+                    </select>
+                    <select class="shengf">
+                        <option>请选择省</option>
+                    </select>
+                    <select class="city">
+                        <option>请选择城市</option>
+                    </select>
+                    <select class="jxs">
+                        <option>请选择经销商</option>
+                    </select>
+                    <div class="submit"></div>
+                    <div class="reset"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../static/js/dealer.js"></script>
+<script src="../static/js/select.js"></script>
+<script src="../static/js/sub.js"></script>
+<script src="../static/js/swiper.min.js"></script>
+<script>
+    resetPage();
+    var swiper = new Swiper('.swiper-container', {
+        direction: 'vertical',
+        paginationClickable: true,
+        spaceBetween: 0,
+        centeredSlides: true,
+        autoplayDisableOnInteraction: false,
+        onSlideChangeEnd: function (swiper) {
+            console.log(swiper);
+            var index = swiper.activeIndex;
+        },
+    });
+
+
+    $(".p1s").each(function (index) {
+        index++;
+        $(this).click(function () {
+            $(".p1fc img").attr("src", "../static/images2/p1_" + index + ".jpg");
+            $(".p1fc").show();
+        });
+    })
+    $(".p1fc").click(function () {
+        $(this).hide();
+    });
+
+    $(".p2s").each(function (index) {
+        index++;
+        $(this).click(function () {
+            $(".p2fc img").attr("src", "../static/images2/p2_" + index + ".jpg");
+            $(".p2fc").show();
+        });
+    })
+
+    $(".p2gb").click(function () {
+        $(".p2fc").hide();
+    });
+    $(".toy").click(function () {
+        //$(".hdpage").scrollLeft(640);
+        $(".hdpage").animate({
+            scrollLeft: 640
+        }, 500);
+    });
+    $(".toz").click(function () {
+        //$(".hdpage").scrollLeft(640);
+        $(".hdpage").animate({
+            scrollLeft: 640
+        }, 500);
+    });
+
+    var swiper2;
+    swiper2 = new Swiper('.swiper-container2', {
+        pagination: '.swiper-pagination2',
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        paginationClickable: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        /*autoplay: 2500,
+        autoplayDisableOnInteraction: false,
+        loop: true,
+        loopAdditionalSlides: 0,
+        loopedSlides: 1*/
+    });
+    $(".jcsp").click(function () {
+        //swiper.slideTo(3, 1000, false);
+        $(".main").hide();
+        $(".page4").show();
+    });
+
+    $(".spgb").click(function () {
+        $(".main").show();
+        $(".page4").hide();
+    });
+
+    //$("#video1").click(function () {
+    $("#vg1").click(function () {
+        $("#video2")[0].pause();
+        $("#video3")[0].pause();
+        $("#video4")[0].pause();
+        $("#video1")[0].play();
+        $("#video1")[0].webkitEnterFullscreen();
+        $("#video1").hide();
+    });
+
+    //$("#video2").click(function () {
+    $("#vg2").click(function () {
+        $("#video1")[0].pause();
+        $("#video3")[0].pause();
+        $("#video4")[0].pause();
+        $("#video2")[0].play();
+        $("#video2")[0].webkitEnterFullscreen();
+        $("#video2").hide();
+    });
+    //$("#video3").click(function () {
+    $("#vg3").click(function () {
+        $("#video1")[0].pause();
+        $("#video2")[0].pause();
+        $("#video4")[0].pause();
+        $("#video3")[0].play();
+        $("#video3")[0].webkitEnterFullscreen();
+        $("#video3").hide();
+    });
+    //$("#video4").click(function () {
+    $("#vg4").click(function () {
+        $("#video1")[0].pause();
+        $("#video2")[0].pause();
+        $("#video3")[0].pause();
+        $("#video4")[0].play();
+        $("#video4")[0].webkitEnterFullscreen();
+        $("#video4").hide();
+    });
+</script>
+
+
+</html>

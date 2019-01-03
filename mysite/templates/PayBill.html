@@ -1,0 +1,108 @@
+
+<html>
+<head>
+    <title>订单确认</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <script src="../static/js/zepto.min.js" type="text/javascript"></script>
+    <script src="../static/js/jquery-1.11.0.min.js"></script>
+   <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>    
+    <script src="../static/js/weui.min.js"></script>
+    <style>
+        .nav {
+    width:93%;
+    height:50px;
+    margin:0 auto;
+    position:fixed;
+    bottom:0;
+    text-align:center;
+}
+        i{
+    color:#f00;
+}
+        </style>    
+<link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.0/weui.min.css" />
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+<link rel="icon" href="../static/favicon.ico">	
+</head>
+<body >
+    
+    <div class="weui-cell">
+        <div class="weui-cell__hd">商品名:</div>
+        <div class="weui-cell__bd">
+         <p> {{OITM.ProductName}}</p>
+        </div>
+    </div>
+    
+      <div class="weui-cell">
+        <div class="weui-cell__hd">数量:</div>
+        <div class="weui-cell__bd">
+         <p> {{OITM.Quantity}} 件</p>
+        </div>
+    </div>
+          <div class="weui-cell">
+        <div class="weui-cell__hd">总价:</div>
+        <div class="weui-cell__bd">
+         <p> <font color="red">{{ TotalAmount}} 元</font></p>
+        </div>
+    </div>
+
+
+      
+        <div class="weui-btn-area">
+            <a class="weui-btn weui-btn_primary" id="gotoplay" onclick="gotoplay();" id="showTooltips">立即支付</a>
+        </div>  
+
+
+
+</body>
+<script>
+wx.config({
+    //{{ticket}}
+    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    appId: '{{appid}}', // 必填，公众号的唯一标识
+    timestamp: '{{sign.timestamp}}', // 必填，生成签名的时间戳
+    nonceStr: '{{sign.nonceStr}}', // 必填，生成签名的随机串
+    signature: '{{sign.signature}}',// 必填，签名，见附录1
+    jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage','chooseWXPay','openProductSpecificView','addCard','chooseCard','openCard'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+});
+
+
+wx.ready(function () {
+
+  var shareData = {
+      title: '我刚在生菜阅读订购了2017版台历，你也来吧！',
+      desc: '我刚订了生菜阅读台历2017版，设计精美，美女如云，你也来订吧！',
+      link: 'http://applinzi.ddianke.com/eshop/',
+      imgUrl: 'http://applinzi.ddianke.com/static/img/calendar2017.jpg'
+  };
+  wx.onMenuShareAppMessage(shareData);
+  wx.onMenuShareTimeline(shareData);
+      
+  });    
+wx.error(function(res){
+
+     alert(res); // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+
+});
+    
+   function gotoplay() {
+       //alert('Hello!');
+ wx.chooseWXPay({
+    timestamp: '{{payinfo.timeStamp}}', // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+    nonceStr: '{{payinfo.nonceStr}}', // 支付签名随机串，不长于 32 位
+    package: '{{payinfo.package}}', // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+    signType: '{{payinfo.signType}}', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+    paySign: '{{payinfo.signature}}', // 支付签名
+    success: function (res) {
+        // 支付成功后的回调函数
+    location.href = '/PayDone?TradeNumber={{OITM.TradeNumber}}'
+    },
+   });
+   }
+</script> 
+    
+
+    
+</html>

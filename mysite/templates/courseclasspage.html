@@ -1,0 +1,1308 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style type="text/css">
+    .title-margin{
+        margin:10px 10px;
+    }
+
+    .button{
+        width:100px ;
+        height:40px ;
+        border:solid 1px #cccccc;
+        border-radius:5px;
+    }
+    .select-normal{
+        padding:0 20px;
+        height:32px;
+        line-height:32px;
+        border-radius:5px;
+        margin:0 5px;
+    }
+    .floatright{
+        float:right;
+    }
+    .pop-box-addnew{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:800px;
+        height:500px;
+        top:50%;
+        left:50%;
+        margin-top: -250px;
+        margin-left: -400px;
+        border:solid 1px #cccccc;
+        background-color:white;
+        overflow-y:auto;
+        overflow-x:hidden;
+    }
+    .pop-box-upload-teacher{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:300px;
+        height:100px;
+        top:50%;
+        left:50%;
+        margin-top: -150px;
+        margin-left: -150px;
+        border:solid 1px #cccccc;
+        background-color:white;
+        overflow-y:auto;
+        overflow-x:hidden;
+    }
+    .pop-box-edit-member{
+        display:none;
+        position:absolute;
+        z-index:9005;
+        width:300px;
+        height:100px;
+        top:50%;
+        left:50%;
+        margin-top: -150px;
+        margin-left: -150px;
+        border:solid 1px #cccccc;
+        background-color:white;
+        overflow-y:auto;
+        overflow-x:hidden;
+    }
+    .pop-box-class{
+        display:none;
+        position:absolute;
+        z-index:9001;
+        width:800px;
+        height:500px;
+        top:50%;
+        left:50%;
+        margin-top: -250px;
+        margin-left: -400px;
+        border:solid 1px #cccccc;
+        background-color:white;
+        overflow-y:auto;
+        overflow-x:hidden;
+    }
+    .pop-box-course-member{
+        display:none;
+        position:absolute;
+        z-index:9002;
+        width:800px;
+        height:500px;
+        top:50%;
+        left:50%;
+        margin-top: -250px;
+        margin-left: -400px;
+        border:solid 1px #cccccc;
+        background-color:white;
+        overflow-y:auto;
+        overflow-x:hidden;
+    }
+    .pop-box-students{
+        display:none;
+        position:absolute;
+        z-index:9004;
+        width:800px;
+        height:500px;
+        top:50%;
+        left:50%;
+        margin-top: -250px;
+        margin-left: -400px;
+        border:solid 1px #cccccc;
+        background-color:white;
+        overflow-y:auto;
+        overflow-x:hidden;
+    }
+    .pop-box-teacher{
+        display:none;
+        position:absolute;
+        z-index:9005;
+        width:800px;
+        height:500px;
+        top:50%;
+        left:50%;
+        margin-top: -250px;
+        margin-left: -400px;
+        border:solid 1px #cccccc;
+        background-color:white;
+        overflow-y:auto;
+        overflow-x:hidden;
+    }
+    .upload-teacher{
+    	margin: 20px 20px;
+    }
+    .edit-member{
+    	margin: 20px 20px;
+    }
+    .course-name{
+        padding:20px 0px 10px 30px;
+        width:60%;
+    }
+    .course-sku{
+        padding:20px 10px 10px;
+        width:40%;
+    }
+    .course-title{
+        padding:0px 2px 0px 30px;
+    }
+    .lesson-title{
+        padding:10px;
+        border-bottom:1px solid #ccc;
+    }
+    .member-count{
+        padding:20px 10px 10px;
+        
+    }
+    .lesson-container{
+        padding:10px;
+    }
+    .coupon-url{
+        margin:10px 10px;
+        width:90%;
+        resize:none;
+    }
+    .lessons{
+        
+    }
+    .title{
+        text-align:center;
+    }
+    .lesson_name{
+        margin-left:20px;
+    }
+    .buttons{
+        padding-top:15px;
+        border-bottom:1px solid #ccc;
+        height:70px;
+    }
+    .button{
+        width:120px;
+        height:30px
+    }
+    .button2{
+        width:160px;
+        height:30px
+    }
+    .number-input{
+        width:60px;
+        display:inline;
+        margin:0 10px;
+    }
+    .random-class{
+        display:none;
+    }
+    .upload-class{
+        display:none;
+    }
+    .divide_detail-content{
+        display:none;
+    }
+    .divide_detail-button{
+        display:none;
+    }
+    .divide{
+        display:none;
+    }
+    .class_table{
+        width:92%;
+        margin:auto;
+    }
+    .class_member_table{
+        width:92%;
+        margin:auto;
+    }
+    .student_table{
+        width:92%;
+        margin:auto;
+    }
+    .teacher_table{
+        width:92%;
+        margin:auto;
+    }
+    .course_member_table{
+        width:92%;
+        margin:auto;
+    }
+    .teacher-name{
+        margin-left:28px;
+    }
+    .teacher-choose{
+        margin-left:-75px;
+    }
+    .lesson-menu{
+        display:block;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class=" ">
+    <div id='pop-box-upload-teacher' class="pop-box-upload-teacher" >
+        <img src="../../static/images/close.png" style="right:5px;margin-top:5px;position:absolute;" onclick="hideUploadTeacher();" class="detail-close"/>
+        <div class="upload-teacher">
+            <form id="upload_teacher_form" method="post" enctype="multipart/form-data" onsubmit="return upload_teacher();">
+                <div data-role="collapsible" >
+                    <input type="file" name="teacher_file" id="teacher_file" data-clear-btn="false" value="">
+                </div>
+            </form>
+            <input type="button" onclick="upload_teacher()" value="提交"/>
+        </div>
+    </div>
+    <div id='pop-box-edit-member' class="pop-box-edit-member" >
+        <img src="../../static/images/close.png" style="right:5px;margin-top:5px;position:absolute;" onclick="hideEditMember();" class="detail-close"/>
+        <div class="edit-member">
+            <input id="member_id" class="" style="display:none"  value=""/>
+            <label class="">姓名：</label><input class="member-name" id="member_name"/><br/>
+            <input type="button" onclick="update_member()" value="保存"/>
+        </div>
+    </div>
+    <div id='pop-box-addnew' class="pop-box-addnew" >
+        <img src="../../static/images/close.png" style="right:5px;margin-top:5px;position:absolute;" onclick="hidePop();" class="detail-close"/>
+        <label class="course-name"></label><label class="course-sku"></label>
+        <label class="course-title">第一节课时间：</label><label class="course-time"></label>
+        <button class='button' onclick="clear_classes()">重新分班</button>
+        <input id="course_id" class="" style="display:none"  value=""/>
+        <input id="is_all_user" class="" style="display:none"  value="0"/>
+        <div class=''>
+            <label class="course-title">已报名人数：</label><label class="member-count"></label>
+            <button class='button' onclick="edit_member()">修改名单</button>
+            <button class='button2' onclick="exportcourseclasses()">导出分班信息</button>
+        </div>
+        <div class='row course-member'>
+            <div class="col-sm-2 col-md-2" style="padding-left:45px"><label class="">进班顺序：</label></div>
+            <div class="col-sm-6 col-md-6 ">
+                <input type="radio" name='divide_type' class="divide_type" value="random"/>
+                <label class="">随机分班</label>
+                <div class="random-class"><label class="">每班人数</label><input type="number" class="number-input" id='class_member_count' value=""/><button class='button' onclick="preview()">预分班</button></div>
+                <div class="random-class"><label class="class-detail"></label></div>
+                <div class="random-class">
+                    <div class="divide_detail-content">
+                        <input type="radio" name='divide_detail' class="divide_detail" value="lastclass"/>
+                        <label class="">将余下的人填充到最后一个班级</label>
+                    </div>
+                    <div class="divide_detail-content">
+                        <input type="radio" name='divide_detail' class="divide_detail" value="newclass"/>
+                        <label class="">将余下的人分到新班级</label>
+                    </div>
+                    <div class="divide_detail-button">
+                        <input id="remainder" class="" style="display:none"  value=""/>
+                        <input id="class_member_count" class="" style="display:none"  value=""/>
+                        <button class='button' class="divide" onclick="divide()">分班</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <input type="radio" name='divide_type' class="divide_type"  value="upload"/>
+                <label class="">人工分班</label>
+                <div class="upload-class">
+                    <form id="upload_form" method="post" enctype="multipart/form-data" onsubmit="return upload_classes();">
+                        <div data-role="collapsible" >
+                            <input id="course_id2" class="" name="course_id" style="display:none"  value=""/>
+                            <input type="file" name="classes_file" id="classes_file" data-clear-btn="false" value="">
+                        </div>
+                    </form>
+                    <input type="button" onclick="upload_classes()" value="提交"/>
+                </div>
+            </div>
+        </div>
+        <div class="placeholders class_table">      
+            <table id = "class_table">
+            </table>
+            <dev id="toolbar"></dev>
+        </div>
+
+    </div>
+    <div id='pop-box-class' class="pop-box-class" >
+        <input id="class_id" class="" style="display:none"  value=""/>
+        <input id="teacher_id" class="" style="display:none"  value=""/>
+        <img src="../../static/images/close.png" style="right:5px;margin-top:5px;position:absolute;" onclick="hideClassPop();" class="detail-close"/>
+        <label class="course-name"></label><label class="course-sku"></label>
+        <div class=''>
+            <label class="course-title">班级名称：</label><input class="class-name" id="class_name"/>
+            <label class="course-title">班主任：</label><input class="patrol-info" id="patrol_info"/><br/>
+            <label class="course-title">老师：</label><input class="teacher-name" id="teacher_name"/>
+            <input type='button' class='teacher-choose' onclick="show_teacher()" value="选择老师">
+            <button class='button' style="margin-left:30px;" onclick="update_class()">保存</button>
+            <button class='button' style="margin-left:30px;" onclick="show_student()">添加学员</button>
+        </div>
+        <div class="placeholders class_member_table">      
+            <table id = "class_member_table">
+            </table>
+            <dev id="toolbar"></dev>
+        </div>
+    </div>
+    <div id='pop-box-students' class="pop-box-students" >
+        <img src="../../static/images/close.png" style="right:5px;margin-top:5px;position:absolute;" onclick="hideStudentPop();" class="detail-close"/>
+
+        <div class='' style="margin-top:10px;">
+            <label class="course-title" id="add_member_title"></label>
+            <label class="course-title">手机号码：</label><input class="mobile" id="mobile"/>
+            <button class='button' onclick="serch_student()">查找</button>
+        </div>
+        <div class="placeholders student_table">      
+            <table id = "student_table">
+            </table>
+            <dev id="toolbar"></dev>
+        </div>
+    </div>
+    <div id='pop-box-teacher' class="pop-box-teacher" >
+        <img src="../../static/images/close.png" style="right:5px;margin-top:5px;position:absolute;" onclick="hideTeacherPop();" class="detail-close"/>
+
+        <div class='' style="margin-top:10px;">
+            <label class="course-title" id="add_teacher_title"></label>
+            <label class="course-title">手机号码：</label><input class="mobile" id="teacher_mobile"/>
+            <button class='button' onclick="serch_teacher()">查找</button>
+        </div>
+        <div class="placeholders teacher_table">      
+            <table id = "teacher_table">
+            </table>
+            <dev id="toolbar"></dev>
+        </div>
+    </div>
+    <div id='pop-box-course-member' class="pop-box-course-member" >
+        <img src="../../static/images/close.png" style="right:5px;margin-top:5px;position:absolute;" onclick="hideCourseMemberPop();" class="detail-close"/>
+
+        <div class='' style="margin-top:10px;">
+            <label class="course-title" id="">当前课程的学员</label>
+            <label class="course-title">手机号码：</label><input class="mobile_course" id="mobile_course"/>
+            <button class='button' onclick="serch_course_student()">查找</button>
+            <button class='button' onclick="add_new_user()">新增</button>
+        </div>
+        <div class="placeholders course_member_table">      
+            <table id = "course_member_table">
+            </table>
+            <dev id="toolbar"></dev>
+        </div>
+    </div>
+    <div class="col-sm-11 col-sm-offset-2 col-md-10 col-md-offset-x main">
+        <!-- TIME PICKER -->          
+        <!--<div style="display:inline-block" class="row">
+<div class="timepicker col-sm-3 col-md-3" >                  
+<div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+<input class="form-control" size="14" id="startDate" type="text" placeholder="开始时间" readonly>
+<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+
+            
+            <div class="timepicker col-sm-3 col-md-3" >                  
+                <div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="14" id="endDate" type="text" placeholder="结束时间" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+            <div class="timepickerbtn col-sm-2 col-md-2" id="search"><button >查找</button></div>
+            <div class=" col-sm-4 col-md-4">
+                <div class="selector floatright">
+                    <select id='failedType' class="input form-control floatright">
+                        <option value='all'>导入状态</option>
+                        <option value='课程错误'>课程错误</option>
+                        <option value='电话错误'>电话错误</option>
+                        <option value='导入成功'>导入成功</option>
+                    </select>
+                </div>
+                <div class="selector floatright">
+                    <select id='channel' class="input form-control ">
+                        <option value='all'>渠道</option>
+                        <option value='2'>有赞</option>
+                        <option value='3'>小鹅通</option>
+                        <option value='4'>服务号绑定</option>
+                    </select>
+                </div>
+            </div>
+        </div>-->
+		<!-- table-->          
+        <div>
+			<div class=""  style="display:inline"><button onclick="showUploadTeacher()" style="width:150px">导入教师</button></div>
+        </div>
+		<div class="row placeholders">      
+			<table id = "course_table">
+			</table>
+			<dev id="toolbar"></dev>
+		</div>
+
+		
+	</div>
+</div>
+{% endblock %}
+
+{% block content2 %}
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    "use strict";
+    function exportcourseclasses(){
+        let params = "course_id=" + $("#course_id").val()
+        window.open("http://applinzi.ddianke.com/exportcourseclass/?" + params)
+    }
+    function choose_teacher(id){
+        $("#teacher_id").val(id);
+        $("#teacher_table tbody tr").each(function(index, item){
+            if (id == parseInt($(item).data('uniqueid'))){
+                name = $($(item).find("td")[1]).text()
+                $("#teacher_name").val(name);
+                hideTeacherPop();
+                console.log(name)
+            }
+        });
+    }
+    function remove_from_course(id){
+        if (!confirm("将此学员移出课程，是否继续")){
+            return;
+        }
+        let course_id = $("#course_id").val();
+        console.log(class_id)
+        $.ajax({
+            url: "../removestudentfromcourse/",
+            type: 'post',
+            data: {
+                "course_id": course_id,
+                "student_id": id,
+            },
+            //dataType: "json",
+            success: function(data){
+                alert(data)
+                if (data=='ok'){
+                    $('#course_member_table').bootstrapTable('refresh');
+                    $('#student_table').bootstrapTable('refresh');
+                    $('#class_table').bootstrapTable('refresh');
+                    $('#course_table').bootstrapTable('refresh');
+                    let count = parseInt($(".member-count").text())
+                    $(".member-count").html(count - 1)
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        }); 
+    }
+    function add_to_course(id){
+        if (!confirm("将此学员加入课程，是否继续")){
+            return;
+        }
+        let course_id = $("#course_id").val();
+        
+        $.ajax({
+            url: "../addstudenttocourse/",
+            type: 'post',
+            data: {
+                "course_id": course_id,
+                "user_id": id,
+            },
+            //dataType: "json",
+            success: function(data){
+                alert(data)
+                if (data=='ok'){
+                    $('#student_table').bootstrapTable('refresh');
+                    $('#course_member_table').bootstrapTable('refresh');
+                    $('#course_table').bootstrapTable('refresh');
+                    let count = parseInt($(".member-count").text())
+                    $(".member-count").html(count + 1)
+                    //$('#class_member_table').bootstrapTable('refresh');
+                    //$('#class_table').bootstrapTable('refresh');
+                //    $(".course-member").hide()
+                //    $(".class_table").show()
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        }); 
+    }
+    function edit_member(){
+        let course_id = $("#course_id").val();
+        //$("#is_all_user").val(1)
+        //$("#add_member_title").html("新增学员到课程");
+        $("#pop-box-course-member").show();
+		$('#course_member_table').bootstrapTable('refresh');
+    }
+    function add_new_user(){
+        let course_id = $("#course_id").val();
+        $("#is_all_user").val(1)
+        $("#add_member_title").html("新增学员到课程");
+        $("#pop-box-students").show();
+		$('#student_table').bootstrapTable('refresh');
+    }
+    function add_to_class(id){
+        if (!confirm("将此学员加入班级，是否继续")){
+            return;
+        }
+        let class_id = $("#class_id").val();
+        $.ajax({
+            url: "../addstudenttoclass/",
+            type: 'post',
+            data: {
+                "class_id": class_id,
+                "student_id": id,
+            },
+            //dataType: "json",
+            success: function(data){
+                alert(data)
+                if (data=='ok'){
+                    $('#student_table').bootstrapTable('refresh');
+                    $('#class_member_table').bootstrapTable('refresh');
+                    $('#class_table').bootstrapTable('refresh');
+                //    $(".course-member").hide()
+                //    $(".class_table").show()
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        }); 
+    }
+    function show_teacher(){
+        //let course_id = $("#course_id").val();
+        $("#add_teacher_title").html("选择班级的老师");
+        $("#teacher_mobile").val('');
+        $("#pop-box-teacher").show();
+		$('#teacher_table').bootstrapTable('refresh');
+
+    }
+    function show_student(){
+        //let course_id = $("#course_id").val();
+        $("#is_all_user").val(0)
+        $("#add_member_title").html("将未分班学员分配到到班级");
+        $("#mobile").val('');
+        $("#pop-box-students").show();
+		$('#student_table').bootstrapTable('refresh');
+
+    }
+    function show_class(id){
+        $(".lessons").empty();
+        $("#teacher_id").val('');
+        $("#class_table tbody tr").each(function(index, item){
+            if (id == parseInt($(item).data('uniqueid'))){
+                let name = $($(item).find("td")[1]).text()
+                $(".class-name").val(name)
+                $("#patrol_info").val($($(item).find("td")[3]).text())
+                $("#teacher_name").val($($(item).find("td")[4]).text())
+            }
+        });
+        $("#pop-box-class").show();
+        $("#class_id").val(id)
+		$('#class_member_table').bootstrapTable('refresh');
+
+    }
+    function serch_student(){
+        $('#student_table').bootstrapTable('refresh');
+    }
+    function serch_course_student(){
+        $('#course_member_table').bootstrapTable('refresh');
+    }
+    function update_class(){
+        let course_id = $("#course_id").val();
+        let class_id = $("#class_id").val();
+        let class_name = $("#class_name").val();
+        let teacher_id = $("#teacher_id").val();
+        let patrol_info = $("#patrol_info").val();
+        $.ajax({
+            url: "../updateclassinfo/",
+            type: 'post',
+            data: {
+                "course_id": course_id,
+                "class_id": class_id,
+                "class_name": class_name,
+                "teacher_id": teacher_id,
+                "patrol_info": patrol_info
+            },
+            //dataType: "json",
+            success: function(data){
+                alert(data)
+                if (data=='ok'){
+                    $('#class_table').bootstrapTable('refresh');
+                //    $(".course-member").hide()
+                //    $(".class_table").show()
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        }); 
+    }
+    function update_member(){
+        let member_id = $("#member_id").val();
+        let member_name = $("#member_name").val();
+        $.ajax({
+            url: "../updatemember/",
+            type: 'post',
+            data: {
+                "member_id": member_id,
+                "member_name": member_name,
+            },
+            //dataType: "json",
+            success: function(data){
+                alert(data)
+                if (data=='ok'){
+                    $('#class_member_table').bootstrapTable('refresh');
+                    hideEditMember();
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        }); 
+    }
+    function deleteMember(id){
+        if (!confirm("将此学员移出班级，是否继续")){
+            return;
+        }
+        let class_id = $("#class_id").val();
+        console.log(class_id)
+        $.ajax({
+            url: "../removestudentfromclass/",
+            type: 'post',
+            data: {
+                "class_id": class_id,
+                "student_id": id,
+            },
+            //dataType: "json",
+            success: function(data){
+                alert(data)
+                if (data=='ok'){
+                    $('#class_member_table').bootstrapTable('refresh');
+                    $('#class_table').bootstrapTable('refresh');
+                    $(".course-member").hide()
+                    $(".class_table").show()
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        }); 
+    }
+    function upload_teacher(){
+        var formData = new FormData($('#upload_teacher_form')[0]);
+        $.ajax({
+            url: "../uploadteacher/",
+            type: 'post',
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            //dataType: "json",
+            success: function(data){
+                alert(data)
+                if (data=='ok'){
+                    hideUploadTeacher();
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        }); 
+
+
+        return false;
+    }
+    function upload_classes(){
+        var formData = new FormData($('#upload_form')[0]);
+        $.ajax({
+            url: "../uploadclasses/",
+            type: 'post',
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            //dataType: "json",
+            success: function(data){
+                alert(data)
+                if (data=='ok'){
+                    $('#class_table').bootstrapTable('refresh');
+                    $(".course-member").hide()
+                    $(".class_table").show()
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        }); 
+
+
+        return false;
+    }
+    function clear_classes(){
+        if (!confirm("将清空原先已有班级，是否继续？")){
+            return
+        }
+        let course_id = $("#course_id").val();
+        $.ajax({
+            url: "../clearclasses/",
+            type: 'post',
+            data: {
+                "course_id": course_id,
+            },
+            //dataType: "json",
+            success: function(data){
+                alert(data)
+                $(".course-member").show()
+                $(".class_table").hide()
+            },
+            fail: function(err){
+                alert(err);
+            }
+        }); 
+        
+    }
+    function preview(){
+        //alert(1)
+        let count = $("#class_member_count").val()
+        if (count == '' || count <= 0){
+            alert('请正确输入班级人数');
+            return;
+        }
+        
+        let member_count = parseInt($(".member-count").text());
+        let class_member_count = parseInt(count);
+        let class_count = parseInt(member_count / class_member_count);
+        let remainder =  member_count % class_member_count;
+        
+        let text = "可分" + class_count + "个班,余" + remainder + "人";
+        //console.log(text)
+        $(".class-detail").html(text)
+        $("#remainder").val(remainder);
+        if (remainder > 0)
+            $(".divide_detail-content").show()
+        else{
+            $(".divide_detail-content").hide()
+        }
+        $(".divide_detail-button").show()
+    }
+    let detail = ''
+    let is_divide = false
+    function divide(){
+        if (is_divide){
+            alert("处理中，请稍等")
+            return;
+        }
+            
+        let course_id = $("#course_id").val();
+        let remainder = $("#remainder").val();
+        let class_member_count = $("#class_member_count").val()
+        if (class_member_count == '' || class_member_count <= 0){
+            alert('请正确输入班级人数');
+            return;
+        }
+        if (parseInt(remainder)>0){
+            if (detail == ''){
+                alert('请选择分班方式');
+                return;
+            }
+        }
+        is_divide = true
+        $.ajax({
+            url: "../divideclass/",
+            type: 'post',
+            data: {
+                "course_id": course_id,
+                "class_member_count": class_member_count,
+                "divide_class_type": detail
+            },
+            //dataType: "json",
+            success: function(data){
+                console.log(data)
+                $('#class_table').bootstrapTable('refresh');
+                $(".course-member").hide()
+        		$(".class_table").show()
+                is_divide = false
+            },
+            fail: function(err){
+                alert(err);
+                is_divide = false
+            }
+        });  
+    }
+    //let curr_id=1;
+    function addNew(){
+        set_lesson(0,'','')
+    }
+    function popShow(id){
+        let name = ''
+        let sku = ''
+        let lesson_time = ''
+        let count = 0
+        let is_divide = 0
+        $(".lessons").empty();
+        $("#course_table tbody tr").each(function(index, item){
+            if (id == parseInt($(item).data('uniqueid'))){
+                name = $($(item).find("td")[1]).text()
+                sku = $($(item).find("td")[2]).text()
+                lesson_time = $($(item).find("td")[3]).text()
+                count = $($(item).find("td")[4]).text()
+                is_divide = $($(item).find("td")[6]).text()
+                console.log(name)
+            }
+        });
+        $("#pop-box-addnew").show();
+        $("#course_id").val(id)
+        $("#course_id2").val(id)
+        $(".course-name").html(name)
+        $(".course-sku").html(sku)
+        $(".course-time").html(lesson_time)
+        $(".member-count").html(count)
+        if (is_divide > 0){
+            $('#class_table').bootstrapTable('refresh');
+            $(".course-member").hide()
+            $(".class_table").show()
+        }
+        else{
+            $(".course-member").show()
+            $(".class_table").hide()
+        }
+    }
+    
+    
+	function showEditMember(id){
+        $("#pop-box-edit-member").show();
+        $("#member_id").val(id);
+        $("#class_member_table tbody tr").each(function(index, item){
+            if (id == parseInt($(item).data('uniqueid'))){
+                $("#member_name").val($($(item).find("td")[1]).text())
+            }
+        });
+    }
+    function hideEditMember(){
+        $("#pop-box-edit-member").hide();
+    }
+	function showUploadTeacher(){
+        $("#pop-box-upload-teacher").show();
+    }
+    function hideUploadTeacher(){
+        $("#pop-box-upload-teacher").hide();
+    }
+    function remove_lesson(id){
+        $("#lesson_"+id).remove();
+    }
+
+    function hidePop(){
+        $("#pop-box-addnew").hide();
+        clearPop();
+    }
+    function hideClassPop(){
+        $("#pop-box-class").hide();
+    }
+    function hideStudentPop(){
+        $("#pop-box-students").hide();
+    }
+    function hideTeacherPop(){
+        $("#pop-box-teacher").hide();
+    }
+    function hideCourseMemberPop(){
+        $("#pop-box-course-member").hide();
+    }
+    function clearPop(){
+        $(".coupon_name").val('')
+        $("#coupon_id").val('')
+        $(".coupon_url").val('')
+    }
+    var CourseMemberTableInit = function () {
+		var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = 380;
+            $('#course_member_table').bootstrapTable({
+                url: '/getcloudcoursemember/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "desc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                fontSize:14,
+                columns: [{
+                    field: 'ID',
+                    title: 'ID'
+                },{
+                    field: 'Name',
+                    title: '学员名称'
+                },{
+                    field: 'Mobile',
+                    title: '电话'
+                },{
+                    field: 'ClassName',
+                    title: '班级'
+                },{
+                    field: 'Edit',
+                    title: '操作',
+                    //visible: false
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                //limit: params.limit,   //页面大小
+                //offset:params.offset,
+                course_id: $("#course_id").val(),
+                mobile: $("#mobile_course").val(),
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+    var StudentTableInit = function () {
+		var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = 380;
+            $('#student_table').bootstrapTable({
+                url: '/getcloudcoursemembernotinclass/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "desc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                fontSize:14,
+                columns: [{
+                    field: 'ID',
+                    title: 'ID'
+                },{
+                    field: 'Name',
+                    title: '学员名称'
+                },{
+                    field: 'Mobile',
+                    title: '电话'
+                },{
+                    field: 'Edit',
+                    title: '操作',
+                    //visible: false
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                //limit: params.limit,   //页面大小
+                //offset:params.offset,
+                course_id: $("#course_id").val(),
+                mobile: $("#mobile").val(),
+                is_all_user: $("#is_all_user").val(),
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+    var TeacherTableInit = function () {
+		var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = 380;
+            $('#teacher_table').bootstrapTable({
+                url: '/getteachers/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "desc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                fontSize:14,
+                columns: [{
+                    field: 'ID',
+                    title: 'ID'
+                },{
+                    field: 'Name',
+                    title: '老师姓名'
+                },{
+                    field: 'Mobile',
+                    title: '电话'
+                },{
+                    field: 'Edit',
+                    title: '操作',
+                    //visible: false
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                //limit: params.limit,   //页面大小
+                //offset:params.offset,
+                course_id: $("#course_id").val(),
+                mobile: $("#teacher_mobile").val(),
+                is_all_user: $("#is_all_user").val(),
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+    var ClassMemberTableInit = function () {
+		var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = 340;
+            $('#class_member_table').bootstrapTable({
+                url: '/getcloudcourseclassmember/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "desc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                fontSize:14,
+                columns: [{
+                    field: 'ID',
+                    title: 'ID'
+                },{
+                    field: 'Name',
+                    title: '学员名称'
+                },{
+                    field: 'Mobile',
+                    title: '电话'
+                },{
+                    field: 'Edit',
+                    title: '操作',
+                    //visible: false
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                //limit: params.limit,   //页面大小
+                //offset:params.offset,
+                course_id: $("#course_id").val(),
+                class_id: $("#class_id").val()
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+    var ClassTableInit = function () {
+		var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = 320;
+            $('#class_table').bootstrapTable({
+                url: '/getcloudcourseclasses/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "desc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                fontSize:14,
+                columns: [{
+                    field: 'ID',
+                    title: 'ID'
+                },{
+                    field: 'Name',
+                    title: '班级名称'
+                },{
+                    field: 'count',
+                    title: '班级人数'
+                },{
+                    field: 'PatrolInfo',
+                    title: '班主任'
+                },{
+                    field: 'TeacherName',
+                    title: '老师'
+                },{
+                    field: 'Edit',
+                    title: '操作',
+                    //visible: false
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                //limit: params.limit,   //页面大小
+                //offset:params.offset,
+                course_id: $("#course_id").val()
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+	var TableInit = function () {
+		var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = $(window).height()-190;
+            $('#course_table').bootstrapTable({
+                url: '/getcloudcoursesforclass/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "desc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                fontSize:14,
+                columns: [{
+                    field: 'ID',
+                    title: 'ID'
+                },{
+                    field: 'Name',
+                    title: '名称'
+                },{
+                    field: 'SKU',
+                    title: 'SKU'
+                },{
+                    field: 'FirstLessonTime',
+                    title: '第一节课时间'
+                },{
+                    field: 'MemberCount',
+                    title: '学员'
+                },{
+                    field: 'Edit',
+                    title: '操作',
+                    //visible: false
+                },{
+                    field: 'IsDivided',
+                    title: '已分班',
+                    //visible: false
+                },{
+                    field: 'MemberCountNotInClass',
+                    title: '未分班学员'
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset:params.offset,
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+    
+    function edit_url(id){
+        //$('#student_table').bootstrapTable('refresh');
+    }
+    function init_timer(id){
+        $('#'+id).datetimepicker({
+            showOn: "button",
+            minView: "hour",
+            autoclose: true,
+            todayHighlight: true,
+            pickerPosition:"bottom-left",
+            format: "yyyy-mm-dd hh:ii",
+            startDate:"2018-07-01",
+            //endDate:new Date()
+        })
+    }
+    $(function () {
+        $(".divide_type").on('click', function(){
+            let curr_type = $(this).val()
+            if (curr_type=="random"){
+                $(".random-class").show()
+                $(".upload-class").hide()
+            }
+            else{
+                $(".random-class").hide()
+                //$(".divide_detail-content").hide()
+                //$(".divide_detail-button").hide()
+                $(".upload-class").show()
+            }
+        })
+        $(".divide_detail").on("click", function(){
+            detail = $(this).val()
+            $(".divide").show()
+        })
+        $("#courseclass_tab").addClass('tab-on')
+        var oTable = new TableInit();
+        oTable.Init();
+        var oTable2 = new ClassTableInit();
+        oTable2.Init();
+        var oTable3 = new ClassMemberTableInit();
+        oTable3.Init();
+        var oTable4 = new StudentTableInit();
+        oTable4.Init();
+        var oTable5 = new CourseMemberTableInit();
+        oTable5.Init();
+        var oTable6 = new TeacherTableInit();
+        oTable6.Init();
+        $("#cancel").on("click", function(){
+            popHide();
+        });
+        $("#save").on("click", function(){
+            update_lessons();
+        });
+        $("#addNew").on("click", function(){
+            addNew();
+        });
+    });
+</script>
+{% endblock %}
+

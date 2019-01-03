@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>塘晶蟹</title>    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> 
+    <link rel="stylesheet" href="../static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
+  <script src="http://sdk.talkingdata.com/app/h5/v1?appid=31887010104EFF3BE3C6213FAAD21FB2&vn=塘晶蟹&vc=1.0"></script>   
+    <script src="../static/js/jquery-1.11.0.min.js"></script>
+<script src="../static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<style>
+body{TEXT-ALIGN: center;}
+#center{ MARGIN-RIGHT: auto;
+MARGIN-LEFT: auto;
+height:auto;
+width:auto;
+vertical-align:middle;
+
+}
+</style>
+   
+
+    
+</head>
+<body>
+     
+<form action="../PayBill" method="post" name="OrderForm">
+  <div data-role="main" class="ui-content">
+      
+      <h2>选择您要预订的品种和数量</h2>
+      
+    <div data-role="collapsible">
+    <h3>超值组合，饕餮首选</h3>
+    <ul data-role="listview">
+    <table data-role="table" class="ui-responsive" border="1">
+      <thead>
+        <tr>
+          <th></th>
+         </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td><h4>S802 最帅男神 8只装 公蟹4-4.5两/只 劲爆198元<input type="number" name="S802" id="S802" value="0">份</h4></td>
+        </tr>
+        <tr>
+            <td><h4>S803 最佳组合 5对装 母蟹2.8-3.3两、公蟹4-4.5两/只 劲爆268元<font color="red">【已售罄】</font><input type="number" name="S803" id="S803" value="0" disabled="true">份</h4></td>
+        </tr>
+      </tbody>
+    </table>
+    </ul>
+    </div>
+
+    <div data-role="collapsible">
+    <h3>精选组合，全蟹盛宴</h3>
+    <ul data-role="listview">
+    <table data-role="table" class="ui-responsive" border="1" >
+      <thead>
+        <tr>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td><h4>D601 大一点 大不一样 4对装 母蟹3-3.5两，公蟹4-4.5两/只 特惠258元 <input type="number" name="D601" id="D601" value="0"> 份</h4></td>
+        </tr>
+      </tbody>
+    </table>
+    </ul>
+    </div>
+
+    <div data-role="collapsible">
+    <h3>送礼佳品，礼盒装</h3>
+    <ul data-role="listview">
+    <table data-role="table" class="ui-responsive" border="1">
+      <thead>
+        <tr>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td><h4>L501 礼蟹亲友298 5对装 母蟹3-3.5两，公蟹4-4.5两/只 仅售298元 <input type="number" name="L501" id="L501" value="0"> 只</h4></td>
+        </tr>
+        <tr>
+            <td><h4>L502 礼蟹亲友468 4对装 母蟹3.5-4两，公蟹4.5-5两/只 仅售468元 <input type="number" name="L502" id="L502" value="0"> 份</h4></td>
+        </tr>
+        <tr>
+            <td><h4>L503 礼蟹亲友588 5对装 母蟹3.5-4两，公蟹4.5-5两/只 仅售588元 <input type="number" name="L503" id="L503" value="0"> 份</h4></td>
+        </tr>          
+        </tbody>
+    </table>
+    </ul>
+    </div>
+     <div data-role="collapsible">
+    <h3>更多搭配，随心畅想</h3>
+    <ul data-role="listview">
+    <table data-role="table" class="ui-responsive" border="1">
+      <thead>
+        <tr>
+          <th></th>
+         </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td><h4>X304 多选搭配 6母4公 母蟹3-3.5两，公蟹4-4.5两/只 超值298元 <input type="number" name="X304" id="X304" value="0"> 份</h4></td>
+        </tr>
+        <tr>
+            <td><h4>X305 多选搭配 8母4公 母蟹3-3.5两，公蟹4-4.5两/只 超值338元 <input type="number" name="X305" id="X305" value="0"> 份</h4></td>
+        </tr>
+        <tr>
+            <td><h4>X307 多选搭配 10只装 母蟹3-3.5两 超值298元 <input type="number" name="X307" id="X307" value="0"> 份</h4></td>
+        </tr>
+        <tr>
+            <td><h4>X308 多选搭配 10只装 公蟹3-3.4两/只 超值168元 <font color="red">【已售罄】</font> <input type="number" name="X308" id="X308" value="0" disabled="true"> 份</h4></td>
+        </tr>
+        <tr>
+            <td><h4>X309 多选搭配 10只装 公蟹3.5-3.9两/只 仅售198元<font color="red">【已售罄】</font> <input type="number" name="X309" id="X309" value="0" disabled="true"> 份</h4></td>
+        </tr>
+        <tr>
+            <td><h4>X310 多选搭配 10只装 公蟹4-4.5两/只 仅售298元 <input type="number" name="X310" id="X310" value="0"> 份</h4></td>
+        </tr>          
+        </tbody>
+    </table>
+    </ul>
+    </div>     
+  </div>
+	<input type="hidden" name="SessionCode" id="SessionCode" value=""> 
+    <input type="submit" value="立即下单" >
+    
+    </form>
+  <div data-role="footer">
+      <h1>点击右上分享到朋友圈，和小伙伴一起来品蟹！</h1>
+     
+      
+  </div>
+
+</body>
+<script>
+wx.config({
+    //
+    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    appId: '{{appid}}', // 必填，公众号的唯一标识
+    timestamp: '{{sign.timestamp}}', // 必填，生成签名的时间戳
+    nonceStr: '{{sign.nonceStr}}', // 必填，生成签名的随机串
+    signature: '{{sign.signature}}',// 必填，签名，见附录1
+    jsApiList: ['chooseWXPay','openProductSpecificView','addCard','chooseCard','openCard'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+});
+    
+wx.error(function(res){
+
+   alert(res); // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+
+});    
+wx.getNetworkType({
+    success: function (res) {
+        var networkType = res.networkType; 
+        alert(networkType);// 返回网络类型2g，3g，4g，wifi
+    }
+});    
+    
+wx.ready(function () {
+
+    var codes = [];
+    // {{cardTicket}}
+  document.querySelector('#chooseCard').onclick = function () {
+    wx.chooseCard({
+        
+        cardSign: '{{cardSign.signature}}',
+        timestamp: '{{cardSign.time_stamp}}',
+        nonceStr: '{{cardSign.nonce_str}}',
+      success: function (res) {
+        res.cardList = JSON.parse(res.cardList);
+        encrypt_code = res.cardList[0]['encrypt_code'];
+          alert('Card:' + JSON.stringify(res.cardList));
+        decryptCode(encrypt_code, function (code) {
+          codes.push(code);
+        });
+      }
+    });
+  };
+    //alert("Hello!");
+    
+});    
+</script>  
+</html>  
+

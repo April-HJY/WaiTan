@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>生菜阅读-快速投稿</title>
+        <link rel="shortcut icon" href="../favicon.ico">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+        
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    </head>
+    <body>
+        <form action="../Import/"  method="post">
+            <ul data-role="listview">
+                    <li class="ui-field-contain">
+                     <label for="author">署名（例如：小生菜）</label> <input type="text" name="author" id="author" value="" data-clear-btn="true">
+                    </li>
+                    <li class="ui-field-contain">
+                     <label for="authorBio">作者简介（例如：文艺女青年、一枚逗比）</label> <textarea type="textarea" name="authorBio" id="authorBio" data-clear-btn="true"></textarea>
+                    </li>                   
+
+                    <li class="ui-field-contain">
+                        <label for="urlLink">原文链接(例如：http://blog.163.com/doubi)</label> <input type="url" name="url" id="url" value="" data-clear-btn="true">
+                    </li>
+                    <li>
+                          <button class="ui-btn">提交</button>
+                    </li>
+                </ul>
+
+        </form>
+    </body>
+</html>

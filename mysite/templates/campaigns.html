@@ -1,0 +1,468 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style type="text/css">
+    .title-margin{
+        margin:10px 10px;
+    }
+
+    .button{
+        width:100px ;
+        height:40px ;
+        border:solid 1px #cccccc;
+        border-radius:5px;
+    }
+    .select-normal{
+        padding:0 20px;
+        height:32px;
+        line-height:32px;
+        border-radius:5px;
+        margin:0 5px;
+    }
+    .floatright{
+        float:right;
+    }
+    #bg{display:none;position: absolute; top: 0%; left: 0%; width: 100%; height: 100%; background-color: black; z-index:1001; -moz-opacity: 0.7; opacity:.70; filter: alpha(opacity=70); z-index:7000}
+    .pop-box-detail{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:800px;
+        height:500px;
+        top:50%;
+        left:50%;
+        margin-top: -250px;
+        margin-left: -400px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    .pop-box-qrcode{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:500px;
+        height:450px;
+        top:50%;
+        left:50%;
+        margin-top: -225px;
+        margin-left: -250px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    .label{
+        width:100px;
+        color:#000;
+        font-size:14px;
+        padding-left:20px;
+        height:40px;
+        line-height:40px;
+    }
+    .input-c{
+        height:40px;
+        line-height:40px;
+        padding-left:5px;
+        width:250px;
+        margin:20px 0 0 18px;
+    }
+    .set-date{
+        margin:20px 0 0 18px;
+        width:380px;
+    }
+    .remark-input{
+        margin:20px 0 0 18px;
+        width:653px;
+        padding-left:5px;
+        resize:none;
+    }
+    .addnew-button{
+        width:100px;
+    }
+    .marketing-menu{
+        display:block;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class=" ">
+    <div id="bg"></div>
+    <div class="pop-box-qrcode row" >
+        <div class="col-xs-12 col-md-12 " style="text-align:right">
+            <img src="../../static/images/close.png" onclick="hideDiv('pop-box-qrcode');" class="detail-close"/>
+            <input id="selected_id" class="" style="display:none"  value=""/>
+        </div>
+        <div class="col-xs-12 col-md-12 ">
+            <input id="c_url" type='text' style='width:300px' class="input input-c" placeholder='' maxlength="100"/>
+            <input id="btnCopy" type=button class="button" style="margin-left:20px" value="复制"/>
+        </div>
+        <div class="col-xs-12 col-md-12 " style="text-align:center">
+            <div id="qrcode" style="margin:20px;width:256px;height:256px;"></div>
+            <input id="btnDownload" type=button class="button" style="float:right;margin-right:25px;margin-top:-20px;" value="下载"/>
+        </div>
+    </div>
+    <div class="pop-box-detail row" > 
+        <div class="col-xs-12 col-md-12 " style="text-align:right">
+            <img src="../../static/images/close.png" onclick="hideDiv('pop-box-detail');" class="detail-close"/>
+            <input id="selected_id" class="" style="display:none"  value=""/>
+        </div>
+        <div class="timepicker col-sm-6 col-md-6 set-date" >                  
+            <div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                <input class="form-control" size="14" id="startDate" type="text" placeholder="开始时间" readonly>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+            <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+        </div>
+
+        <div class="timepicker col-sm-6 col-md-6 set-date" >                  
+            <div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                <input class="form-control" size="14" id="endDate" type="text" placeholder="结束时间" readonly>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+            <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+        </div>
+        
+        <div class="col-xs-6 col-md-6" style="z-index:9500">
+            <label class="label">名称：</label>
+            <input id="cname" type='text' class="input input-c" placeholder='请输入投放计划名称' maxlength="30"/>
+        </div>
+        <div class="col-xs-6 col-md-6" style="z-index:9500">
+            <label class="label">Code：</label>
+            <input id="code" type='text' class="input input-c" placeholder='支持数字和字母,长度20' maxlength="20" onkeyup="value=value.replace(/([^0-9a-zA-Z])/g,'')" 
+                   onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/([^0-9a-zA-Z])/g,''))"/>
+        </div>
+        <div class="col-xs-6 col-md-6" style="z-index:9500">
+            <label class="label">预算：</label>
+            <input id="balance" type='text' class="input input-c" placeholder='投放预算' maxlength="10" onkeyup="value=value.replace(/([^0-9])/g,'')" 
+                   onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/([^0-9])/g,''))"/>
+        </div>
+        <div class="col-xs-6 col-md-6" style="z-index:9500">
+            <label class="label">URL ：</label>
+            <input id="url" type='text' class="input input-c" placeholder='投放的URL' maxlength="100"/>
+        </div>
+        <div class="" style="z-index:9500">
+            <label class="label" style="line-height:80px;margin-left:15px">备注：</label>
+            <textarea class='remark-input' rows="9" id="remark" placeholder='备注（选填）'></textarea>
+        </div>
+        
+        <div id="button-div" >  
+            <div style="float:right;position:relative;margin-top:20px;right:20px">
+                <input id="btnSave" type=button class="button" value="保存"/>
+                <input id="btnClose" type=button class="button" onclick="hideDiv('pop-box-detail');"  value="关闭"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-11 col-sm-offset-2 col-md-10 col-md-offset-x main">
+        <!-- TIME PICKER -->          
+        <div style="display:inline-block" class="row">
+            <!--<div class="timepicker col-sm-3 col-md-3" >                  
+                <div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="14" id="startDate" type="text" placeholder="开始时间" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+
+
+            <div class="timepicker col-sm-3 col-md-3" >                  
+                <div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="14" id="endDate" type="text" placeholder="结束时间" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+            <div class="timepickerbtn col-sm-2 col-md-2" id="search"><button >查找</button></div>-->
+            <div class="col-sm-2 col-md-2 addnew-button" id="addnew"><button class='button'>新增</button></div>
+        </div>
+        <!-- table-->                   
+        <div class="row placeholders">     
+            <table id = "campaign_table">
+            </table>
+            <dev id="toolbar"></dev>
+        </div>
+
+
+    </div>
+</div>
+{% endblock %}
+
+{% block content2 %}
+
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/qrcode.js"></script>
+<script type="text/javascript">
+    "use strict";
+    function copy_url()
+    {
+        var Url2=document.getElementById("c_url");
+        Url2.select(); // 选择对象
+        document.execCommand("Copy");
+    }
+    function download(){
+        let img = $("#qrcode").find('img');
+        var $a = $("<a></a>").attr("href", img.attr('src')).attr("download", 'qrcode.png');
+    	$a[0].click();
+    }
+    function show_url(url){
+        showDiv('pop-box-qrcode')
+        $("#c_url").val(url);
+        var qrcode = new QRCode('qrcode', {
+            text: url,
+            width: 300,
+            height: 300,
+            colorDark : '#000000',
+            colorLight : '#ffffff',
+            correctLevel : QRCode.CorrectLevel.M
+        });
+    }
+    function update_campaign(id){
+        //alert(1)
+        $(".bootstrap-table .fixed-table-body tbody tr").each(function(i,item){
+            if ($(item).data('uniqueid') ==id){
+                $("#selected_id").val(id)
+                showDiv('pop-box-detail');
+                $("#startDate").val($($(item).find('td')[3]).text());
+                $("#endDate").val($($(item).find('td')[4]).text());
+                $("#code").val($($(item).find('td')[1]).text());
+                $("#cname").val($($(item).find('td')[0]).text());
+                $("#balance").val($($(item).find('td')[2]).text());
+                $("#url").val($($(item).find('td')[5]).text());
+                $("#remark").val($($(item).find('td')[6]).text());
+            }
+        });
+    }
+    function copy_campaign(id){
+        $(".bootstrap-table .fixed-table-body tbody tr").each(function(i,item){
+            if ($(item).data('uniqueid') ==id){
+                showDiv('pop-box-detail');
+                $("#startDate").val($($(item).find('td')[3]).text());
+                $("#endDate").val($($(item).find('td')[4]).text());
+                $("#code").val($($(item).find('td')[1]).text());
+                $("#cname").val($($(item).find('td')[0]).text());
+                $("#balance").val($($(item).find('td')[2]).text());
+                $("#url").val($($(item).find('td')[5]).text());
+                $("#remark").val($($(item).find('td')[6]).text());
+            }
+        });
+    }
+    function delete_campaign(id){
+        let dataURL = encodeURI('../deletecampaign/');
+        $.ajax({
+            url: dataURL,
+            type:'post',
+            data: {
+                "id":id,
+            },
+            success: function(data){
+                alert(data)
+                $('#campaign_table').bootstrapTable('refresh');
+            },
+            fail: function(err){
+                alert(err);
+                $('#campaign_table').bootstrapTable('refresh');
+            }
+        });
+    }
+    var btnsave = true;
+	function save_campaign(){
+        if (!btnsave){
+            return;
+        }
+        let startDate= $("#startDate").val();
+        if (!startDate){
+            alert('请选择开始时间');
+            return;
+        }
+        let endDate= $("#endDate").val();
+        if (!endDate){
+            alert('请选择结束时间');
+            return;
+        }
+        if (startDate > endDate){
+            alert('结束时间不能小于开始时间');
+            return;
+        }
+        let code= $("#code").val();
+        if (!code){
+            alert('code不能为空');
+            return;
+        }
+        let cname= $("#cname").val();
+        if (!cname){
+            alert('名称不能为空');
+            return;
+        }
+        let balance= $("#balance").val();
+        if (!balance){
+            alert('balance不能为空');
+            return;
+        }
+        let url= $("#url").val();
+        if (!url){
+            alert('不能为空');
+            return;
+        }
+        let remark= $("#remark").val();
+        let id = $("#selected_id").val();
+        btnsave = false
+        $('#btnSave').val('保存中..');
+        let dataURL = encodeURI('../savecampaign/');
+        $.ajax({
+            url: dataURL,
+            type:'post',
+            data: {
+                "id":id,
+                "start_date":startDate,
+                "end_date":endDate,
+                "code":code,
+                "cname":cname,
+                "balance":balance,
+                "url":url,
+                "remark":remark,
+            },
+            success: function(data){
+                alert(data)
+                btnsave = true
+        		$('#btnSave').val('保存');
+                hideDiv('pop-box-detail');
+                $('#campaign_table').bootstrapTable('refresh');
+            },
+            fail: function(err){
+                alert(err);
+                btnsave = true
+        		$('#btnSave').val('保存');
+            }
+        });
+    }
+    function hideDiv(div_id) {   
+        var div_obj = $("."+div_id);
+        $("#bg").hide()
+        div_obj.hide();
+        $("body").css("overflow-y","auto"); /*用来隐藏html的滚动条*/
+        $("#selected_id").val('')
+        $("#startDate").val('');
+        $("#endDate").val('');
+        $("#code").val('');
+        $("#cname").val('');
+        $("#balance").val('');
+        $("#url").val('');
+        $("#remark").val('');
+        $("#qrcode").text('')
+    }  
+    function showDiv(div_id){
+        var div_obj = $("."+div_id);
+        $("#bg").show()
+        div_obj.show(); 
+        $("body").css("overflow-y","hidden");
+    }
+    function sendMsg(){
+    }
+    var TableInit = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = $(window).height()-195;
+            $('#campaign_table').bootstrapTable({
+                url: '/getcampaigns/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                fontSize:14,
+                columns: [{
+                    field: 'CName',
+                    title: '名称'
+                },{
+                    field: 'Code',
+                    title: 'Code'
+                },{
+                    field: 'Balance',
+                    title: '预算'
+                },{
+                    field: 'StartDate',
+                    title: '开始时间'
+                },{
+                    field: 'EndDate',
+                    title: '结束时间'
+                },{
+                    field: 'URL',
+                    title: 'URL'
+                },{
+                    field: 'Remark',
+                    title: '备注'
+                },{
+                    field: 'Show_URL',
+                    title: '链接和二维码'
+                },{
+                    field: 'Update',
+                    title: '修改'
+                },{
+                    field: 'Copy',
+                    title: '复制'
+                },{
+                    field: 'Delete',
+                    title: '删除'
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset:params.offset,
+                startDate: $("#startDate").val(),
+                endDate:$("#endDate").val(),
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+    function search(){
+        $('#student_table').bootstrapTable('refresh');
+    }
+    $(function () {
+		$('#btnCopy').on('click',function(){
+            copy_url();
+        });
+        $('#btnDownload').on('click',function(){
+            download();
+        });
+        $('#btnSave').on('click',function(){
+            save_campaign();
+        });
+		$('#addnew').on('click',function(){
+            showDiv('pop-box-detail');
+        });
+        $("#campaign_tab").addClass('tab-on')
+        //$('.selectpicker').selectpicker();
+        $("#channel,#failedType").on('change',function(){
+            search();
+        });
+        var oTable = new TableInit();
+        oTable.Init();
+        
+
+    });
+</script>
+{% endblock %}
+

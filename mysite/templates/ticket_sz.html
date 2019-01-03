@@ -1,0 +1,213 @@
+﻿<!DOCTYPE HTML> 
+<html>
+<head>
+    <title>报名确认</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <script src="../static/js/zepto.min.js" type="text/javascript"></script>
+    <script src="../static/js/jquery-1.11.0.min.js"></script>
+   <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>    
+    <script src="../static/js/weui.min.js"></script>
+    <style>
+        .nav {
+    width:93%;
+    height:50px;
+    margin:0 auto;
+    position:fixed;
+    bottom:0;
+    text-align:center;
+}
+        i{
+    color:#f00;
+}
+        </style>    
+<link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.0/weui.min.css" />
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+<link rel="icon" href="../static/favicon.ico">	
+</head>
+<body >
+
+
+       
+            <img src="https://tsaistorage-1254256984.cos.ap-beijing.myqcloud.com/tsaireader/1.jpg" width="100%" />
+
+     
+             {% if ticketlist%}
+
+            <div class="weui-cell">
+        <div class="weui-cell__hd"><p>{{name}}，你好！ </p><p>你在 {{title}}的报名已成功！</p></div>
+
+    </div>
+    {%for i in ticketlist%}
+        <div class="weui-cell">
+        <div class="weui-cell__hd">确认号</div>
+        <div class="weui-cell__bd">
+         <p>{{i.TransactionID}}</p>
+        </div>
+    </div>
+    {%endfor%}
+            <div class="weui-cell">
+
+    </div>
+    
+<div class="weui-cells__title">活动信息如下： </div>
+<div class="weui-cells weui-cells_form">
+    
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><i class="fa fa-calendar"></i></div>
+        <div class="weui-cell__bd">
+         <p>   &nbsp {{date}} 13:30 - 17:30</p>
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><i class="fa fa-map-marker"></i></div>
+        <div class="weui-cell__bd">
+            {{location}}
+        </div>
+    </div>
+<!--        <div class="weui-cell">
+        <div class="weui-cell__hd">更多活动详情点击<a href="#">这里</a></div>
+
+    </div>-->
+    </div>
+    {% else%}
+            <div class="weui-cell">
+        <div class="weui-cell__hd"><p>{{name}}，你好！ </p><p>没有找到您的报名信息，请点击公众号菜单 活动报名 选择您要参加的活动</p></div>
+
+    </div>
+    
+    {% endif %}
+    <!--<div class="weui-cells weui-cells_radio">
+            <label class="weui-cell weui-check__label" for="x11">
+                <div class="weui-cell__bd">
+                    <p>白羊座 </p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" class="weui-check" name="radio1" id="x11">
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="x12">
+                <div class="weui-cell__bd">
+                    <p>金牛座</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" class="weui-check" name="radio1" id="x12">
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="x13">
+                <div class="weui-cell__bd">
+                    <p>双子座</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" class="weui-check" name="radio1" id="x13">
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="x14">
+                <div class="weui-cell__bd">
+                    <p>巨蟹座</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" class="weui-check" name="radio1" id="x14">
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+
+        </div>-->
+
+</body>
+    <script>
+       function gotoplay() {
+            
+             var gourl = "https://applinzi.ddianke.com/PayBill?prepay_id=";
+            //if (Math.random()>0.8) {
+            //gourl = 'http://mp.weixin.qq.com/s?__biz=MzIzNzA2MjU4MA==&mid=208803670&idx=1&sn=df9cf1daa7564b538b60966731896153&scene=0#rd';   
+            //}
+            phonenumber = document.getElementById("phonenumber").value;
+           if (phonenumber == 0) 
+           {
+               alert('请输入您的手机号！');
+               return;
+           } 
+           name = document.getElementById("name").value;
+           if (name =="")
+           {
+               alert('请填写您的姓名！');
+               return;
+           }
+   
+            if (quantity == 0) 
+           {
+             
+               alert('请选择门票数量！');
+               return;
+           }
+           		 $.ajax({
+                 type: "POST",
+                 url: "../prepay/",
+                 async: false,
+                 data: {
+                    "quantity":document.getElementById("quantity").value,
+                   // "name":document.getElementById("name").value,
+                   // "address":document.getElementById("address").value,
+                     "ProductCode": "TKT00001",
+                    "phoneNum": document.getElementById("phonenumber").value,
+                    "openid": "{{openid}}",
+                     "name": "{{name}}"
+                 //""
+                },
+
+                      success: function (res) {
+                //alert(res);         
+             if (res < 0)
+             {
+                alert('Error when creating order!');
+             }
+                          else
+                          {
+                               location.href=gourl+res;
+                          }
+            },
+            error: function (msg) {
+                alert(msg);
+            }
+           });                      
+        };    
+    </script>
+<script>
+wx.config({
+    //{{ticket}}
+    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    appId: '{{appid}}', // 必填，公众号的唯一标识
+    timestamp: '{{sign.timestamp}}', // 必填，生成签名的时间戳
+    nonceStr: '{{sign.nonceStr}}', // 必填，生成签名的随机串
+    signature: '{{sign.signature}}',// 必填，签名，见附录1
+    jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage','chooseWXPay','openProductSpecificView','addCard','chooseCard','openCard'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+});
+
+
+wx.ready(function () {
+
+  var shareData = {
+      title: '我在 {{title}} 的报名已经成功',
+      desc: '你的报名成功了吗？',
+      link: 'https://applinzi.ddianke.com/wxJSWeb/ticket_sz',
+      imgUrl: 'https://tsaistorage-1254256984.cos.ap-beijing.myqcloud.com/tsaireader/4%E6%9C%88%E6%B4%BB%E5%8A%A8.jpg'
+  };
+  wx.onMenuShareAppMessage(shareData);
+  wx.onMenuShareTimeline(shareData);
+     
+  });    
+wx.error(function(res){
+
+     alert(res); // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+
+});
+</script>    
+
+
+
+</html>

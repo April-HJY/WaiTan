@@ -1,0 +1,203 @@
+﻿<!DOCTYPE HTML> 
+<html>
+<head>
+    <title>生菜阅读 2017</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="../static/css/tsaireader.css">
+    <script src="http://sdk.talkingdata.com/app/h5/v1?appid=31887010104EFF3BE3C6213FAAD21FB2&vn=我的朋友圈&vc=1.0"></script>
+    <script src="../static/js/zepto.min.js" type="text/javascript"></script>
+   <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="../static/js/weui.min.js"></script>
+    
+            <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.1.0/weui.min.css" />
+</head>
+<body style="display:none;">
+	<div style='margin:0 auto;display:none;'>
+        <img class="data-avt" src="../static/img/n5.jpg" />
+	</div>
+
+        
+
+ 
+
+
+    <header>
+        <img id="bg" src="../static/img/bg.jpg">
+        <p id="user-name" class="data-name"></p>
+        <img id="avt" class="data-avt" src="">
+    </header>
+    <div id="main">
+        <div id="list">
+        </div>
+        <div id="share">
+            <p>（此朋友圈纯属虚构）</p>
+            <div style="padding:15px;padding-bottom:20px">
+                <button id="gotoplay" onclick="gotoplay();" class="btn btn-success btn-lg btn-block">我也要加入</button>
+                <!--<button href="javascript:;" class="btn btn-success btn-lg btn-block" id="showPicker">我的星座</button>-->
+
+			</div>
+        </div>
+        <div id="guide" class="hide"></div>
+    </div>
+    
+    
+    
+    
+    
+    <script id="man" type="text/template">
+        <ul>
+        {% for i in userList %}
+            <li>
+                <div class="po-avt-wrap">
+                    <img class="po-avt" src="{{i.userIcon}}">
+                </div>
+                <div class="po-cmt">
+                    <div class="po-hd">
+                        <p class="po-name">{{i.userName}}</p>
+                        <div class="post">
+                            <p>
+                            好期待 生菜阅读 台历 2017版！
+                            </p>
+                            <img class="list-img" src="../static/img/3.png" />
+                           
+                        </div>
+                        <p class="time">刚刚</p><img class="c-icon" src="../static/img/c.png">
+                    </div>
+  
+            </li> 
+            {% endfor %}
+              <li>
+               <div class="po-avt-wrap">
+                    <img class="po-avt" src="../static/img/tsaireader2.png">
+                </div>
+                <div class="po-cmt">
+                    <div class="po-hd">
+                        <p class="ads">推广<img src="../static/img/ads.png"></p>
+                        <p class="po-name">生菜阅读</p>
+                        <div class="post">长按识别下面二维码有惊喜
+                            <p><a class="ad-link" href="http://mp.weixin.qq.com/s?__biz=MjM5MDE0ODM3Mg==&mid=201523092&idx=1&sn=64e7ed7a4d837a5786fee5433dc5e262">查看详情 <img src="../static/img/link.png" /></a></p>
+                            <img src="../static/img/qrcode.jpg" /></div>
+                        <p class="time">45分钟前</p><img class="c-icon" src="../static/img/c.png" />
+                    </div>
+         
+
+            </li> 
+    
+    </ul>    
+  
+    </script>
+    <script id="woman" type="text/template">
+         <ul>
+            <li>
+                <div class="po-avt-wrap">
+                    <img class="po-avt" src="{{userIcon}}">
+                </div>
+                <div class="po-cmt">
+                    <div class="po-hd">
+                        <p class="data-name"></p>
+                        <div class="post">
+                            <p>
+                            好期待 生菜阅读 台历 2017版！
+                            </p>
+                            <img class="list-img" src="../static/img/yt2.jpg" />
+                            <img class="list-img" src="../static/img/yt3.jpg" />
+                        </div>
+                        <p class="time">刚刚</p><img class="c-icon" src="../static/img/c.png">
+                    </div>
+                    <div class="r"></div>
+            </li> 
+  </ul> </script>
+
+    <script>
+        function gotoplay() {
+            
+            var gourl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx92a26ba6653d5b56&redirect_uri="+encodeURIComponent('http://applinzi.ddianke.com/tsaiServer/webcallback?redirecturl=wxJSWeb/campaign2017')+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+            //if (Math.random()>0.8) {
+            //gourl = 'http://mp.weixin.qq.com/s?__biz=MzIzNzA2MjU4MA==&mid=208803670&idx=1&sn=df9cf1daa7564b538b60966731896153&scene=0#rd';   
+            //}
+           if ($(".Astro").value == "13")
+           {
+               alert('请选择您的星座！');
+               return;
+           }
+            
+            location.href=gourl;
+        };
+  
+        function safetostring(str) {
+            return String(str).replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
+        }
+        var nickname = '{{userName}}';
+        var headimgurl = "{{userIcon}}";
+        var user_sex = {{userGender}};
+        if(user_sex == 2){
+            $("#list").html($("#woman").html());
+        }else{
+            $("#list").html($("#man").html());
+        }
+        setTimeout(function(){
+            $(".data-name").text(safetostring(nickname));
+            $(".data-avt").attr("src",headimgurl);
+        },0);
+
+		$(document.body).show();
+        $("#gotoshare").click(function(){
+            $("#guide").show();
+        }); 
+
+        $("#guide").click(function(){
+            $(this).hide();
+        });
+
+    $('#showPicker').click( function () {
+        weui.picker([{
+            label: '摩羯座',
+            value: 0
+        }, {
+        label: '金牛座',
+            value: 1
+            
+        }], {
+            onChange: function (result) {
+                alert('Hello!');
+            },
+            onConfirm: function (result) {
+               alert('OK!');
+            }
+        });
+    });
+
+wx.config({
+    //{{ticket}}
+    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    appId: '{{appid}}', // 必填，公众号的唯一标识
+    timestamp: '{{sign.timestamp}}', // 必填，生成签名的时间戳
+    nonceStr: '{{sign.nonceStr}}', // 必填，生成签名的随机串
+    signature: '{{sign.signature}}',// 必填，签名，见附录1
+    jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage','chooseWXPay','openProductSpecificView','addCard','chooseCard','openCard'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+});
+
+
+wx.ready(function () {
+
+  var shareData = {
+      title: '{{userName}}的朋友圈被曝光了！',
+      desc: '没想到，{{userName}}如此深藏不露，要不是偷看了ta的朋友圈，都不会发现ta竟然.....',
+      link: 'http://applinzi.ddianke.com/wxJSWeb/tsaireader?nickname={{userName}}&sex={{userGender}}&headimgurl='+encodeURIComponent('{{userIcon}}'),
+      imgUrl: '{{userIcon}}'
+  };
+  wx.onMenuShareAppMessage(shareData);
+  wx.onMenuShareTimeline(shareData);
+      
+  });    
+wx.error(function(res){
+
+    // alert(res); // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+
+});
+</script>    
+<style>body > span{display:none;}</style>
+
+</body>
+</html>

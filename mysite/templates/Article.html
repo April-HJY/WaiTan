@@ -1,0 +1,102 @@
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{article.Title}}</title>
+<link rel="stylesheet" href="http://lib.sinaapp.com/js/jquery-mobile/1.3.1/jquery.mobile-1.3.1.min.css"> 
+<script src="http://lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js"></script>
+<script src="http://lib.sinaapp.com/js/jquery-mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+
+
+</head>    
+    
+    <body>
+
+	<div data-role="page" id="page-success" data-dom-cache="true">
+
+   
+		<div class="ui-content" role="main" id="content" >
+
+ 
+            <ul data-role="listview" data-divider-theme="a">
+                <li>
+                    <img src = {{article.Thumbnail}} style="margin-top:25px">
+                    <H2><a href={{articleURL}}>{{article.Title}}  </a></H2>                   
+                    <p> 作者：{{article.Author}}   </p>
+                        <p>{{article.PostDate|date:"Y" }}年 {{article.PostDate|date:"m" }} 月 {{article.PostDate|date:"d" }} 日 {{article.PostDate|date:"D" }} 发表</p>
+                    <p> <a href="../authority"> 查看所有文章 </a></p>
+               
+                </li>
+
+    		<!--	<iframe src = "{{article.ArticleURL}}" width="100%" frameborder ="0"></iframe>-->
+                             
+        <form action="../articles/?id={{articleID}}" method="post">
+            <div data-role="collapsible">
+                <h2>点此留言</h2>
+                <ul data-role="listview">
+                    <li class="ui-field-contain">
+                         <label for="author">我（化名：{{UserName}}）</label> <input type="hidden" name="author" id="author" value="{{UserName}}" data-clear-btn="true">
+                    </li>
+
+                    <li>
+                        <label for="ChangeName">换个名字:</label><select name="ChangeName" id="ChangeName" data-role="slider"><option value="0">No</option><option value="1">Yes</option></select>
+                    </li>
+                    <li class="ui-field-contain">
+                         <label for="content">留言：</label> <textarea type="textarea" name="content" id="content" data-clear-btn="true"></textarea>
+                        
+                    </li>
+            
+                    <li>
+                          <button class="ui-btn">提交</button>
+                    </li>
+                </ul>
+				<input type="hidden" name="articleID" id="articleID" value="{{articleID}}">
+            </div>
+			</form> 
+                <li data-role="list-divider" >
+                    <H1><strong> 最近留言 </strong></H1> 
+                </li>
+                   {% for i in comments %}
+                <li>
+                    <H1>{{forloop.counter}}楼：{{i.UserName}} 在</H1>
+                    <p>{{i.PostDate|date:"Y" }}年 {{i.PostDate|date:"m" }} 月 {{i.PostDate|date:"d" }} 日 {{i.PostDate|date:"D" }} {{i.PostDate|time }}发表</p>
+                    {{i.content}}
+                    
+				</li>
+                 {%endfor%}
+                <form action="../articles/?id={{articleID}}" method="post">
+            <div data-role="collapsible">
+                <h2>点此留言</h2>
+                <ul data-role="listview">
+                    <li class="ui-field-contain">
+                         <label for="author">我（化名：{{UserName}}）</label> <input type="hidden" name="author" id="author" value="{{UserName}}" data-clear-btn="true">
+                    </li>
+
+                    <li>
+                        <label for="ChangeName">换个名字:</label><select name="ChangeName" id="ChangeName" data-role="slider"><option value="0">No</option><option value="1">Yes</option></select>
+                    </li>
+                    <li class="ui-field-contain">
+                         <label for="content">留言：</label> <textarea type="textarea" name="content" id="content" data-clear-btn="true"></textarea>
+                        
+                    </li>
+            
+                    <li>
+                          <button class="ui-btn">提交</button>
+                    </li>
+                </ul>
+                <div id="bottom">
+				<input type="hidden" name="articleID" id="articleID" value="{{articleID}}">
+                </div>
+            </div>
+			</form>         
+            </ul>
+         
+                  
+
+
+        </div>       
+
+        </div>
+
+    </body>
+</html>

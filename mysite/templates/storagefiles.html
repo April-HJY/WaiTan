@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>All files in storage</title>
+<link rel="stylesheet" href="http://lib.sinaapp.com/js/jquery-mobile/1.3.1/jquery.mobile-1.3.1.min.css"> 
+<script src="http://lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js"></script>
+<script src="http://lib.sinaapp.com/js/jquery-mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+
+
+</head>
+   
+<body>
+
+	<div data-role="page" id="page-success" data-dom-cache="true"><!-- page--> 
+		
+        {% for i in fileList %}
+        	<form action="../storagefiles/" method="post" data-ajax="false" enctype="multipart/form-data">
+                <li>
+                    <input type="text" name="fileName" id="fileName" value="{{i.name}}" style="display:none">
+                    <H4>0</H4>
+                    <H4>Name: {{i.name}} </H4>
+                    <H4>url:{{i.url}} </H4>
+                    <H4>size:{{i.size}} </H4>
+                    <H4>lastmodified:{{i.last_modified}} </H4>
+                    <button class="ui-btn">删除</button>
+                </li>
+            </form>
+        {%endfor%}
+		
+   	</div>
+            
+</body>
+</html>

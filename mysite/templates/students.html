@@ -1,0 +1,1210 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style type="text/css">
+    .pop-box-msg{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:700px;
+        height:400px;
+        top:50%;
+        left:50%;
+        margin-top: -200px;
+        margin-left: -350px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    .pop-box-search{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:900px;
+        height:600px;
+        top:50%;
+        left:50%;
+        margin-top: -300px;
+        margin-left: -450px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    
+    .pop-box-detail{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:1200px;
+        height:600px;
+        top:50%;
+        left:50%;
+        margin-top: -300px;
+        margin-left: -600px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    .pop-box-addnew{
+        display:none;
+        position:absolute;
+        z-index:9500;
+        width:500px;
+        height:300px;
+        top:50%;
+        left:50%;
+        margin-top: -150px;
+        margin-left: -250px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    #tag-div{
+        display:none;
+        position:absolute;
+        z-index:10000;
+        width:600px;
+        height:500px;
+        top:50%;
+        left:50%;
+        margin-top: -250px;
+        margin-left: -300px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    .detail-close{
+        width:30px;
+    }
+    .user_trade{
+        width:1140px;
+        height:300px;
+        margin-left:30px;
+    }
+    .template-border{
+        border:1px solid #cccccc;
+        padding:10px 10px;
+    }
+    .tag-list{
+        margin:10px 10px;
+    }
+	.tag-border{
+        border:1px solid #cccccc;
+        padding:10px 10px;
+        margin-top:20px;
+    }
+
+    .title-margin{
+        margin:10px 10px;
+    }
+    .float-right{
+        float:right;
+    }
+    .button{
+        width:100px ;
+        height:40px ;
+        border:solid 1px #cccccc;
+        border-radius:5px;
+    }
+    .template{
+        margin:10px 0;
+    }
+    .template-on{
+        background-color:#eee
+    }
+    .tag-on{
+        background-color:#eee
+    }
+    #bg{display:none;position: absolute; top: 0%; left: 0%; width: 100%; height: 100%; background-color: black; z-index:1001; -moz-opacity: 0.7; opacity:.70; filter: alpha(opacity=70); z-index:7000}
+    .left-frame{
+        border:1px solid #ccc;
+        margin-left:30px;
+        margin-right:-5px;
+        margin-bottom:20px;
+        height:170px;
+    }
+    .right-frame{
+        border:1px solid #ccc;
+        margin-left:-5px;
+        margin-right:30px;
+        margin-bottom:20px;
+        height:170px;
+    }
+    .user-field{
+		margin: 5px 0px;
+    }
+    .tag-field{
+        margin: 10px 5px;
+        border: 1px solid #ccc;
+        height:27px;
+    }
+    .tag-field-title{
+        padding-top:10px;
+        padding-left:30px;
+    }
+    .tag-remove{
+        width:25px;
+        float:right;
+    }
+    .tag-name{
+        
+        padding-left:5px;
+        margin-top:4px;
+    }
+    .user-tags .tag-name{
+        white-space:nowrap; 
+        overflow:hidden; 
+        text-overflow:ellipsis;
+        width:135px;
+    }
+    .tag-input{
+        margin:10px 10px;
+        width:90%;
+        resize:none;
+    }
+    .tag-desc{
+        padding-left:5px;
+        margin-top:4px;
+    }
+    .frame-title{
+        border-bottom:1px solid #ddd; 
+        height:40px;
+        padding-top:5px;
+    }
+    .frame-foot{
+        border-top:1px solid #ddd; 
+        height:40px;
+        padding-top:5px;
+    }
+    .title-name{
+        padding-top:5px;
+    }
+    .search-body{
+        height:240px;
+        padding:10px 10px;
+    }
+    .margin-search{
+        margin-top:10px;
+        margin-bottom:10px;
+    }
+    .search-tags{
+        border-top:1px solid #ddd; 
+        height:310px;
+        overflow-y:auto;
+    }
+    .mobile-container{
+        width:100%;
+        margin-top:5px;
+    }
+    .mobile-input{
+        width:100%;
+        height:40;
+        margin:0 20px;
+    }
+    #is_auto{
+        margin:8px 0 0 10px;
+    }
+    .user-menu{
+        display:block;
+    }
+    .pop-box-upload-student{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:300px;
+        height:150px;
+        top:50%;
+        left:50%;
+        margin-top: -150px;
+        margin-left: -150px;
+        border:solid 1px #cccccc;
+        background-color:white;
+        overflow-y:auto;
+        overflow-x:hidden;
+    }
+    .upload-student{
+    	margin: 20px 20px;
+    }
+    .upload_channel{
+        width:200px;
+        margin-bottom:10px;
+    }
+    .download_btn{
+        display:none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class=" ">
+	<div id="bg"></div>
+    <div id='pop-box-upload-student' class="pop-box-upload-student" >
+        <img src="../../static/images/close.png" style="right:5px;margin-top:5px;position:absolute;" onclick="hideUploadStudent();" class="detail-close"/>
+        <div class="upload-student">
+            <form id="upload_student_form" method="post" enctype="multipart/form-data" onsubmit="return upload_student();">
+                <select id='upload_channel' class="input form-control upload_channel" name="upload_channel"></select>
+                <div data-role="collapsible" >
+                    <input type="file" name="student_file" id="student_file" data-clear-btn="false" value="">
+                </div>
+            </form>
+            <input type="button" onclick="upload_student()" style="margin-top:10px" value="提交"/>
+        </div>
+    </div>
+    <div id='pop-box-addnew' class="pop-box-addnew" >
+        <input id="tagID" class="" style="display:none"  value=""/>
+        <div class="row">
+            <div class='col-sm-3 col-md-3'><label class="tag-field-title">标签名：</label></div>
+            <div class='col-sm-9 col-md-9'><input class='tag-input' id="tagName"/></div>
+        </div>
+        <div class="row">
+            <div class='col-sm-3 col-md-3'><label class="tag-field-title">标签描述：</label></div>
+            <div class='col-sm-9 col-md-9'><textarea class='tag-input' rows="9" id="tagDesc"></textarea></div>
+        </div>
+        <div class="row">
+            <div class=" col-sm-3 col-md-3"> </div>
+            <div class=" col-sm-2 col-md-2"><label style="font-size:15px">自动</label><input type='checkbox' id="is_auto"/></div>
+            <div class="timepickerbtn col-sm-3 col-md-3" id="confirm" onclick="setConditionTag()" ><button >确定</button></div>
+            <div class="timepickerbtn col-sm-3 col-md-3" id="cancel" onclick='newTagHide()' ><button >取消</button></div>
+        </div>
+    </div>
+    <div id='pop-box-search' class="pop-box-search" >
+        <div class="row search-body">
+            <div class="col-sm-12 col-md-12 frame-title" style="">
+                <label class="title-name" >条件筛选</label>
+                <img src="../../static/images/close.png" style="float:right" onclick="hideDiv('pop-box-search');" class="detail-close"/>
+            </div>
+            <div class=" col-sm-2 col-md-2 margin-search" >
+                <label style="font-size:18px;padding-top:5px;padding-left:10px">注册时间:</label>
+            </div>
+            <div class="timepicker col-sm-4 col-md-4 margin-search" >                  
+                <div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="16" id="startDate" type="text" placeholder="开始时间" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+
+            <div class="dashlabel_b margin-search"><label>-</label></div>
+            <div class="timepicker col-sm-4 col-md-4 margin-search" >                  
+                <div class="input-group date form_date  " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="16" id="endDate" type="text" placeholder="结束时间" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input class="" type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+            <div class=" col-sm-4 col-md-4 col-lg-4 margin-search">
+				<div style="margin-left:20px;">
+                    <select id="lessons" class=" lessons" multiple data-actions-box="true" data-none-selected-text='购买的课程' data-live-search="true">
+
+                    </select>
+                </div>
+            </div>
+            <div class=" col-sm-4 col-md-4 col-lg-4 margin-search">
+				<div style="margin-left:20px;">
+                    <select id="non_lessons" class=" non_lessons" multiple data-actions-box="true" data-none-selected-text='没购买的课程' data-live-search="true">
+
+                    </select>
+                </div>
+            </div>
+            <div class=" col-sm-3 col-md-3 col-lg-3 margin-search">
+
+                <div class="selector floatright">
+                    <select id='channels' class="input form-control ">
+
+                    </select>
+                </div>
+            </div>
+            
+            <div class=" col-sm-2 col-md-2 col-lg-2 margin-search">
+
+                <div class="selector floatright" style="padding-left:10px;">
+                    <select id='lessonCount' class="input form-control ">
+						<option value="all">课程数</option>
+                        <option value="eq_0">0门课</option>
+                        <option value="eq_1">1门课</option>
+                        <option value="bt_2,3">2-3门课</option>
+                        <option value="bt_4,5">4-5门课</option>
+                        <option value="gt_6">6门课以上</option>
+                    </select>
+                </div>
+            </div>
+            <div class=" col-sm-3 col-md-3 col-lg-3 margin-search">
+
+                <div class="selector floatright">
+                    <select id='associated' class="input form-control ">
+						<option value="all">是否绑定服务号</option>
+                        <option value="1">已绑定</option>
+                        <option value="0">未绑定</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class=" col-sm-3 col-md-3 col-lg-3 margin-search">
+
+                <div class="mobile-container">
+                    <input id="mobile" placeholder="手机号,至少4位" class='mobile-input' />
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12 search-tags">
+                
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12 frame-foot">
+            <div class="timepickerbtn " id="search" style="float:right"><button >查找</button></div>
+            <div class="timepickerbtn " id="" onclick='newTagShow()' style="float:right"><button >加标签</button></div>
+        </div>
+    </div>
+	
+	<div class="pop-box-msg" >  
+		<div>
+			<div class="col-sm-12 col-sm-offset-1 col-md-12 col-md-offset-1 title-margin" style="font-size:20px">消息通知</div>
+			<div class="col-sm-12 col-sm-offset-1 col-md-12 col-md-offset-1 title-margin">消息类型：模板消息</div>
+			<div class="col-sm-12 col-sm-offset-1 col-md-12 col-md-offset-1 title-margin row" id="template_list">
+				
+			</div>
+		</div>
+		<div style="float:right;position:relative;margin-top:50px;right:20px">
+			<input id=btnClose type=button class="button preview" value="预览"/>
+			<input id=btnClose type=button class="button" onclick="hideDiv('pop-box-msg');"  value="关闭"/>
+		</div>
+	</div>
+    <div class="pop-box-detail row" >  
+		<div class="col-sm-12 col-md-12 " style="text-align:right">
+            <img src="../../static/images/close.png" onclick="hideDiv('pop-box-detail');" class="detail-close"/>
+            <input id="selected_id" class="" style="display:none"  value=""/>
+		</div>
+        <div class="col-sm-12 col-md-7">
+            <div class=" row left-frame">
+                <div class="col-sm-12 col-md-12 frame-title">
+                    <label class="title-name" >基本信息</label>
+            	</div>
+                <div class="col-sm-6 col-md-6 row user-field">
+                    <div class="col-sm-4 col-md-4">
+                        <label class="field">用户ID</label>
+                    </div>
+                    <div class="col-sm-8 col-md-8">
+                        <label class="field" id="userId"></label>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 row user-field">
+                    <div class="col-sm-4 col-md-4">
+                        <label class="field">姓名</label>
+                    </div>
+                    <div class="col-sm-8 col-md-8">
+                        <label class="field" id="userName"></label>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 row user-field">
+                    <div class="col-sm-4 col-md-4">
+                        <label class="field">手机</label>
+                    </div>
+                    <div class="col-sm-8 col-md-8">
+                        <label class="field" id="userMobile"></label>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 row user-field">
+                    <div class="col-sm-4 col-md-4">
+                        <label class="field">来源渠道</label>
+                    </div>
+                    <div class="col-sm-8 col-md-8">
+                        <label class="field" id="userChannel"></label>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 row user-field">
+                    <div class="col-sm-4 col-md-4">
+                        <label class="field">分销商</label>
+                    </div>
+                    <div class="col-sm-8 col-md-8">
+                        <label class="field" id="userDistributor"></label>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 row user-field">
+                    <div class="col-sm-4 col-md-4">
+                        <label class="field">地区</label>
+                    </div>
+                    <div class="col-sm-8 col-md-8">
+                        <label class="field" id="userProvince"></label>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 row user-field">
+                    <div class="col-sm-4 col-md-4">
+                        <label class="field">创建时间</label>
+                    </div>
+                    <div class="col-sm-8 col-md-8">
+                        <label class="field" id="userCreated"></label>
+                    </div>
+                </div>
+            </div>
+		</div>
+        <div class="col-sm-12 col-md-5" style="z-index:9500">
+            
+            <div class=" row right-frame">
+                
+                <div class="col-sm-12 col-md-12 frame-title" >
+                    <div>
+                        <label class="title-name" >标签信息</label>
+                        <input id="btnShowTags" type=button class="button" onclick="showTagDiv();" style="height:30px;padding-right:10px;float:right" value="添加标签"/>
+                    </div>
+            	</div>
+                <div class="col-sm-12 col-md-12 user-tags row" >
+                    <!--<div class="col-sm-4 col-md-4">
+                        <div class="tag-field">
+                            <label class="tag-name" >标签1</label>
+                            <img class="field-close" src="../../static/images/close.png" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-4">
+                        <div class="tag-field">
+                            <label class="tag-name" >标签1</label>
+                            <img class="field-close" src="../../static/images/close.png" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-4">
+                        <div class="tag-field">
+                            <label class="tag-name" >标签1</label>
+                            <img class="field-close"  onclick="hideTagDiv();" src="../../static/images/close.png" />
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+		</div>
+		<div class="col-sm-12 col-md-12 row user_trade" >      
+			<table id = "detail_table">
+			</table>
+			<dev id="toolbar"></dev>
+		</div>
+        <div id="tag-div" >  
+            <div class="tag-list row">
+                
+            </div>
+            <div style="float:right;position:relative;margin-top:50px;right:20px">
+                <input id="btnSelectTags" type=button class="button select-tag" value="选定"/>
+                <input id="btnClose" type=button class="button" onclick="hideTagDiv();"  value="关闭"/>
+            </div>
+        </div>
+	</div>
+	
+	<div class="col-sm-11 col-sm-offset-2 col-md-10 col-md-offset-x main">
+		<!--<div class="group1">-->
+			<!-- TIME PICKER -->       
+        <div>
+			<div class=""  style="display:inline"><button onclick="showSearch()" style="width:150px">条件筛选</button></div>
+            <div class=""  style="display:inline;"><button style="width:150px;margin-left:30px;" onclick="toTemplate()">发送消息</button></div>
+            <div class=""  style="display:inline"><button style="margin-left:30px;width:150px;" onclick="showUploadStudent()" style="width:150px">导入学员</button></div>
+            <div class="download_btn"  style=""><a style="width:200px;margin-left:30px;" href="javascript:exportstudents()">下载</a></div>
+        </div>
+		<!--</div>-->
+		
+		<!-- table-->                   
+		<div class="row placeholders">      
+			<table id = "student_table">
+			</table>
+			<dev id="toolbar"></dev>
+		</div>
+		<input id="openids" style='display:none'/>
+		
+	</div>
+</div>
+{% endblock %}
+
+{% block content2 %}
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+	"use strict";
+    function CheckDownloadUser(){
+        let dataURL = encodeURI('../checkdownloaduser');
+        let unionid = sessionStorage.getItem("dzunionid")
+        $.ajax({
+            url: dataURL,
+            data: {
+				"unionid":unionid
+            },
+            success: function(data){
+                console.log(data)
+                //$("#upload_channel").append($("<option value='all'>选择渠道</option>"))
+                if (data=='1'){
+                    $(".download_btn").css('display','inline');
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+    }
+    function showUploadStudent(){
+        $("#pop-box-upload-student").show();
+    }
+    function hideUploadStudent(){
+        $("#pop-box-upload-student").hide();
+    }
+    function setUploadChannel(){
+        let dataURL = encodeURI('../getchannelsanddistributors');
+        $.ajax({
+            url: dataURL,
+            dataType: "json",
+            data: {
+				"condition":"channel"
+            },
+            success: function(data){
+                console.log(data)
+                //$("#upload_channel").append($("<option value='all'>选择渠道</option>"))
+                for (var i=0;i< data.length; i++){
+                    var channel = data[i]
+                    $("#upload_channel").append($("<option value='" + channel.Key + "'>" + channel.Name + "</option>"))
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+    }
+    function trade_refund(trade_id){
+        if (!confirm("是否退款？")){
+        	return;
+        }
+        let dataURL = encodeURI('../traderefund/');
+        $.ajax({
+            url: dataURL,
+            type: 'post',
+            data: {
+				"trade_id":trade_id
+            },
+            success: function(data){
+                alert(data)
+                $('#detail_table').bootstrapTable('refresh');
+                //$('#student_table').bootstrapTable('refresh');
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+    }
+    let is_uploading = false;
+    function upload_student(){
+        if (is_uploading){
+            alert("处理中，请稍后")
+            return
+        }
+        is_uploading = true
+        var formData = new FormData($('#upload_student_form')[0]);
+        $.ajax({
+            url: "../uploadstudent/",
+            type: 'post',
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            //dataType: "json",
+            success: function(data){
+                alert(data)
+                if (data=='ok'){
+                    hideUploadStudent();
+                }
+                is_uploading = false;
+            },
+            fail: function(err){
+                alert(err);
+                is_uploading = false;
+            }
+        }); 
+        return false;
+    }
+    function exportstudents(){
+        let params = "startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&lesson_count=" + $("#lessonCount").val() + "&associated=" + $("#associated").val() 
+        	+ "&lesson_ids="  + $("#lessons").val() + "&non_lesson_ids="  + $("#non_lessons").val() + "&channel=" + $("#channels").val() + "&tag_ids=" + getSearchTags() + "&mobile=" + $("#mobile").val()
+        window.open("http://applinzi.ddianke.com/exportstudents/?" + params)
+    }
+    function showSearch(){
+        showDiv('pop-box-search');
+        searchTags();
+    }
+    function toTemplate(){
+        sessionStorage.setItem("template_openids",$("#openids").val());
+        window.location.href = "../templatepage"
+    }
+    function clearPop(){
+        $("#tagID").val('')
+        $("#tagName").val('')
+        $("#tagDesc").val('')
+    }
+    function newTagShow(){
+        $("#pop-box-addnew").show();
+        clearPop();
+    }
+    function newTagHide(){
+        $("#pop-box-addnew").hide();
+    }
+    var btncondition = true;
+    function setConditionTag(){
+        if (!btncondition)
+            return
+        var name = $("#tagName").val();
+        if (name == undefined || name == ''){
+            alert('请输入名称');
+            return;
+        }
+        btncondition = false;
+        $('#confirm').children(0).text('保存中..');
+        var desc = $("#tagDesc").val()
+        let data = {
+            "startDate": $("#startDate").val(),
+            "endDate":$("#endDate").val(),
+            "lesson_count":$("#lessonCount").val(),
+            "associated":$("#associated").val(),
+            "lesson_id":$("#lessons").val(),
+            "channel":$("#channels").val(),
+            "tag_ids":getSearchTags(),
+            "mobile":$("#mobile").val(),
+            "name":name,
+            "desc":desc,
+            "is_auto":$("#is_auto").prop('checked'),
+            "unionid": sessionStorage.getItem("dzunionid")
+        }
+        let dataURL = encodeURI('../setconditiontag/');
+        $.ajax({
+            type: 'post',
+            url: dataURL,
+            data: data,
+            //dataType: "json",
+            success: function(data){
+                if (data == 'ok'){
+                    alert("添加成功")
+                    newTagHide();
+                    hideDiv('pop-box-search')
+                }
+                else
+                    alert(data)
+                btncondition = true;
+                $('#confirm').children(0).text('确定');
+            },
+            fail: function(err){
+                alert(err);
+                btncondition = true;
+                $('#confirm').children(0).text('确定');
+            }
+        });
+    }
+
+    function setTemplates(){
+        let dataURL = encodeURI('../templatelist');
+        $.ajax({
+            url: dataURL,
+            dataType: "json",
+            data: {
+
+            },
+            success: function(data){
+                console.log(data)
+                for (var i=0;i< data.rows.length; i++){
+                    var template = data.rows[i]
+                    $("#template_list").append($("<div class='col-sm-3 col-md-3 '><div class='template-border template'>"
+					    + template.Name + ":<br/><input class='template_id' style='display:none'  value='"+template.ID+"'/></div></div>"));
+                   
+                }
+                $('.template').on('click',function(){
+                    $('.template').removeClass('template-on');
+                    $(this).toggleClass('template-on');
+                });
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+    }
+    function setChannelAndDistributor(){
+        let dataURL = encodeURI('../getchannelsanddistributors');
+        $.ajax({
+            url: dataURL,
+            dataType: "json",
+            data: {
+
+            },
+            success: function(data){
+                console.log(data)
+                $("#channels").append($("<option value='all'>选择渠道 All</option>"))
+                for (var i=0;i< data.length; i++){
+                    var channel = data[i]
+                    $("#channels").append($("<option value='" + channel.Key + "'>" + channel.Name + "</option>"))
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+    }
+    function setSelectLesson(){
+        let dataURL = encodeURI('../thirdpartylessons');
+        $.ajax({
+            url: dataURL,
+            dataType: "json",
+            data: {
+
+            },
+            success: function(data){
+                console.log(data)
+                for (var i=0;i< data.length; i++){
+                    var lesson = data[i]
+                    $("#lessons").append($("<option value='" + lesson['ID'] + "'>" + lesson.ChannelName + ':' + lesson.Name + "</option>"))
+                    $("#non_lessons").append($("<option value='" + lesson['ID'] + "'>" + lesson.ChannelName + ':' + lesson.Name + "</option>"))
+                }
+                $('#lessons').selectpicker('refresh');
+                $('#non_lessons').selectpicker('refresh');
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+    }
+	function showdetail(id){
+        $("#selected_id").val(id)
+        $(".pop-box-detail").show();
+        showMask();
+        $('#detail_table').bootstrapTable('refresh');
+		//用户信息
+        getUserInfoDetail();
+    }
+    
+    function getUserInfoDetail(){
+        let dataURL = encodeURI('../studentdetail');
+        $.ajax({
+            url: dataURL,
+            data: {
+				userId:$("#selected_id").val()
+            },
+            dataType: "json",
+            success: function(data){
+                console.log(data)
+				$("#userId").text(data.ID || '')
+                $("#userName").text(data.Name || '')
+                $("#userMobile").text(data.Mobile || '')
+                $("#userChannel").text(data.ChannelName || '')
+                $("#userDistributor").text(data.Distributor || '')
+                $("#userProvince").text(data.Province || '')
+                $("#userCreated").text(data.Created || '')
+                $(".user-tags").empty();
+                for (var i = 0;i<data.tags.length;i++){
+                	$(".user-tags").append($('<div class="col-sm-6 col-md-6"><div class="tag-field"><label class="tag-name" >'
+                                             +data.tags[i].Name+'</label><img class="tag-remove" data-id="'+data.tags[i].ID+'" onclick="deleteTag('
+                                             +data.tags[i].ID+')" src="../../static/images/close.png" /></div></div>'))
+                }
+            },
+            fail: function(err){
+                alert(err);
+            }
+        }); 
+    }
+    
+    function deleteTag(id) {
+        if (!confirm("是否删除")){
+            return;
+        }
+        console.log(id)
+        var ids = []
+        ids.push(id)
+        //alert(ids)
+        console.log(ids)
+        let dataURL = encodeURI('../deleteusertags/');
+        $.ajax({
+            type: 'post',
+            url: dataURL,
+            data: {
+                "users": $("#selected_id").val(),
+                "tags": ids.join(',')
+            },
+            //dataType: "json",
+            success: function(data){
+                if (data == 'ok'){
+                    alert("删除成功")
+                    getUserInfoDetail();
+                    hideTagDiv();
+                }
+                else
+                    alert(data)
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });
+    }
+
+    function showTagDiv(){
+        $("#tag-div").show();
+        let dataURL = encodeURI('../gettags');
+        $.ajax({
+            url: dataURL,
+            data: {
+				//userId:$("#selected_id").val()
+            },
+            dataType: "json",
+            success: function(data){
+                console.log(data);
+                $(".tag-list").empty();
+				data.forEach(function(item){
+                    $(".tag-list").append($("<div class='col-sm-6 col-md-6  tag'><div class='tag-border tag-content'><label class='tag-id' >"
+                                            + item.ID + "</label><label class='tag-name' >"
+                                            + (item.Name || '') + "</label></div></div>"))
+                });
+                $('.tag-list .tag-border').on('click',function(){
+                    $(this).toggleClass('tag-on');
+                });
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });   
+    }
+    
+    function searchTags(){
+        let dataURL = encodeURI('../gettags');
+        $.ajax({
+            url: dataURL,
+            data: {
+				//userId:$("#selected_id").val()
+            },
+            dataType: "json",
+            success: function(data){
+                console.log(data);
+                let ids = getSearchTags();
+                ids = ids.split(',')
+                $(".search-tags").empty();
+                
+				data.forEach(function(item){
+                    let on = ''
+                    ids.forEach(function(id){
+                        if (id==item.ID){
+                            on = 'tag-on'
+                        }
+                    })
+                    $(".search-tags").append($("<div class='col-sm-3 col-md-3  tag'><div class='tag-border tag-content "+on+"'><label class='tag-id' >"
+                                            + item.ID + "</label><label class='tag-name' >"
+                                            + (item.Name || '') + "</label></div></div>"))
+                });
+                $('.search-tags .tag-border').on('click',function(){
+                    $(this).toggleClass('tag-on');
+                });
+                sessionStorage.setItem("student_tagid", '');
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });   
+    }
+    
+    function getSearchTags(){
+        var ids = []
+        if (sessionStorage.getItem("student_tagid") != ''){
+            console.log(sessionStorage.getItem("student_tagid"))
+            ids.push(sessionStorage.getItem("student_tagid"))
+            //sessionStorage.setItem("student_tagid", undefined)
+            return ids.join(',');
+        }
+        
+        $('.search-tags .tag-content').each(function(item){
+            if ($(this).hasClass('tag-on'))
+                ids.push(parseInt($(this).find(".tag-id").text()))
+        });
+        return ids.join(',')
+    }
+    
+    function hideTagDiv(){
+        $("#tag-div").hide();
+        $('.tag-list .tag-border').removeClass('tag-on');
+    }
+    
+	
+	
+	function hideDiv(div_id) {   
+		var div_obj = $("."+div_id);
+        div_obj.hide();
+		hiedMask();
+	}
+	function showDiv(div_id){
+        var div_obj = $("."+div_id);
+        div_obj.show(); 
+        showMask();
+    }
+    function showMask(){
+        $("#bg").show();
+        $("body").css("overflow-y","hidden");
+    }
+	function hiedMask(){
+        $("#bg").hide();
+        $("body").css("overflow-y","auto"); /*用来隐藏html的滚动条*/
+    }
+    var TableStuednt_Trade = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = 500;
+            var width = 600;
+            $('#detail_table').bootstrapTable({
+                url: '/studenttrade/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 10,                       //每页的记录行数（*）
+                pageList: [10],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                width: width,
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                columns: [{
+                    field: 'ID',
+                    title: '序号'
+
+                }, {
+                    field: 'TradeID',
+                    title: '订单号'
+                },{
+                    field: 'Name',
+                    title: '订单名'
+                },{
+                    field: 'ChannelName',
+                    title: '渠道'
+                },{
+                    field: 'Distributor',
+                    title: '分销商'
+                },{
+                    field: 'Imported',
+                    title: '是否导入'
+                },{
+                    field: 'Payment',
+                    title: '总金额'
+                },{
+                    field: 'PayTime',
+                    title: '创建时间'
+                },{
+                    field: 'Edit',
+                    title: '操作'
+                },]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset:params.offset,
+				userId:$("#selected_id").val(),
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+
+    
+    var TableStudent = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = $(window).height()-200;
+            $('#student_table').bootstrapTable({
+                url: '/studentlist/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                columns: [{
+                    field: 'ID',
+                    title: '序号'
+
+                },{
+                    field: 'Name',
+                    title: '姓名'
+                },{
+                    field: 'Mobile',
+                    title: '手机号'
+                },{
+                    field: 'WechatCode',
+                    title: '微信号'
+                },{
+                    field: 'Province',
+                    title: '地区'
+                },{
+                    field: 'Count',
+                    title: '订单数'
+                },{
+                    field: 'Payment',
+                    title: '金额',
+                    align: 'right'
+                },{
+                    field: 'ChannelName',
+                    title: '渠道'
+                //},{
+                //    field: 'Campaign',
+                //    title: '活动'
+                },{
+                    field: 'ChildName',
+                    title: '学生姓名'
+                },{
+                    field: 'ChildAge',
+                    title: '学生年龄'
+                },{
+                    field: 'Distributor',
+                    title: '分销商'
+                },{
+                    field: 'Associated',
+                    title: '关联服务号'
+                },{
+                    field: 'Created',
+                    title: '创建时间'
+                },{
+                    field: 'last_trade',
+                    title: '最近消费时间'
+                },{
+                    field: 'Detail',
+                    title: '操作'
+                },],
+                onLoadSuccess: function(data){ //加载成功时执行 
+                    $("#openids").val(data.openids)
+                    
+                    //console.log(sessionStorage.getItem("template_openids"))
+                }, 
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset:params.offset,
+                startDate: $("#startDate").val(),
+                endDate:$("#endDate").val(),
+                lesson_count:$("#lessonCount").val(),
+                associated:$("#associated").val(),
+                lesson_id:$("#lessons").val(),
+                non_lesson_id:$("#non_lessons").val(),
+                channel:$("#channels").val(),
+                tag_ids:getSearchTags(),
+                mobile:$("#mobile").val()
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+
+    $(function () {
+        CheckDownloadUser();
+        setUploadChannel();
+        setTemplates();
+        setChannelAndDistributor();
+        setSelectLesson();
+        $("#student_tab").addClass('tab-on')
+        var oTable = new TableStudent();
+        oTable.Init();
+        var oTable2 = new TableStuednt_Trade();
+        oTable2.Init();
+        $('#lessons').on('hidden.bs.select', function (e) {
+            $(".lessons .dropdown-menu").hide();
+        });
+        $('#lessons').on('show.bs.select', function (e) {
+            $(".lessons .dropdown-menu").show();
+        });
+        $('#non_lessons').on('hidden.bs.select', function (e) {
+            $(".non_lessons .dropdown-menu").hide();
+        });
+        $('#non_lessons').on('show.bs.select', function (e) {
+            $(".non_lessons .dropdown-menu").show();
+        });
+        $("#search").on('click',function(){
+            //console.log(oTable.queryParams({offset:0}));
+            $('#student_table').bootstrapTable('refresh');
+            hideDiv('pop-box-search');
+        });
+        //发送模板消息接口，将来会写成通用模式
+        $('.preview').on('click',function(){
+
+            dataURL = encodeURI('../SignupTemplateMseeage');
+            var template_id = $('.template-on').find(".template_id").val()
+            console.log(template_id)
+            console.log(sessionStorage.getItem("dzunionid"))
+            if (!template_id){
+                alert("请选择模板");
+                return
+            }
+            $.ajax({
+                url: dataURL,
+                data: {
+					"template_id":template_id,
+                    "unionid":sessionStorage.getItem("dzunionid")
+                },
+                //dataType: "json",
+                success: function(data){
+                    alert(data)
+                    //console.log(data)
+                    //if(data.errcode == '0')
+                    //    alert('发送成功')
+                    //else
+                    //    alert(data.errmsg);
+                },
+                fail: function(err){
+                    alert(err);
+                }
+            });
+
+        })
+        $(".select-tag").on('click',function(){
+            var ids = []
+            $('.tag-border').each(function(item){
+                if ($(this).hasClass('tag-on'))
+                	ids.push(parseInt($(this).find(".tag-id").text()))
+            });
+            //alert(ids)
+            users = [].push($("#selected_id").val());
+            console.log(users)
+            console.log(ids)
+            dataURL = encodeURI('../setusertags/');
+            $.ajax({
+                type: 'post',
+                url: dataURL,
+                data: {
+					"users": $("#selected_id").val(),
+                    "tags": ids.join(',')
+                },
+                //dataType: "json",
+                success: function(data){
+                    if (data == 'ok'){
+                        alert("添加成功")
+                        getUserInfoDetail();
+                        hideTagDiv();
+                    }
+                    else
+                        alert(data)
+                },
+                fail: function(err){
+                    alert(err);
+                }
+            });
+        });
+        
+        //$('#student_table').bootstrapTable( { height: 260 } );  
+        //$('#student_table').bootstrapTable({height:$(window).height()-220});  
+
+    });
+</script>
+{% endblock %}
+

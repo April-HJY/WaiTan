@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>我的客服</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+
+        <script src="../static/js/jquery-1.11.0.min.js"></script>
+        <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>    
+        <script src="../static/js/weui.min.js"></script>
+
+
+        <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.0/weui.min.css" />
+        <!--<link rel="icon" href="../static/favicon.ico">	-->
+    </head>
+
+    <style>
+        body{
+            background-image: ;
+            background-color:#f5f5f5;
+        }
+        .container {
+            padding: 15px;
+        }
+        .banner{
+            margin:0px 0px;
+            height:120px;
+            width:100%;
+            background: url(../static/images/pic_Personal.png) no-repeat top;
+            background-size:100% 100%;
+        }
+        .qrcode{
+            margin:0px 0px;
+            width:100%;
+        }
+        .title{
+            background-color:#fff;
+            font-size:16px;
+            margin:-60px 20px 20px 20px;
+            border-radius:5px;
+            
+        }
+        .avatar {
+            width:70px;
+            height:70px;
+            border-radius:50px;
+            margin:10px 20px 5px 10px;
+        }
+        .weui-cells:before{
+            border-top: 1px solid #fff;
+        }
+        .weui-cells:after{
+            border-bottom: 1px solid #fff;
+        }
+        .weui-cell:before{
+            border-top: 1px solid #eee;
+        }
+        .protocol{
+            width:100%;
+            text-align:center;
+            color:#03c777;
+            padding:10px 0px;
+            font-size:18px;
+        }
+        .item-icon{
+            width:30px;
+            margin-right:5px;
+            float:right;
+        }
+        .title-font{
+            font-size:18px;
+            margin-left:18px;
+            display:inline-block;
+        }
+        .item-font{
+            font-size:18px;
+            margin-left:0px;
+            display:inline-block;
+        }
+        .arrow-icon{
+            width:15px;
+            margin-right:0px;
+            margin-top:5px;
+            display:inline-block;
+            float:right;
+        }
+        .item-content{
+            display:none;
+        }
+        .button-container{
+            width:100%;
+            text-align:center;
+        }
+        .button{
+            width:90%;
+            margin:auto;
+            margin-top:20px;
+            background-color:#03C777;
+            color:#fff;
+            height:60px;
+            line-height:40px;
+            border-radius:5px;
+        }
+        .icon-container{
+            height:50px;
+            display:inline-block;
+        }
+        .icon-button{
+            width:30px;
+            margin-top:15px;
+            margin-right:10px;
+            display:inline-block;
+        }
+        .text-container{
+            height:50px;
+            display:inline-block;
+            position:relative;
+            top:-5px;
+        }
+        .button-font{
+            line-height:40px;
+            font-size:22px;
+            margin-left:0px;
+            display:inline-block;
+        }
+        .up{
+            display:none;
+        }
+        .pop-box-qrcode{
+            display:none;
+            position:absolute;
+            z-index:9000;
+            width:300px;
+            height:350px;
+            top:50%;
+            left:50%;
+            margin-top: -175px;
+            margin-left: -150px;
+            background-color: #444;
+        }
+        #bg{display:none;position: absolute; top: 0%; left: 0%; width: 100%; height: 100%; background-color: #444; z-index:1001; -moz-opacity: 1; opacity:1; filter: alpha(opacity=100); z-index:7000}
+        .detail-close{
+            position:relative;
+            right:20px;
+            margin-top:-330px;
+            z-index:9001;
+        }
+    </style>      
+    <body>
+        <div id="bg"></div>
+        <div class="pop-box-qrcode" >
+            <img src="../static/images/customer_service.png" width="300px" height="350px"/>
+            <img src="../../static/images/close.png" style="float:right" onclick="hideDiv();" class="detail-close"/>
+        </div>
+        <div class="weui-cells" style='margin-top:0px;'>
+            <div class="weui-cell weui-cell_access" >
+                <div class="weui-cell__hd"><img src="../static/images/icon_question@2x.png" alt="" class="item-icon"></div>
+                <div class="weui-cell__bd weui-cell_primary">
+                    <p class="title-font">常见问题</p>
+                </div>
+            </div>
+            {% for q in question_answer %}
+            <a id="icon_1" class="weui-cell weui-cell_access" href="javascript:toggle_content({{q.ID}});" >
+                <div class="weui-cell__bd weui-cell_primary">
+                    <p class="item-font">{{q.Question}}</p>
+                    <img id="down_{{q.ID}}" src="../static/images/icon_bottom@2x.png" alt=""  class="arrow-icon down">
+                    <img id="up_{{q.ID}}" src="../static/images/icon_up@2x.png" alt="" class="arrow-icon up">
+                </div>
+            </a>
+            <div id="id_{{q.ID}}" class="weui-cell weui-cell_access item-content" >
+                <div class="weui-cell__bd weui-cell_primary">
+                    <p class="item-font">{{q.Answer}}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="button-container">
+            <div class="button">
+                <div class='icon-container'>
+                    <img src="../static/images/icon_Artificialwhite@2x.png" alt="" class="icon-button">
+                </div>
+                <div class='text-container'>
+                    <p class="button-font">联系人工客服</p>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+        </script>
+
+
+    </body>
+
+    <script>
+        function hideDiv(){
+            $(".pop-box-qrcode").hide();
+            $("#bg").hide();
+        }
+        function toggle_content(id){
+            $("#id_" + id).slideToggle(400, function(){})
+            $("#up_" + id).slideToggle(0, function(){})
+            $("#down_" + id).slideToggle(0, function(){})
+        }
+        
+        $(function(){
+            $(".button-container").on("click", function(){
+                $(".pop-box-qrcode").show();
+                $("#bg").show();
+            });
+            $('#close').on('click', function(){
+                window.close();
+                WeixinJSBridge.call('closeWindow');
+            });
+
+
+
+        });
+    </script>
+
+    <script>
+        wx.config({
+            //{{ticket}}
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '{{appid}}', // 必填，公众号的唯一标识
+            timestamp: '{{sign.timestamp}}', // 必填，生成签名的时间戳
+            nonceStr: '{{sign.nonceStr}}', // 必填，生成签名的随机串
+            signature: '{{sign.signature}}',// 必填，签名，见附录1
+            jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage','chooseWXPay','openProductSpecificView','addCard','chooseCard','openCard'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+
+
+        wx.ready(function () {
+            //var shareData = {
+            //    title: '快来创建菜园币账号吧',
+            //    desc: '菜园币即将上线，速来创建你的专属账号吧',
+            //    link: 'https://applinzi.ddianke.com/wxJSWeb/bindusertoken',
+            //    imgUrl: 'http://applinzi.ddianke.com/static/img/tsaireader2.png'
+            //};
+            //wx.onMenuShareAppMessage(shareData);
+            //wx.onMenuShareTimeline(shareData);
+
+        });    
+        wx.error(function(res){
+
+            //alert(res); // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+
+        });
+    </script>    
+
+</html>

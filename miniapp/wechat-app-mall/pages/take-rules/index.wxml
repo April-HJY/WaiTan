@@ -1,0 +1,57 @@
+<view class='container'>
+  <view class='container-title'>{{char_lt}}老带新活动规则{{char_gt}}</view>
+  <view class='container-section'>
+    <view class='section'>
+      <view class='section-row'>
+        <text class='section-char'>{{char_sign}}</text>
+        <text class='section-title'>怎么区分新/老用户</text>
+      </view>
+      <view class='section-content'>老用户是之前购买过外滩教育AMC系列课程用户，新用户则没有购买过AMC课程。</view>
+    </view>
+    <view class='section'>
+      <view class='section-row'>
+        <text class='section-char'>{{char_sign}}</text>
+        <text class='section-title'>老带新规则</text>
+      </view>
+      <view class='section-content'>老用户分享自己专属的活动海报，新用户通过老用户的海报二维码购买AMC预备课程（仅限于首单购买）且不退款，老用户可得200元现金奖励。</view>
+    </view>
+    <view class='section'>
+      <view class='section-row'>
+        <text class='section-char'>{{char_sign}}</text>
+        <text class='section-title'>返现日期</text>
+      </view>
+      <view class='section-content'>AMC预备课程开课后（2019年2月24日），系统通过审核新、老用户订单，确认无误后返现金。</view>
+    </view>
+    <view class='section'>
+      <view class='section-row'>
+        <text class='section-char'>{{char_sign}}</text>
+        <text class='section-title'>退款说明</text>
+      </view>
+      <view class='section-content'>本课程为虚拟商品，发送账号后不接受退款，但可以自行转让名额；请及时与我们沟通，变更学员信息。</view>
+    </view>
+    <view class='section'>
+      <view class='section-row'>
+        <text class='section-char'>{{char_sign}}</text>
+        <text class='section-title'>活动入口</text>
+      </view>
+      <view class='section-content'>1、外滩好课小程序 - 我的 - 点击“老带新”活动banner</view>
+    </view>
+    <view class='section'>
+      <view class='section-row'>
+        <text class='section-char'>{{char_sign}}</text>
+        <text class='section-title'>活动细则咨询请联系我们</text>
+      </view>
+      <view class='section-content'>外滩教育拥有活动的最终解释权，对活动有疑问请添加小助手微信（tbe011）咨询。</view>
+    </view>
+    <view class='section'>
+      <view class='section-row'>
+        <text class='section-char'>{{char_sign}}</text>
+        <text class='section-title'>特别提醒</text>
+      </view>
+      <view class='section-content alarm'>若使用非正常手段获取活动奖励（包括恶意复制刷取奖励，使用非法技术行为骗取系列奖励）外滩教育有权不发放奖励现金，并将视情况对其追究法律责任。</view>
+    </view>
+  </view>
+  <view>
+    <button class='container-btn' bindtap='back'>返回</button>
+  </view>
+</view>

@@ -1,0 +1,569 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style type="text/css">
+    .title-margin{
+        margin:10px 10px;
+    }
+
+    .button{
+        width:100px ;
+        height:40px ;
+        border:solid 1px #cccccc;
+        border-radius:5px;
+    }
+    .select-normal{
+        padding:0 20px;
+        height:32px;
+        line-height:32px;
+        border-radius:5px;
+        margin:0 5px;
+    }
+    .pop-box-addnew{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:600px;
+        height:400px;
+        top:50%;
+        left:50%;
+        margin-top: -250px;
+        margin-left: -300px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    .pop-box-lesson{
+        display:none;
+        position:absolute;
+        z-index:9000;
+        width:800px;
+        height:500px;
+        top:50%;
+        left:50%;
+        margin-top: -250px;
+        margin-left: -450px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    .pop-box-lesson-new{
+        display:none;
+        position:absolute;
+        z-index:9001;
+        width:800px;
+        height:500px;
+        top:50%;
+        left:50%;
+        margin-top: -250px;
+        margin-left: -450px;
+        border:solid 1px #cccccc;
+        background-color:white;
+    }
+    .tag-field{
+        padding-top:10px;
+        padding-left:30px;
+    }
+    .tag-input{
+        margin:10px 10px;
+        width:90%;
+        resize:none;
+    }
+    .input-url{
+        width:100%;
+        height:35px;
+        line-height:35px;
+    }
+    .tag-id{
+        margin-left:10px;
+        width:20px;
+    }
+    .tag-name{
+
+        margin-left:5px;
+        margin-right:10px;
+    }
+    .floatright{
+        float:right;
+    }
+    .search-container{
+        margin-left:50px;
+        margin-top:10px;
+    }
+    #search{
+        margin-left:20px;
+    }
+    .miniapp-menu{
+        display:block;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class=" ">
+    <div id='pop-box-addnew' class="pop-box-addnew" >
+        <input id="tagid" class="" style="display:none"  value=""/>
+        <div class="row">
+            <div class='col-sm-3 col-md-3'><label class="tag-field">名称：</label></div>
+            <div class='col-sm-3 col-md-9'><input class='tag-input' id="name"/></div>
+        </div>
+        <div class="row">
+            <div class='col-sm-3 col-md-3'><label class="tag-field">子标签：</label></div>
+            <div class='col-sm-9 col-md-9'><input class='tag-input' id="childname"/></div>
+        </div>
+        <div class="row">
+            <div class='col-sm-3 col-md-3'><label class="tag-field">排序：</label></div>
+            <div class='col-sm-9 col-md-9'><input class='tag-input' id="order"/></div>
+        </div>
+        <div class="row">
+            <div class="timepickerbtn col-sm-3 col-md-3" id="confirm" ><button >保存</button></div>
+            <div class="timepickerbtn col-sm-3 col-md-3" id="cancel" ><button >取消</button></div>
+        </div>
+    </div>
+    <div id='pop-box-lesson-new' class="pop-box-lesson-new" >
+        <div style="display:inline-block" class="row">
+            <div class="search-container">
+                <input id="search_content" class="input input-c" placeholder='请输入课程名称包含的字符'/>
+                <button class='button' id="search">查询</button>
+                <button class='button' id="close_new_lesson">关闭</button>
+            </div>
+        </div>
+        <div class="row placeholders" style='width:730px;margin-left:30px;'>      
+            <table id = "new_lesson_table">
+            </table>
+            <dev id="toolbar"></dev>
+        </div>
+    </div>
+    <div id='pop-box-lesson' class="pop-box-lesson" >
+        <input id="lesson_tag_id" class="" style="display:none"  value=""/>
+        <div style="display:inline-block;margin-top:10px;" class="row">
+            <div class="timepickerbtn col-sm-5 col-md-5" id="addnew_lesson"><button>新增</button></div>
+            <div class="timepickerbtn col-sm-5 col-md-5" id="close_lesson" ><button >关闭</button></div>
+        </div>
+        <div class="row placeholders" style='width:730px;margin-left:30px;'>      
+            <table id = "lesson_table">
+            </table>
+            <dev id="toolbar"></dev>
+        </div>
+    </div>
+    <div class="col-sm-11 col-sm-offset-2 col-md-10 col-md-offset-x main" style="border-bottom:solid 1px #333;">
+        <!-- TIME PICKER -->          
+        <div class="row">
+            <div class='col-sm-2 col-md-2'><label class="tag-field">Banner：</label></div>
+            <div class='col-sm-7 col-md-7'><input class='input-url' id="banner_url"/></div>
+            <div class="timepickerbtn col-sm-2 col-md-2" id="save_url" ><button >保存</button></div>
+        </div>
+    </div>
+    <div class="col-sm-11 col-sm-offset-2 col-md-10 col-md-offset-x main">
+        <!-- TIME PICKER -->          
+        <div style="display:inline-block" class="row">
+            <div class="timepickerbtn col-sm-3 col-md-3" id="addnew"><button class='button'>新增</button></div>
+
+        </div>
+        <!-- table-->                   
+        <div class="row placeholders">      
+            <table id = "tag_table">
+            </table>
+            <dev id="toolbar"></dev>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content2 %}
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    "use strict";
+    function add_lesson(id){
+        let lesson_id = id;
+        let tag_id = $("#lesson_tag_id").val();
+        let dataURL = encodeURI('../addminiappcampaigntagproducts/');
+        $.ajax({
+            url: dataURL,
+            type: 'post',
+            data: {
+                "tag_id":tag_id,
+                "product_id":lesson_id
+            },
+            //dataType: "json",
+            success: function(data){
+                alert(data);
+                refreshnewlesson();
+                refreshlesson()
+            },
+            fail: function(err){
+                alert(err);
+                refreshnewlesson();
+                refreshlesson()
+            }
+        });
+
+    }
+    function delete_lesson(id){
+        let lesson_id = id;
+        let tag_id = $("#lesson_tag_id").val();
+        let dataURL = encodeURI('../deleteminiappcampaigntagproducts/');
+        $.ajax({
+            url: dataURL,
+            type: 'post',
+            data: {
+                "tag_id":tag_id,
+                "product_id":lesson_id
+            },
+            //dataType: "json",
+            success: function(data){
+                alert(data);
+                refreshlesson();
+            },
+            fail: function(err){
+                alert(err);
+                refreshlesson();
+            }
+        });
+
+    }
+    function delete_tag(id){
+        let tag_id = id;
+        let dataURL = encodeURI('../deleteminiappcampaigntag/');
+        $.ajax({
+            url: dataURL,
+            type: 'post',
+            data: {
+                "tag_id":tag_id,
+            },
+            //dataType: "json",
+            success: function(data){
+                alert(data);
+                refreshtag();
+            },
+            fail: function(err){
+                alert(err);
+                refreshtag();
+            }
+        });
+
+    }
+    function edit_lesson(id){
+        $("#pop-box-lesson").show();
+        $("#lesson_tag_id").val(id);
+        refreshlesson();
+    }
+    function edit_tag(id){
+        $(".bootstrap-table .fixed-table-body tbody tr").each(function(i,item){
+            if ($(item).data('uniqueid') ==id){
+                $("#tagid").val(id)
+                popShow();
+                $("#name").val($($(item).find('td')[1]).text());
+                $("#childname").val($($(item).find('td')[2]).text());
+                $("#order").val($($(item).find('td')[4]).text());
+            }
+        });
+    }
+    function get_banner(){
+        let dataURL = encodeURI('../getminiappcampaignbanner/');
+        $.ajax({
+            url: dataURL,
+            type: 'get',
+            data: {
+
+            },
+            //dataType: "json",
+            success: function(data){
+                $("#banner_url").val(data);
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });  
+    }
+    function save_banner(){
+        let dataURL = encodeURI('../saveminiappcampaignbanner/');
+        let url = $("#banner_url").val();
+        if (url == ''){
+            alert("请输入banner链接");
+            return;
+        }
+        $.ajax({
+            url: dataURL,
+            type: 'post',
+            data: {
+                "url":url
+            },
+            //dataType: "json",
+            success: function(data){
+                alert(data);
+            },
+            fail: function(err){
+                alert(err);
+            }
+        });  
+    }
+    var btnupdate = true
+    function updateTag(){
+        if(!btnupdate){
+            return;
+        }
+        var id = $("#tagid").val();
+        if (id == undefined || id == ''){
+            id = 0;
+        }
+        var name = $("#name").val();
+        if (name == undefined || name == ''){
+            alert('请输入名称');
+            return;
+        }
+        var childname = $("#childname").val();
+        if (childname == undefined || childname == ''){
+            childname=''
+        }
+        var order = $("#order").val();
+        if (order == undefined || order == ''){
+            order = 0
+        }
+        btnupdate = false
+        $('#confirm').children(0).text('保存中..');
+        let dataURL = encodeURI('../updateminiappcampaigntags/');
+        $.ajax({
+            url: dataURL,
+            type: 'post',
+            data: {
+                "id": id,
+                "name": name,
+                "childname": childname,
+                "childname": childname,
+                "order": order
+            },
+            //dataType: "json",
+            success: function(data){
+                if(data == 'ok'){
+                    alert("保存成功");
+                    popHide();
+                    refreshtag();
+                }else{
+                    alert(data);
+                }
+                btnupdate = true
+                $('#confirm').children(0).text('确定');
+            },
+            fail: function(err){
+                alert(err);
+                btnupdate = true
+                $('#confirm').children(0).text('确定');
+            }
+        });  
+    }
+    function clearPop(){
+        $("#tagid").val('')
+        $("#name").val('')
+        $("#childname").val('')
+        $("#order").val('')
+    }
+    function popShow(){
+        $("#pop-box-addnew").show();
+    }
+    function popHide(){
+        $("#pop-box-addnew").hide();
+    }
+    var TableInit = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = $(window).height()-290;
+            $('#tag_table').bootstrapTable({
+                url: '/getminiappcampaigntags/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                fontSize:14,
+                columns: [{
+                    field: 'ID',
+                    title: 'ID'
+                },{
+                    field: 'Name',
+                    title: '名称'
+                },{
+                    field: 'ChildName',
+                    title: '子标签'
+                },{
+                    field: 'IsSpecial',
+                    title: '是否特殊格式'
+                },{
+                    field: 'Order',
+                    title: '排序'
+                },{
+                    field: 'Edit',
+                    title: '操作'
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+    var LessonTableInit = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = 400;
+            $('#lesson_table').bootstrapTable({
+                url: '/getminiappcampaigntagproducts/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                fontSize:14,
+                columns: [{
+                    field: 'ID',
+                    title: 'ID'
+                },{
+                    field: 'Name',
+                    title: '名称'
+                },{
+                    field: 'Edit',
+                    title: '操作'
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                "tag_id": $("#lesson_tag_id").val(),
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+    var NewLessonTableInit = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            var height = 400;
+            $('#new_lesson_table').bootstrapTable({
+                url: '/getminiappcampaigntagnewproducts/',     //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 20,                       //每页的记录行数（*）
+                pageList: [20],        //可供选择的每页的行数（*）
+                strictSearch: true,
+                clickToSelect: true,                //是否启用点击选中行
+                height: height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                fontSize:14,
+                columns: [{
+                    field: 'ID',
+                    title: 'ID'
+                },{
+                    field: 'Name',
+                    title: '名称'
+                },{
+                    field: 'Edit',
+                    title: '操作'
+                }]
+            });
+        };
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                "tag_id": $("#lesson_tag_id").val(),
+                "content": $("#search_content").val(),
+            };
+            return temp;
+        };
+        return oTableInit;
+    }
+    function refreshtag(){
+        $('#tag_table').bootstrapTable('refresh');
+    }
+    function refreshlesson(){
+        $('#lesson_table').bootstrapTable('refresh');
+    }
+    function refreshnewlesson(){
+        console.log('newlesson')
+        $('#new_lesson_table').bootstrapTable('refresh');
+    }
+    $(function () {
+        get_banner();
+        $("#miniappcampaign_tab").addClass('tab-on')
+        //$('.selectpicker').selectpicker();
+        var oTable = new TableInit();
+        oTable.Init();
+        var LessonTable = new LessonTableInit();
+        LessonTable.Init();
+        var NewLessonTable = new NewLessonTableInit();
+        NewLessonTable.Init();
+        $("#addnew").on("click", function(){
+            popShow();
+            clearPop();
+        });
+        $("#save_url").on("click", function(){
+            save_banner();
+        });
+        $("#cancel").on("click", function(){
+            popHide();
+        });
+        $("#confirm").on("click", function(){
+            updateTag();
+        });
+        $("#addnew_lesson").on("click", function(){
+            $("#pop-box-lesson-new").show();
+            refreshnewlesson();
+        });
+        $("#close_new_lesson").on("click", function(){
+            $("#pop-box-lesson-new").hide();
+        });
+        $("#close_lesson").on("click", function(){
+            $("#pop-box-lesson").hide();
+        });
+        $("#search").on("click", function(){
+            refreshnewlesson()
+        });
+    });
+</script>
+{% endblock %}
+

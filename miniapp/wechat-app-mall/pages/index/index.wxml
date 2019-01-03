@@ -1,0 +1,107 @@
+<!--index.wxml-->
+<!--1px = 750/320 = 2.34rpx;-->
+<view class="container">
+  <view class="swiper-container">
+    <swiper class="swiper_box" circular="true" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
+      <block wx:for="{{banners}}" wx:key="id">
+        <swiper-item>
+          <image bindtap="tapBanner" data-linkid="{{item.linkid}}" data-id="{{item.linkid}}" src="{{item.picUrl}}" class="slide-image" width="750rpx" height="562.5rpx" />
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="dots">
+      <block wx:for="{{banners}}" wx:key="unique">
+        <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>
+      </block>
+    </view>
+  </view>
+  <view class="search-view" style="">
+    <view class="search-content">
+      <image src="/images/search-pic.png" class="search-icon" />
+      <input placeholder="搜索课程" class="search-input" maxlength="30" confirm-type="搜索" bindinput='listenerSearchInput' bindconfirm='toSearch' value="{{search_input}}">
+      </input>
+      <image src="/images/popup-close.png" class="delete-icon" bindtap="toClear" />
+      <!--<button class='search-btn' bindtap="toSearch">搜索
+      </button>-->
+    </view>
+  </view>
+  <view class="type-container">
+    <scroll-view class="type-navbar" scroll-x="true">
+      <view class="type-box" wx:for-items="{{categories}}" wx:key="ID">
+        <view data-id="{{item.ID}}" class="type-item" bindtap="tabClick">
+          <image class="title-icon" src="{{item.iconUrl}}"></image>
+          <text class=''>{{item.Name}}</text>
+
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  <view class="goods-container" style="" wx:if="{{heat_products.length>0}}">
+    <view class="tags">
+      <view class="category-title">
+        <image class="category-img" src="https://tsaistorage-1254256984.cos.ap-beijing.myqcloud.com/img/waitan/miniapp/1.png" mode="aspectFit"></image>
+        <!--<text class='title-name'>热门课程</text>-->
+      </view>
+      <view class="tag-container">
+        <view class="goods-box" wx:for="{{heat_products}}" wx:key="{{index}}" data-id="{{item.ID}}" bindtap="toDetailsTap" data-id="{{item.ID}}">
+          <view class="img-box">
+            <image src="{{item.ProductUrl1}}" class="image" mode="aspectFill" lazy-load="true" />
+          </view>
+          <view class="goods-title">{{item.Name}}</view>
+          <view style='display:flex;'>
+            <view class="goods-price">¥{{item.Price}}</view>
+            <button class="goods-pay">马上抢</button>
+            <!--<image class="goods-chat" src="/images/icon_ Shop_disabled.png"></image>-->
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="goods-container">
+    <view class="categories" wx:for-items="{{category_list}}" wx:key="{{index}}" data-id="{{item.ID}}">
+      <view class="category-title">
+        <image class="category-img" src="{{item.TitleImg}}" mode="aspectFit"></image>
+        <!--<text class='title-name'>{{item.FullName}}</text>-->
+      </view>
+      <view class="tags" wx:for="{{item.Tags}}" wx:if="{{item.ShowTag}}" wx:for-item="tag" wx:key="{{index2}}" data-id="{{tag.ID}}" wx:if="{{tag.ID!=1}}">
+        <view class="tag-title">
+          <!--<text class='tag-name'>{{tag.FullName}}</text>-->
+          <image class="tag-img" src="{{tag.TitleImg}}" mode="aspectFit"></image>
+        </view>
+        <view class="tag-container">
+          <view class="goods-box" wx:for="{{tag.Products}}" wx:for-item="product" wx:key="{{index3}}" bindtap="toDetailsTap" data-id="{{product.ID}}">
+            <view class="img-box">
+              <image src="{{product.ProductUrl1}}" class="image" mode="aspectFill" lazy-load="true" />
+            </view>
+            <view class="goods-title">{{product.Name}}</view>
+            <view style='display:flex;'>
+              <view class="goods-price">¥{{product.Price}}</view>
+              <button class="goods-pay">马上抢</button>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="tag-container" wx:if="{{item.ShowProduct}}">
+        <view class="goods-box" wx:for="{{item.Products}}" wx:for-item="product" wx:key="{{index3}}" bindtap="toDetailsTap" data-id="{{product.ID}}">
+          <view class="img-box">
+            <image src="{{product.ProductUrl1}}" class="image" mode="aspectFill" lazy-load="true" />
+          </view>
+          <view class="goods-title">{{product.Name}}</view>
+          <view style='display:flex;'>
+            <view class="goods-price">¥{{product.Price}}</view>
+            <button class="goods-pay">马上抢</button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!--<view class="teacher-container" style="display:none">
+    <view class="teacher-title">
+      <image class="title-icon" src="/images/icon_praise.png"></image>
+      <text class='title-name'>名师在线</text>
+    </view>
+    <scroll-view class="teacher-navbar" scroll-x>
+      <image class="teacher-pic" id="{{item.ID}}" wx:for="{{teacherList}}" wx:key="index" bindtap="teacher_Click" mode="aspectFit" src="{{item.TeacherUrl1}}"></image>
+    </scroll-view>
+  </view>-->
+</view>
